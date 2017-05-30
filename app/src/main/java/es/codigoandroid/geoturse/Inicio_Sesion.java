@@ -1,11 +1,15 @@
 package es.codigoandroid.geoturse;
 
+import android.*;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,6 +28,8 @@ import com.couchbase.lite.replicator.Replication;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,6 +39,7 @@ import es.codigoandroid.pojos.Usuario;
 public class Inicio_Sesion extends AppCompatActivity {
     private static final String TAG = "Inicio_Sesion";
     private static final int REQUEST_SIGNUP = 0;
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     CouchbaseManager<String, Usuario> dbaUsuario;
     private LocationManager locManager;
     AlertDialog alert = null;
@@ -56,30 +63,31 @@ public class Inicio_Sesion extends AppCompatActivity {
         setContentView(R.layout.activity_inicio__sesion);
         ButterKnife.bind(this);
 
-        dbaUsuario = new CouchbaseManager<String, Usuario>(this, Usuario.class);
-        database = dbaUsuario.getDbCouchbase();
-        try {
-            // replace with the IP to use
-            URL url = new URL("http://186.178.10.221:4984/db");
+        if(checkAndRequestPermissions()) {
+            dbaUsuario = new CouchbaseManager<String, Usuario>(this, Usuario.class);
+            database = dbaUsuario.getDbCouchbase();
+            try {
+                // replace with the IP to use
+                URL url = new URL("http://186.3.81.93:4984/db");
 
-            Replication push = database.createPushReplication(url);
-            push.setContinuous(true);
-            push.start();
+                Replication push = database.createPushReplication(url);
+                push.setContinuous(true);
+                push.start();
 
-            Replication pull = database.createPullReplication(url);
-            pull.setContinuous(true);
-            pull.start();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+                Replication pull = database.createPullReplication(url);
+                pull.setContinuous(true);
+                pull.start();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                AlertNoGps();
+            }
         }
-        locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            AlertNoGps();
-        }
-
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -248,4 +256,18 @@ public class Inicio_Sesion extends AppCompatActivity {
         alert = builder.create();
         alert.show();
     }
+
+    private  boolean checkAndRequestPermissions() {
+        int locationPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
 }

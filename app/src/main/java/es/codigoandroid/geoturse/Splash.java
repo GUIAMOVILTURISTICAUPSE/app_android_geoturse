@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
@@ -17,7 +16,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
-import es.codigoandroid.pojos.Recurso;
 import es.codigoandroid.pojos.Recursos;
 import es.codigoandroid.pojos.Senderos;
 
@@ -35,39 +33,42 @@ public class Splash extends AppCompatActivity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+       /* dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
         Recursos recursoIngresado = new Recursos();
         Senderos senderoIngresado = new Senderos();
-        recursoIngresado.setNombre("Playa de San Pablo");
-        recursoIngresado.setDescripcion("La playa de San Pablo es definitivamente el refugio idóneo para quienes desean relajar cuerpo y espíritu.");
-        recursoIngresado.setInformacionGeneral("El contacto con el mar, la arena y el hermoso paisaje de la playa San Pablo, invitan a los turistas a reconciliarse con la naturaleza.");
-        recursoIngresado.setDireccion("Ubicado en el Zona Norte del canton Santa Elena");
-        recursoIngresado.setPosicion("-2.140312, -80.776398");
+        recursoIngresado.setNombre("La Chocolatera");
+        recursoIngresado.setDescripcion("Está ubicado dentro de la base naval de Salinas, en la Punta más saliente de la Península de Santa Elena, y que constituye el segundo punto más saliente de la costa sudamericana.");
+        recursoIngresado.setInformacionGeneral("La Chocolatera, gran acantilado que es el punto más saliente de la Península de Santa Elena y uno de los lugares más visitados por los turistas. En sus playas se realizan campeonatos de surf, por su fabuloso oleaje alto y tubular");
+        recursoIngresado.setDireccion("Ubicada en el extremo Oeste de la Punta del Canton Salinas");
+        recursoIngresado.setPosicion("-2.188480,-81.010379");
 
-       /* ArrayList<String> puntosSedero = new ArrayList<String>();
-        puntosSedero.add("-1.974413, -80.748873");
-        puntosSedero.add("-1.974178, -80.748963");
-        puntosSedero.add("-1.974097, -80.748974");
-        puntosSedero.add("-1.974102, -80.748942");
-        puntosSedero.add("-1.974071, -80.748946");
-        puntosSedero.add("-1.974023, -80.748946");
-        puntosSedero.add("-1.973953, -80.748951");
-        puntosSedero.add("-1.973885, -80.748955");
-        puntosSedero.add("-1.973822, -80.748960");
+        ArrayList<String> puntosSedero = new ArrayList<String>();
+        puntosSedero.add("-2.188480,-81.010379");
+        puntosSedero.add("-2.188571,-81.010417");
+        puntosSedero.add("-2.188668,-81.010454");
+        puntosSedero.add("-2.188770,-81.010492");
+        puntosSedero.add("-2.188877,-81.010535");
+        puntosSedero.add("-2.189000,-81.010583");
+        puntosSedero.add("-2.189129,-81.010610");
+        puntosSedero.add("-2.189241,-81.010653");
+        puntosSedero.add("-2.189327,-81.010685");
+        puntosSedero.add("-2.189424,-81.010722");
+        puntosSedero.add("-2.189483,-81.010739");
+        puntosSedero.add("-2.189503,-81.010839");
         senderoIngresado.setRecorrido(puntosSedero);
 
         ArrayList<Senderos> listaSederos = new ArrayList<Senderos>();
         listaSederos.add(senderoIngresado);
-        recursoIngresado.setSendero(listaSederos);*/
+        recursoIngresado.setSendero(listaSederos);
 
         dbaRecurso.save(recursoIngresado);
 
         Document docretorno = dbaRecurso.devolverDocument(recursoIngresado.getNombre());
 
         //La imagen la guardo como attached no como objeto Imagen
-        mImageToBeAttached = BitmapFactory.decodeResource(getResources(), R.drawable.sanpablo);
+        mImageToBeAttached = BitmapFactory.decodeResource(getResources(), R.drawable.chocolatera_ver);
         attachImage(docretorno, mImageToBeAttached);
-        Log.v("PruebaRegistro", "Recurso Registrado");
+        Log.v("PruebaRegistro", "Recurso Registrado");*/
 
 
         Thread timerThread = new Thread(){

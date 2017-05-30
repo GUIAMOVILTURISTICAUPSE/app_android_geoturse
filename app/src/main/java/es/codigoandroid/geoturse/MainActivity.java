@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         // Iniciamos el viewPager.
         //ViewPager = (ViewPager) findViewById(R.id.ViewPagerPrincipal);
         // Creamos el adaptador, al cual le pasamos por parámetro el gestor de Fragmentos y muy importante, el nº de tabs o secciones que hemos creado.
+        System.out.println(""+tabLayout.getTabCount());
         Adaptador_ViewPagerPrincipal = new Adaptador_ViewPagerPrincipal(getSupportFragmentManager(), tabLayout.getTabCount(), this);
         // Y los vinculamos.
         ViewPager.setAdapter(Adaptador_ViewPagerPrincipal);

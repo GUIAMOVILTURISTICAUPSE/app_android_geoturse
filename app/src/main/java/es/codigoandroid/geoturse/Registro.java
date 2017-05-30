@@ -20,13 +20,6 @@ public class Registro extends AppCompatActivity {
     private static final String TAG = "Registro";
     CouchbaseManager<String, Usuario> dbaUsuario;
 
-    /*probar*/
-    static String NAMESPACE = "http://servicios.upse.edu.ec";
-    static String URL = "http://172.18.13.146:8080/WebServicesTaximetro/services/Taximetro?wsdl";
-    private String SOAP_ACTION="http://172.18.13.146:8080/WebServicesTaximetro/services/Taximetro/registroCarrera";
-    private String METODO="registroCarrera";
-    /*fin*/
-
     @Bind(R.id.input_name)
     EditText nameText;
     @Bind(R.id.input_address)
@@ -81,18 +74,29 @@ public class Registro extends AppCompatActivity {
 
         signupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(Registro.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creando cuenta...");
-        progressDialog.show();
-
         String name = nameText.getText().toString();
         String address = addressText.getText().toString();
         String email = emailText.getText().toString();
         String mobile = mobileText.getText().toString();
         String password = passwordText.getText().toString();
         String reEnterPassword = reEnterPasswordText.getText().toString();
+
+        Usuario usuarioIngresado = new Usuario();
+        usuarioIngresado.setEmail(email);
+        usuarioIngresado.setNombre(name);
+        usuarioIngresado.setDireccion(address);
+        usuarioIngresado.setTelefono(mobile);
+        usuarioIngresado.setContraseniaHash(password);
+        dbaUsuario.save(usuarioIngresado);
+        emailText.setError(null);
+
+        final ProgressDialog progressDialog = new ProgressDialog(Registro.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Creando cuenta...");
+        progressDialog.show();
+
+
 
         // TODO: Implement your own signup logic here.
 
@@ -180,13 +184,13 @@ public class Registro extends AppCompatActivity {
 
         if(dbaUsuario.get(email)==null)
         {
-            Usuario usuarioIngresado = new Usuario();
+            /*Usuario usuarioIngresado = new Usuario();
             usuarioIngresado.setEmail(email);
             usuarioIngresado.setNombre(name);
             usuarioIngresado.setDireccion(address);
             usuarioIngresado.setTelefono(mobile);
             usuarioIngresado.setContraseniaHash(password);
-            dbaUsuario.save(usuarioIngresado);
+            dbaUsuario.save(usuarioIngresado);*/
             emailText.setError(null);
         }else{
             //Toast.makeText(this,"El usuario ya existe", Toast.LENGTH_LONG).show();

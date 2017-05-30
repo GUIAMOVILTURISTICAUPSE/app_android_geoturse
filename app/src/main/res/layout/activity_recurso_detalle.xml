@@ -22,14 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_recurso_detalle" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_arrow_back_white_48dp" />
+    <include layout="@layout/activity_recurso"
+        android:layout_height="503dp" />
 
 </android.support.design.widget.CoordinatorLayout>

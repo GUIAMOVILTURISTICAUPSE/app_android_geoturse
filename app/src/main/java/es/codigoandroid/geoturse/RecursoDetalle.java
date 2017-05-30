@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,15 +28,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
-import es.codigoandroid.pojos.Recurso;
 import es.codigoandroid.pojos.Recursos;
 
 public class RecursoDetalle extends AppCompatActivity {
     private static final String TAG = "RecursoDetalle";
     CouchbaseManager<String, Recursos> dbaRecurso;
-    private TextView direccion,descripcion, informacion;
+    private TextView direccion,descripcion, canton, parroquia;
     private ImageView imagen;
-    private Button rutaBtn, senderoBtn, galeriaBtn;
+    private Button rutaBtnn, senderoBtnn, galeriaBtnn;
+    private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn;
     Location loc;
 
     private LocationManager locManager;
@@ -57,16 +58,20 @@ public class RecursoDetalle extends AppCompatActivity {
         setContentView(R.layout.activity_recurso_detalle);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         inicLocation();
         registerLocation();
         dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
         //imagen = (ImageView) findViewById(R.id.imagenMostrar);
-        direccion = (TextView) findViewById(R.id.txtDireccionR);
-        descripcion = (TextView) findViewById(R.id.txtDescripcionR);
-        informacion = (TextView) findViewById(R.id.txtInformacionR);
-        rutaBtn = (Button) findViewById(R.id.btnRuta);
-        senderoBtn = (Button) findViewById(R.id.senderoBtn);
-        galeriaBtn = (Button) findViewById(R.id.galeriaBtn);
+        direccion = (TextView) findViewById(R.id.txt_direccionR);
+        descripcion = (TextView) findViewById(R.id.txt_descripcionR);
+        canton = (TextView) findViewById(R.id.txt_cantonR);
+        parroquia = (TextView) findViewById(R.id.txt_parroquiaR);
+        rutaBtn = (ImageButton) findViewById(R.id.btn_rutaR);
+        senderoBtn = (ImageButton) findViewById(R.id.btn_senderosR);
+        contactoBtn = (ImageButton) findViewById(R.id.btn_contactoR);
+        preguntasBtn = (ImageButton) findViewById(R.id.btn_preguntasR);
+        galeriaBtn = (ImageButton) findViewById(R.id.btn_galeriaR);
 
 
 
@@ -87,14 +92,8 @@ public class RecursoDetalle extends AppCompatActivity {
         //imagen.setImageResource(mostrarRIm);
         direccion.setText("Dirección: "+recursoAlmacenado.getDireccion());
         descripcion.setText(recursoAlmacenado.getDescripcion());
-        informacion.setText("Informacion: "+recursoAlmacenado.getInformacionGeneral());
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               finish();
-            }
-        });
+        canton.setText("Cantón: "+recursoAlmacenado.getCanton());
+        parroquia.setText("Parroquia: "+recursoAlmacenado.getParroquia());
 
 
         senderoBtn.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +113,22 @@ public class RecursoDetalle extends AppCompatActivity {
                 String destino = recursoAlmacenado.getPosicion();
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse("http://maps.google.com/maps?saddr="+origen+"&daddr="+destino));
+                startActivity(intent);
+            }
+        });
+        contactoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ContactoActivity.class);
+                intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                startActivity(intent);
+            }
+        });
+        preguntasBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PreguntasFrecuentes.class);
+                intent.putExtra("recurso", recursoAlmacenado.getNombre());
                 startActivity(intent);
             }
         });
@@ -234,6 +249,12 @@ public class RecursoDetalle extends AppCompatActivity {
             imagenView.setImageResource(imagen);
             return rootView;
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
 

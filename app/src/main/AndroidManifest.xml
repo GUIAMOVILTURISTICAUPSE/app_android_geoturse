@@ -11,8 +11,8 @@
     <!-- My Location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
     <!-- Maps API needs OpenGL ES 2.0. -->
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -33,7 +33,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MainActivity" android:theme="@style/MiTemaRecurso" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MiTemaRecurso" />
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,11 +52,13 @@
         <activity
             android:name=".RecursoDetalle"
             android:label="@string/title_activity_recurso_detalle"
-            android:theme="@style/MiTemaRecurso"></activity>
+            android:theme="@style/MiTemaRecurso" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_recurso_detalle"
-            android:theme="@style/MiTemaRecurso"></activity>
+            android:theme="@style/MiTemaRecurso" />
+        <activity android:name=".ContactoActivity"></activity>
+        <activity android:name=".PreguntasFrecuentes"></activity>
     </application>
 
 </manifest>

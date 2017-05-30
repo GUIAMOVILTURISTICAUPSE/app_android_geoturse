@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -31,7 +32,7 @@ import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
 import es.codigoandroid.pojos.Senderos;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback{
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback{
     private static final String TAG = "RecursoDetalle";
     CouchbaseManager<String, Recursos> dbaRecurso;
     public Recursos recursoAlmacenado;
@@ -45,6 +46,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_senderos);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -53,16 +57,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String mostrarR = getIntent().getExtras().getString("recurso");
         recursoAlmacenado = dbaRecurso.get(mostrarR);
 
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
     }
 
@@ -95,6 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for(String p : s.getRecorrido()) {
                 LatLng puntoRecurso;
                 puntoRecurso = new LatLng(latitud(p), longuitd(p));
+
                 sendero.add(puntoRecurso);
             }
         }
@@ -123,6 +118,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String part1 = parts[1];
         longuitd = Double.parseDouble(part1);
         return longuitd;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
 

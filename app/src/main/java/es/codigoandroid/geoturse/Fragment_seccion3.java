@@ -17,12 +17,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.couchbase.lite.Database;
+import com.couchbase.lite.replicator.Replication;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Usuario;
 
 
 public class Fragment_seccion3 extends Fragment {
     CouchbaseManager<String, Usuario> dbaUsuario;
+
+    private Database database;
 
     private EditText input_name_edit, input_address_edit, input_email_edit,
             input_mobile_edit, input_password_edit, input_reEnterPassword_edit;
@@ -109,6 +118,26 @@ public class Fragment_seccion3 extends Fragment {
                         usuarioEditado.setTelefono(input_mobile_edit.getText().toString());
                         usuarioEditado.setContraseniaHash(input_password_edit.getText().toString());
                         dbaUsuario.save(usuarioEditado);
+
+
+                        database = dbaUsuario.getDbCouchbase();
+                        try {
+                            // replace with the IP to use
+                            URL url = new URL("http://186.178.10.221:4984/db");
+
+                            Replication push = database.createPushReplication(url);
+                            push.setContinuous(true);
+                            push.start();
+
+                           /* Replication pull = database.createPullReplication(url);
+                            pull.setContinuous(true);
+                            pull.start();*/
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                         Toast.makeText(getActivity(), "Edicion exitosa", Toast.LENGTH_LONG).show();
                         btn_edit_usuario.setText("Editar");
                         input_name_edit.setEnabled(false);

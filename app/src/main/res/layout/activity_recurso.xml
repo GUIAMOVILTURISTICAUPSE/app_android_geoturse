@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:minHeight="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme" />
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1"
+                    android:layout_margin="2dp">
+
+                        <ImageButton
+                            android:id="@+id/btn_contactoR"
+                            android:layout_width="90dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.17"
+                            android:elevation="4dp"
+                            app:srcCompat="@android:drawable/ic_menu_call" />
+
+                        <ImageButton
+                            android:id="@+id/btn_rutaR"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.35"
+                            android:elevation="4dp"
+                            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+                        <ImageButton
+                            android:id="@+id/btn_senderosR"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.37"
+                            android:elevation="4dp"
+                            app:srcCompat="@android:drawable/ic_menu_myplaces" />
+
+                        <ImageButton
+                            android:id="@+id/btn_infoadicionalR"
+                            android:layout_width="90dp"
+                            android:layout_height="wrap_content"
+                            android:elevation="4dp"
+                            app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/layout_imagenes"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:weightSum="1">
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="242dp"
+                            android:layout_marginTop="5dp" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/txt_descripcionR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Descripcion"
+                    android:textAlignment="center"
+                    tools:padding="2dp" />
+
+                <TextView
+                    android:id="@+id/txt_cantonR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Canton" />
+
+                <TextView
+                    android:id="@+id/txt_parroquiaR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Parroquia" />
+
+                <TextView
+                    android:id="@+id/txt_direccionR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Direccion"
+                    tools:padding="2dp" />
+
+
+                <TextView
+                    android:id="@+id/txt_horarioR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="Horario"
+                    tools:padding="4dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+                        <ImageButton
+                            android:id="@+id/btn_preguntasR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:elevation="4dp"
+                            android:gravity="left"
+                            app:srcCompat="@android:drawable/ic_menu_help" />
+
+                        <ImageButton
+                            android:id="@+id/btn_comentarioR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:elevation="4dp"
+                            android:gravity="left"
+                            app:srcCompat="@android:drawable/ic_menu_add" />
+
+                        <ImageButton
+                            android:id="@+id/btn_galeriaR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:layout_weight="1"
+                            android:elevation="4dp"
+                            android:gravity="left"
+                            app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+
+</ScrollView>

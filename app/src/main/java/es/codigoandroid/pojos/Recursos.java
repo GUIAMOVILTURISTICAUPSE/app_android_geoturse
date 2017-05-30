@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,6 +16,9 @@ public class Recursos {
     private String descripcion;//Utilizo
     private String informacionGeneral;//Utilizo
     private String direccion;//Utilizo
+    private String provincia;
+    private String canton; //Utilizo
+    private String parroquia;//Utilizo
     private String posicion;//Utilizo
     private Imagen imagenPrinc;//Utilizo
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
@@ -88,6 +93,31 @@ public class Recursos {
 
     public void setInformacionGeneral(String informacionGeneral) {
         this.informacionGeneral = informacionGeneral;
+    }
+
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getCanton() {
+        return canton;
+    }
+
+    public void setCanton(String canton) {
+        this.canton = canton;
+    }
+
+    public String getParroquia() {
+        return parroquia;
+    }
+
+    public void setParroquia(String parroquia) {
+        this.parroquia = parroquia;
     }
 
     public String getDireccion() {
@@ -251,19 +281,59 @@ public class Recursos {
         double latitud;
         latitud=0.00;
         String string = posicion;
-        String[] parts = string.split(",");
-        String part1 = parts[0];
-        latitud = Double.parseDouble(part1);
-        return latitud;
+        String letras="abcdefghyjklmnñopqrstuvwxyzABCDEFGHYJKLMNÑOPQRSTUVWXYZ";
+
+
+        char[] arrayChar = posicion.toCharArray();
+
+            if(arrayChar.length>5){
+                String[] parts = string.split(",");
+                String part1 = parts[0];
+                if(!part1.isEmpty()) {
+                    for (int i = 0; i < part1.length(); i++) {
+                        if (letras.indexOf(part1.charAt(i), 0) != -1) {
+                            return 0.0;
+                        }
+                    }
+                    latitud = Double.parseDouble(part1);
+                    return latitud;
+                }
+                else{
+                    return 0.0;
+                }
+            }
+            else{
+                return 0.0;
+            }
+
     }
 
     public double longuitd(){
         double longuitd;
         longuitd=0.00;
         String string = posicion;
-        String[] parts = string.split(",");
-        String part1 = parts[1];
-        longuitd = Double.parseDouble(part1);
-        return longuitd;
+        String letras="abcdefghyjklmnñopqrstuvwxyzABCDEFGHYJKLMNÑOPQRSTUVWXYZ";
+
+        char[] arrayChar = posicion.toCharArray();
+
+            if(arrayChar.length>10){
+                String[] parts = string.split(",");
+                String part1 = parts[1];
+                if(!part1.isEmpty()) {
+                    for (int i = 0; i < part1.length(); i++) {
+                        if (letras.indexOf(part1.charAt(i), 0) != -1) {
+                            return 0.0;
+                        }
+                    }
+                longuitd = Double.parseDouble(part1);
+                return longuitd;
+                }else{
+                    return 0.0;
+                }
+                }
+            else{
+                return 0.0;
+            }
+
     }
 }

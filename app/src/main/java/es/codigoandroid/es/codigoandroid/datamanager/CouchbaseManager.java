@@ -27,6 +27,7 @@ import java.util.Map;
 
 import es.codigoandroid.geoturse.Fragment_seccion3;
 import es.codigoandroid.pojos.Recursos;
+import es.codigoandroid.pojos.TipoFiltro;
 import es.codigoandroid.pojos.Usuario;
 
 //import com.couchbase.client.CouchbaseClient;
@@ -188,6 +189,23 @@ public class CouchbaseManager<K, V>
         }, "1");
         return placesView;
     }
+
+    //Verificar x errores al mostrar creo yo que era x un null y el try manejaba el error y no dibujabalistas
+   /* public View registerViewsParametros(final TipoFiltro filtro, final String parametro) {
+        Log.d("Estoy aki222222222222", filtro + "," + parametro);
+        View placesView2 = dbCouchbase.getView("lista_recursos_parametros");
+        placesView2.setMap(new Mapper() {
+            @Override
+            public void map(Map<String, Object> document, Emitter emitter) {
+                Log.d("Estoy aki", filtro.toString().toLowerCase() + "," + parametro);
+                if (valueTypeParameterClass.toString().equals(document.get("documentClass")) && document.get(filtro.toString().toLowerCase())==parametro) {
+                    Log.d("Estoy aki99999999999999", filtro.toString().toLowerCase() + "," + parametro);
+                    emitter.emit(document.get("_id"), document);
+                }
+            }
+        }, "2");
+        return placesView2;
+    }*/
 
 
     public Document devolverDocument(String llave) {

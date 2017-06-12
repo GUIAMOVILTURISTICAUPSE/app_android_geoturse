@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,9 @@ public class RecursoDetalle extends AppCompatActivity {
                 String destino = recursoAlmacenado.getPosicion();
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
                         Uri.parse("http://maps.google.com/maps?saddr="+origen+"&daddr="+destino));
-                startActivity(intent);
+                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+                startActivityForResult(intent,5);
+                //startActivity(intent);
             }
         });
         contactoBtn.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +153,11 @@ public class RecursoDetalle extends AppCompatActivity {
         manejadorGaleria.agregarFragmentos(FragmentosImagenes.newInstance(imagenes[3]));
 
         mViewPager.setAdapter(manejadorGaleria);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==5)
+            Toast.makeText(this, "GoogleMap "+resultCode , Toast.LENGTH_LONG).show();
     }
 
     private void inicLocation(){

@@ -68,7 +68,7 @@ public class Inicio_Sesion extends AppCompatActivity {
             database = dbaUsuario.getDbCouchbase();
             try {
                 // replace with the IP to use
-                URL url = new URL("http://186.3.81.93:4984/db");
+                URL url = new URL("http://facsistel.upse.edu.ec:4984/db");
 
                 Replication push = database.createPushReplication(url);
                 push.setContinuous(true);

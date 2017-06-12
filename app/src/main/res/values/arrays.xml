@@ -16,19 +16,12 @@
     <string-array name="spinner_parroquia">
         <item>Salinas</item>
         <item>Jose Luis Tamayo</item>
+        <item>Santa Rosa</item>
+        <item>Anconcito</item>
         <item>La Libertad</item>
         <item>Santa Elena</item>
-        <item>Salinas</item>
-        <item>Jose Luis Tamayo (Muey)</item>
-        <item>La Libertad</item>
-        <item>Santa Elena</item>
-        <item>Salinas</item>
-        <item>Jose Luis Tamayo (Muey)</item>
-        <item>La Libertad</item>
-        <item>Santa Elena</item>
-        .<item>Salinas</item>
-        <item>Jose Luis Tamayo (Muey)</item>
-        <item>La Libertad</item>
-        <item>Santa Elena</item>
+        <item>Ancon</item>
+        <item>Chanduy</item>
+        <item>Manglaralto</item>
     </string-array>
 </resources>

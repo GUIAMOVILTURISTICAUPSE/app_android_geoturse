@@ -135,14 +135,14 @@ public class RecursoDetalle extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        /*galeriaBtn.setOnClickListener(new View.OnClickListener() {
+        galeriaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), GalleryActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GalleriaRecurso.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
                 startActivity(intent);
             }
-        });*/
+        });
 
         manejadorGaleria = new ManejadoraGaleria(getSupportFragmentManager());
 

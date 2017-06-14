@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Tipo de recurso: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="cultural_religioso_turistico"
+            android:layout_margin="5dp"
+            android:id="@+id/tv1"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Accesibilidad: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="rampas sillas de ruedas"
+            android:layout_margin="5dp"
+            android:id="@+id/tv2"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Acceso: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="Publico o privado"
+            android:layout_margin="5dp"
+            android:id="@+id/tv4"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Infraestructura de Acceso: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="terretre o acuatico"
+            android:layout_margin="5dp"
+            android:id="@+id/tv5"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Parqueos: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="____-------_____"
+            android:layout_margin="5dp"
+            android:id="@+id/tv6"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Facilidades: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" baños, restaurantes"
+            android:layout_margin="5dp"
+            android:id="@+id/tv7"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Seguridad: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="____-------_____"
+            android:layout_margin="5dp"
+            android:id="@+id/tv9"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text=" Idiomas: "
+            android:layout_margin="5dp"
+
+            />
+        <TextView
+            android:layout_width="170dp"
+            android:layout_height="30dp"
+            android:textAlignment="viewStart"
+            android:gravity="center"
+            android:text="____-------_____"
+            android:layout_margin="5dp"
+            android:id="@+id/tv10"/>
+    </LinearLayout>
+
+</LinearLayout>

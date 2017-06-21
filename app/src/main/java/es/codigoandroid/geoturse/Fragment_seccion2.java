@@ -36,7 +36,7 @@ public class Fragment_seccion2 extends Fragment {
     CouchbaseManager<String, Recursos> dbaRecurso_f2;
     private ArrayList<Recursos> recursos_f2;
     private RecyclerView rvListaRecurso;
-    private RadioButton rbCanton, rbParroquia, rbNombre ;
+    private RadioButton rbCanton, rbParroquia, rbNombre, rbRNatural, rbMCultural ;
     private ViewGroup layout;
     private ImageButton btDefault;
     View vista;
@@ -76,8 +76,9 @@ public class Fragment_seccion2 extends Fragment {
                 addNombre();
                 rbCanton.setChecked(false);
                 rbParroquia.setChecked(false);
-            }
+              }
         });
+
         btDefault.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -233,7 +234,8 @@ public class Fragment_seccion2 extends Fragment {
                 ArrayAdapter adapter = ArrayAdapter.createFromResource(vista.getContext(), R.array.spinner_parroquia, android.R.layout.simple_spinner_item);
                 //Añadimos el layout para el menú
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                //Le indicamos al spinner el adaptador a usar
+
+               //Le indicamos al spinner el adaptador a usar
                 spCP.setAdapter(adapter);
                 spCP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

@@ -2,17 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-            >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:weightSum="1">
+
 
     <Spinner
         android:id="@+id/spinnerCantonParroquia"
-        android:layout_width="match_parent"
+        android:layout_width="140dp"
         android:layout_height="53dp"
+        android:layout_weight="1"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_weight="1" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/spinnerCantonParroquia">
+        <RadioButton
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:id="@+id/rbRNatural"
+            android:text="R. Natural"/>
+
+        <RadioButton
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:id="@+id/rbMCultural"
+            android:text="Muestra cultural"/>
+
+
+        <ImageButton
+            android:id="@+id/btDefault"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_close_light" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

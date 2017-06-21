@@ -36,7 +36,7 @@ private ArrayAdapter<String> ListaPreguntas;
         ListaPF.put("e","ee");
 
         List<HashMap<String,String>>  LItems = new ArrayList<>();
-        SimpleAdapter adapter=new SimpleAdapter(this, LItems,R.layout.activity_items,
+        SimpleAdapter adapter=new SimpleAdapter(this, LItems,R.layout.activity_item_pregunta,
                 new String[] {"Pregunta","Respuesta"},
                 new int[] {R.id.tv_Pregunta, R.id.tv_respuestas});
 

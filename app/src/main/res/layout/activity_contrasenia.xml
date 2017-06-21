@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:src="@android:drawable/sym_def_app_icon"
-        android:gravity="center"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"/>
-
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="40dp"
+        android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:layout_width="match_parent"
@@ -21,21 +22,39 @@
         android:gravity="center"/>
 
 
-    <EditText
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:hint="Ingrese correo"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
 
-    <Button
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:hint="Correo"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_signup"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Enviar"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:text="Recuperar" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.34"
         android:gravity="center"
-        android:layout_gravity="center_horizontal" />
+        android:text="Ya tienes cuenta? Inicia sesion"
+        android:textSize="16dip" />
 </LinearLayout>

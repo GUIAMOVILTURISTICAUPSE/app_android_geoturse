@@ -1,6 +1,5 @@
 package es.codigoandroid.geoturse;
 
-import android.*;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,10 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
-import com.couchbase.lite.Manager;
-import com.couchbase.lite.android.AndroidContext;
 import com.couchbase.lite.replicator.Replication;
 
 import java.io.IOException;
@@ -60,7 +56,7 @@ public class Inicio_Sesion extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicio__sesion);
+        setContentView(R.layout.activity_inicio_sesion);
         ButterKnife.bind(this);
 
         if(checkAndRequestPermissions()) {
@@ -115,7 +111,7 @@ public class Inicio_Sesion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), Registro.class);
+                Intent intent = new Intent(getApplicationContext(), Contrasenia.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

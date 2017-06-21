@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -25,10 +24,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
+import es.codigoandroid.pojos.Comentario;
 import es.codigoandroid.pojos.Recursos;
 
 public class RecursoDetalle extends AppCompatActivity {
@@ -37,7 +39,7 @@ public class RecursoDetalle extends AppCompatActivity {
     private TextView direccion,descripcion, canton, parroquia;
     private ImageView imagen;
     private Button rutaBtnn, senderoBtnn, galeriaBtnn;
-    private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn;
+    private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn, masInfoBtn, comentarioBtn;
     Location loc;
 
     private LocationManager locManager;
@@ -63,7 +65,7 @@ public class RecursoDetalle extends AppCompatActivity {
         inicLocation();
         registerLocation();
         dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
-        //imagen = (ImageView) findViewById(R.id.imagenMostrar);
+        imagen = (ImageView) findViewById(R.id.imagen);
         direccion = (TextView) findViewById(R.id.txt_direccionR);
         descripcion = (TextView) findViewById(R.id.txt_descripcionR);
         canton = (TextView) findViewById(R.id.txt_cantonR);
@@ -73,6 +75,8 @@ public class RecursoDetalle extends AppCompatActivity {
         contactoBtn = (ImageButton) findViewById(R.id.btn_contactoR);
         preguntasBtn = (ImageButton) findViewById(R.id.btn_preguntasR);
         galeriaBtn = (ImageButton) findViewById(R.id.btn_galeriaR);
+        masInfoBtn = (ImageButton) findViewById(R.id.btn_masinfoR);
+        comentarioBtn = (ImageButton) findViewById(R.id.btn_comentarioR);
 
 
 
@@ -90,7 +94,8 @@ public class RecursoDetalle extends AppCompatActivity {
             senderoBtn.setEnabled(false);
         }
 
-        //imagen.setImageResource(mostrarRIm);
+        Glide.with(this).load("http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/salinas_1.jpg?itok=DZ7NxVqH").into(imagen);
+        //Glide.with(this).load(recursoAlmacenado.getImagenPrinc().getUrl()).into(imagen);
         direccion.setText("Dirección: "+recursoAlmacenado.getDireccion());
         descripcion.setText(recursoAlmacenado.getDescripcion());
         canton.setText("Cantón: "+recursoAlmacenado.getCanton());
@@ -143,16 +148,23 @@ public class RecursoDetalle extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        masInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MasInformacion.class);
+                intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                startActivity(intent);
+            }
+        });
+        comentarioBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ComentarioActivity.class);
+                intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                startActivity(intent);
+            }
+        });
 
-        manejadorGaleria = new ManejadoraGaleria(getSupportFragmentManager());
-
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        manejadorGaleria.agregarFragmentos(FragmentosImagenes.newInstance(imagenes[0]));
-        manejadorGaleria.agregarFragmentos(FragmentosImagenes.newInstance(imagenes[1]));
-        manejadorGaleria.agregarFragmentos(FragmentosImagenes.newInstance(imagenes[2]));
-        manejadorGaleria.agregarFragmentos(FragmentosImagenes.newInstance(imagenes[3]));
-
-        mViewPager.setAdapter(manejadorGaleria);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

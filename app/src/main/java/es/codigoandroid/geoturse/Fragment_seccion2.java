@@ -1,6 +1,5 @@
 package es.codigoandroid.geoturse;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +22,9 @@ import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Query;
 import com.couchbase.lite.QueryEnumerator;
 import com.couchbase.lite.QueryRow;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
@@ -177,7 +170,7 @@ public class Fragment_seccion2 extends Fragment {
 
     public ListaRecursoAdapter adaptador;
     private void inicializarAdaptador(){
-        adaptador = new ListaRecursoAdapter(recursos_f2, dbaRecurso_f2.getDbCouchbase());
+        adaptador = new ListaRecursoAdapter(recursos_f2, dbaRecurso_f2.getDbCouchbase(), this);
         rvListaRecurso.setAdapter(adaptador);
     }
 
@@ -209,7 +202,7 @@ public class Fragment_seccion2 extends Fragment {
     public void addCanton_Parroquia(int op)
     {
         LayoutInflater inflater = LayoutInflater.from(vista.getContext());
-        RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.activity_canton__parroquia, null, false);
+        RelativeLayout relativeLayout = (RelativeLayout) inflater.inflate(R.layout.activity_canton_parroquia, null, false);
         if (op==1){//lista de cantones
             Spinner spCP = (Spinner) relativeLayout.findViewById(R.id.spinnerCantonParroquia);
             //Creamos el adaptador

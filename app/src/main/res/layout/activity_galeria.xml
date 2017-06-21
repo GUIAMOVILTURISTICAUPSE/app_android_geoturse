@@ -1,26 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parent"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Gallery
-        android:id="@+id/gallery"
-        android:layout_width="fill_parent"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:spacing="8dp"
-        android:background="@android:color/darker_gray"
-        android:paddingTop="4dp"
-        />
+        android:theme="@style/MiTema.AppBarOverlay">
 
-    <ImageView
-        android:id="@+id/seleccionada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gallery"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:contentDescription="Galeria" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarContacto"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/MiTema.PopupOverlay"
+            app:title="Galeria"
+            app:titleTextColor="@android:color/background_light" />
 
-</RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+        <RelativeLayout
+            android:id="@+id/parent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <Gallery
+                android:id="@+id/gallery"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:background="@color/primary_dark"
+                android:paddingTop="4dp"
+                android:spacing="8dp" />
+
+            <ImageView
+                android:id="@+id/seleccionada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gallery"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:contentDescription="Galeria" />
+
+        </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

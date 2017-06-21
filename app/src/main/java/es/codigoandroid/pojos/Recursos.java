@@ -23,8 +23,10 @@ public class Recursos {
     private Imagen imagenPrinc;//Utilizo
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
     private ArrayList<Senderos> sendero = new ArrayList<Senderos>();//Utilizo
-
+    private String personaEncargada;
     //private String _id;
+
+
 
 
     private String _rev;//Utilizo
@@ -93,6 +95,13 @@ public class Recursos {
 
     public void setInformacionGeneral(String informacionGeneral) {
         this.informacionGeneral = informacionGeneral;
+    }
+    public String getPersonaEncargada() {
+        return personaEncargada;
+    }
+
+    public void setPersonaEncargada(String personaEncargada) {
+        this.personaEncargada = personaEncargada;
     }
 
 

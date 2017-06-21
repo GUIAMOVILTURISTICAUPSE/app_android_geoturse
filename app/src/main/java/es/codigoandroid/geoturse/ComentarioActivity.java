@@ -1,8 +1,9 @@
 package es.codigoandroid.geoturse;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Comentarios extends Activity
-{
+/**
+ * Created by Alvaro on 20/06/2017.
+ */
+
+public class ComentarioActivity extends AppCompatActivity {
     private ViewGroup layout;
     private EditText ed;
     private HashMap<String,String> ListaCometarios = new HashMap<>();;
@@ -29,6 +33,11 @@ public class Comentarios extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentario);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarComentario);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         layout = (ViewGroup) findViewById(R.id.content);
         cargar();
     }
@@ -79,6 +88,12 @@ public class Comentarios extends Activity
         ListaCometarios.put("USU",ed.getText().toString());
         ed.setText(String.valueOf(" "));
         cargar();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
 }

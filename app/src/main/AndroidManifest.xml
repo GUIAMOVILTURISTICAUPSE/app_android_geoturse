@@ -60,9 +60,9 @@
         <activity android:name=".ContactoActivity"></activity>
         <activity android:name=".PreguntasFrecuentes"></activity>
         <activity android:name=".GalleriaRecurso"></activity>
-        <activity android:name=".Mas_Informacion"></activity>
-        <activity android:name=".Comentarios"></activity>
-        <activity android:name=".Contrasenia"></activity>
+        <activity android:name=".MasInformacion"></activity>
+        <activity android:name=".ComentarioActivity"></activity>
+        <activity android:name=".Contrasenia" android:theme="@style/AppTheme.Dark" />
 
 
 

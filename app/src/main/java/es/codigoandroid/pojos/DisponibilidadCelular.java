@@ -1,5 +1,5 @@
 package es.codigoandroid.pojos;
 
 public enum DisponibilidadCelular {
-    NINGUNA,BAJA,MEDIA,ALTA;
+    ALTA_INTERNET, ALTA_LLAMADAS, MEDIA_LLAMADAS, BAJA_LLAMADAS, SIN_SENAL;
 }

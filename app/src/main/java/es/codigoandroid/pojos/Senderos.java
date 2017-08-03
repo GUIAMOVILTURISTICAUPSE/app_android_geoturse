@@ -19,7 +19,7 @@ public class Senderos {
     private ArrayList<LocacionAtractivo> locacionAtractivos = new ArrayList<LocacionAtractivo>();
     private Estado estado;
     private String instrucciones;
-    private ArrayList<TransporteSendero> transporte = new ArrayList<TransporteSendero>();
+    private ArrayList<Transporte> transporte = new ArrayList<Transporte>();
     private ArrayList<String> equipamento = new ArrayList<String>();
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();
     private Imagen imagenPrincipal;
@@ -106,11 +106,11 @@ public class Senderos {
         this.instrucciones = instrucciones;
     }
 
-    public ArrayList<TransporteSendero> getTransporte() {
+    public ArrayList<Transporte> getTransporte() {
         return transporte;
     }
 
-    public void setTransporte(ArrayList<TransporteSendero> transporte) {
+    public void setTransporte(ArrayList<Transporte> transporte) {
         this.transporte = transporte;
     }
 

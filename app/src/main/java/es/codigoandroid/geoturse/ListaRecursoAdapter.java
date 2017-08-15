@@ -113,7 +113,7 @@ public class ListaRecursoAdapter extends RecyclerView.Adapter<ListaRecursoAdapte
         Glide.with(fragment).load("http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/salinas_1.jpg?itok=DZ7NxVqH").into(viewHolder.imagen);
         //Glide.with(fragment).load(items.get(i).getImagenPrinc().getUrl()).into(viewHolder.imagen);
         //viewHolder.imagen.setImageDrawable(drawable);
-        viewHolder.nombre.setText(items.get(i).getNombre());
+          viewHolder.nombre.setText(items.get(i).getNombre());
         viewHolder.direccion.setText(items.get(i).getDireccion());
         final Recursos recursoEnviar = items.get(i);
         holder.cadrViewRecurso.setOnClickListener(new View.OnClickListener(){

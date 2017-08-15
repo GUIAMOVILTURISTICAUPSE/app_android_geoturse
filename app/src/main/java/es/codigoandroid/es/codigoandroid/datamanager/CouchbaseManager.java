@@ -17,6 +17,9 @@ import com.couchbase.lite.replicator.Replication;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+//import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 //import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -93,7 +96,10 @@ public class CouchbaseManager<K, V>
     private void configurarMapper()
     {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
+        mapper.registerModule(new JavaTimeModule());
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
     }
 
     /**
@@ -118,6 +124,8 @@ public class CouchbaseManager<K, V>
             {
                 try {
                     Map<String, Object> map = doc.getProperties();
+
+
                     res = mapper.convertValue(map, valueTypeParameterClass);
                 }catch (Exception e)
                 {

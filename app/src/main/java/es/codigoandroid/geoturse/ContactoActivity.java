@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
+import es.codigoandroid.pojos.Contacto;
 import es.codigoandroid.pojos.Recursos;
 
 public class ContactoActivity extends AppCompatActivity {
@@ -17,6 +18,10 @@ public class ContactoActivity extends AppCompatActivity {
     public Recursos recursoAlmacenado;
     private TextView nombre, telefono, email, web;
     private ImageView imagen;
+
+    private Contacto contBuscar = new Contacto();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +41,19 @@ public class ContactoActivity extends AppCompatActivity {
         email = (TextView) findViewById(R.id.txt_email);
         web = (TextView) findViewById(R.id.txt_web);
 
-        Glide.with(this).load("http://www.turismo.gob.ec/wp-content/uploads/2015/02/salinas3.jpg").into(imagen);
-        //Glide.with(this).load(recursoAlmacenado.getImagenPrinc().getUrl()).into(imagen);
-        nombre.setText("Nombre: "+recursoAlmacenado.getInfContacto().getNombreResponsable());
-        telefono.setText("Telefono: "+recursoAlmacenado.getInfContacto().getTelefono());
-        email.setText("Email: "+recursoAlmacenado.getInfContacto().getEmail());
-        web.setText("Web: ");
+       contBuscar.setId(recursoAlmacenado.getInfContacto().getId());
+
+
+        if (!contBuscar.getId().isEmpty())
+        if (!recursoAlmacenado.getInfContacto().getNombreResponsable().isEmpty()) {
+
+            Glide.with(this).load("http://www.turismo.gob.ec/wp-content/uploads/2015/02/salinas3.jpg").into(imagen);
+            //Glide.with(this).load(recursoAlmacenado.getImagenPrinc().getUrl()).into(imagen);
+            nombre.setText("Nombre: " + recursoAlmacenado.getInfContacto().getNombreResponsable());
+            telefono.setText("Telefono: " + recursoAlmacenado.getInfContacto().getTelefono());
+            email.setText("Email: " + recursoAlmacenado.getInfContacto().getEmail());
+            web.setText("Web: ");
+        }
     }
     @Override
     public boolean onSupportNavigateUp() {

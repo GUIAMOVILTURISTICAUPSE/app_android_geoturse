@@ -8,7 +8,10 @@ public class Imagen {
     private String id;
     private String descripcion;
     private String titulo;
-    private Date fecha;
+    private String fecha; //Se cambio la fecha a String a diferencia del Pojo Original del Datamanager
+    //En el data manager Fecha es LocalDate, pero no podemos usarlo aqui porque solo esta disponible
+    //desde el API 26, que aun no existe ni en telefonos, solo en emulador (de hecho es tan nuevo que
+    //no tiene nombre). Debemos esperar a que android de mas soporte a Java 8 para cambiar esto.
     private String coordenadas;
     private int votosFavor;
     private int votosContra;
@@ -50,11 +53,11 @@ public class Imagen {
         this.titulo = titulo;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

@@ -21,6 +21,8 @@ public class Recursos {
     private String parroquia;//Utilizo
     private String posicion;//Utilizo
     private Imagen imagenPrinc;//Utilizo
+    private String categoria;
+    private String propietario;
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
     private ArrayList<Senderos> sendero = new ArrayList<Senderos>();//Utilizo
     private String personaEncargada;
@@ -39,8 +41,15 @@ public class Recursos {
     private float ranking;
     private Estado estado;
     private ArrayList<Idiomas> idiomasInformac = new ArrayList<Idiomas>();
-    private ArrayList<String> preguntasFrecuentes = new ArrayList<String>();
+    //private ArrayList<String> preguntasFrecuentes = new ArrayList<String>();
+    private ArrayList<PreguntaFrecuente> preguntasF = new ArrayList<PreguntaFrecuente>();
+
     private ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+    private ArrayList<TipoAtractivo> tipoAtractivo = new ArrayList<TipoAtractivo>();
+    private ArrayList<String> tiposParqueo = new ArrayList<>();
+    private ArrayList<TipoAccesibilidad> opcionesTipoAccesibilidad = new ArrayList<TipoAccesibilidad>();
+    private String horario;
+    private String seguridad;
 
 
     //constructor por defecto
@@ -233,13 +242,16 @@ public class Recursos {
         this.idiomasInformac = idiomasInformac;
     }
 
-    public ArrayList<String> getPreguntasFrecuentes() {
-        return preguntasFrecuentes;
+
+    public ArrayList<PreguntaFrecuente> getPreguntasF() {
+        return preguntasF;
     }
 
-    public void setPreguntasFrecuentes(ArrayList<String> preguntasFrecuentes) {
-        this.preguntasFrecuentes = preguntasFrecuentes;
+    public void setPreguntasF(ArrayList<PreguntaFrecuente> preguntasF) {
+        this.preguntasF = preguntasF;
     }
+
+
 
     public ArrayList<Comentario> getComentarios() {
         return comentarios;
@@ -284,6 +296,36 @@ public class Recursos {
     }
     public void sugerirCambio(){
 
+    }
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public String getSeguridad() {
+        return seguridad;
+    }
+
+    public void setSeguridad(String seguridad) {
+        this.seguridad = seguridad;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+    public ArrayList<String> getTiposParqueo() {
+        return tiposParqueo;
+    }
+
+    public void setTiposParqueo(ArrayList<String> tiposParqueo) {
+        this.tiposParqueo = tiposParqueo;
     }
 
     public double latitud(){
@@ -345,4 +387,7 @@ public class Recursos {
             }
 
     }
+
+
+
 }

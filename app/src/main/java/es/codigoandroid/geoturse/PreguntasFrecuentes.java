@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +14,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
+import es.codigoandroid.pojos.Recursos;
+import es.codigoandroid.pojos.PreguntaFrecuente;
+
 public class PreguntasFrecuentes extends AppCompatActivity {
-    private String [] pregunta={"a","b","c","d"};
-    private String [] respuesta= {"aa","bb","cc","dd"};
-private ArrayAdapter<String> ListaPreguntas;
+    private String [] preguntas;
+    private String [] respuestas;
+    CouchbaseManager<String, Recursos> dbaRecurso;
+    public Recursos recursoAlmacenado;
+
+    private ArrayAdapter<String> ListaPreguntas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +35,60 @@ private ArrayAdapter<String> ListaPreguntas;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ListView ListaPreguntasRespuestas= (ListView)findViewById(R.id.listView);
+        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        String mostrarR = getIntent().getExtras().getString("recurso");
+        recursoAlmacenado = dbaRecurso.get(mostrarR);
+
+        llenarArreglo(ListaPreguntasRespuestas);
 
 
-        HashMap<String,String>  ListaPF = new HashMap<>();
+    }
+
+
+
+    public void llenarArreglo(ListView ListaPreguntasRespuestas){
+        if(recursoAlmacenado.getPreguntasF().size()!=0){
+
+        ArrayList<PreguntaFrecuente> pregunta = recursoAlmacenado.getPreguntasF();
+
+            int tamanio=0;
+            for(PreguntaFrecuente pr :pregunta ){
+                preguntas[tamanio]=pr.getPreguntas();
+                respuestas[tamanio]=pr.getRespPreguntas();
+                tamanio++;
+             }
+            HashMap<String,String>  ListaPF = new HashMap<>();
+
+            do{
+                tamanio--;
+                ListaPF.put(preguntas[tamanio],respuestas[tamanio]);
+
+            }while(tamanio<=0);
+
+            List<HashMap<String,String>>  LItems = new ArrayList<>();
+            SimpleAdapter adapter=new SimpleAdapter(this, LItems,R.layout.activity_item_pregunta,
+                    new String[] {"Pregunta","Respuesta"},
+                    new int[] {R.id.tv_Pregunta, R.id.tv_respuestas});
+
+            Iterator it = ListaPF.entrySet().iterator();
+
+            while (it.hasNext()){
+                HashMap<String,String> Lista= new HashMap<>();
+                Map.Entry pair = (Map.Entry)it.next();
+                Lista.put("Pregunta", pair.getKey().toString());
+                Lista.put("Respuesta",pair.getValue().toString());
+                LItems.add(Lista);
+            }
+            ListaPreguntasRespuestas.setAdapter(adapter);
+
+
+        }else{
+            Toast.makeText(getApplicationContext(), " No existen preguntas sobre este recurso" , Toast.LENGTH_SHORT).show();
+        }
+
+
+
+      /*  HashMap<String,String>  ListaPF = new HashMap<>();
         ListaPF.put("a","aa");
         ListaPF.put("b","bb");
         ListaPF.put("c","cc");
@@ -42,19 +102,28 @@ private ArrayAdapter<String> ListaPreguntas;
 
         Iterator it = ListaPF.entrySet().iterator();
         while (it.hasNext()){
-        HashMap<String,String> Lista= new HashMap<>();
+            HashMap<String,String> Lista= new HashMap<>();
             Map.Entry pair = (Map.Entry)it.next();
             Lista.put("Pregunta", pair.getKey().toString());
             Lista.put("Respuesta",pair.getValue().toString());
             LItems.add(Lista);
         }
         ListaPreguntasRespuestas.setAdapter(adapter);
+*/
+
+
+
+
+
+
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return false;
     }
+
 
 }

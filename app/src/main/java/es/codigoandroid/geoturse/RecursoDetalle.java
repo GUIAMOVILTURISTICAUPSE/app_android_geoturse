@@ -137,7 +137,11 @@ public class RecursoDetalle extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PreguntasFrecuentes.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                //if (recursoAlmacenado.getPreguntasFrecuentes().size()!=0)
                 startActivity(intent);
+               // else
+                    //Toast.makeText(getApplicationContext(), " No existen preguntas sobre este recurso" , Toast.LENGTH_SHORT).show();
+
             }
         });
         galeriaBtn.setOnClickListener(new View.OnClickListener() {

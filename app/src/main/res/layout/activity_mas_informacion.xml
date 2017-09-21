@@ -43,7 +43,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv1"
+                android:id="@+id/tv_tipoRecurso"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -68,7 +68,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv2"
+                android:id="@+id/tv_accesibilidad"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -94,7 +94,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv4"
+                android:id="@+id/tv_acceso"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -119,7 +119,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv5"
+                android:id="@+id/tv_Infraestructura"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -145,7 +145,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv6"
+                android:id="@+id/tv_parqueos"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -170,7 +170,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv7"
+                android:id="@+id/tv_facilidades"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -196,7 +196,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv9"
+                android:id="@+id/tv_seguridad"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
@@ -221,7 +221,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv10"
+                android:id="@+id/tv_idiomas"
                 android:layout_width="170dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"

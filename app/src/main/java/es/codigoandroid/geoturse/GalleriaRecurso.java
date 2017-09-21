@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Imagen;
@@ -30,17 +31,21 @@ import es.codigoandroid.pojos.Recursos;
 public class GalleriaRecurso extends AppCompatActivity {
 
     ImageView imagenSeleccionada;
-    Gallery gallery;
-    TextView tv_descripcion;
+   // Gallery gallery;
+    private TextView  tv_descripcion;
     private ArrayList<Imagen> imagen=new ArrayList<Imagen>();
-    private  int tamanio;
 
     CouchbaseManager<String, Recursos> dbaRecurso;
     public Recursos recursoAlmacenado;
 
-   // public Imagen recursoAlmacenado;
-    private TextView descripcion;
 
+    String[] galeria;
+    String[] autor;
+    String[] descripcion;
+    Date[] fecha;
+    String[] titulo;
+    int[] votosFavor;
+    int[] votosContra;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -53,90 +58,122 @@ public class GalleriaRecurso extends AppCompatActivity {
 
         imagenSeleccionada = (ImageView) findViewById(R.id.seleccionada);
 
-
         dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
         final String mostrarR = getIntent().getExtras().getString("recurso");
        recursoAlmacenado = dbaRecurso.get(mostrarR);
 
-        final Integer[] imagenes = { R.drawable.a, R.drawable.b, R.drawable.c,
+       final Integer[] imagenes = { R.drawable.a, R.drawable.b, R.drawable.c,
                 R.drawable.d, R.drawable.e, R.drawable.f, R.drawable.g
         };
 
-      /*  final String[] galeria = { "http://www.guiaempresarial.org/america/ecuador/directorio/santa-elena/santa-elena-ecuador.jpg",
-                "http://www.eluniverso.com/sites/default/files/fotos/2015/12/pr05d301215photo01_0.jpg",
-                "http://www.ecuadorextreme.com.ec/wp-content/uploads/2015/07/web-PANORAMCA-SALINAS-11-Cortesia-Ministerio-de-Turismo.jpg",
-                "http://www.eluniverso.com/sites/default/files/styles/nota_ampliada_normal_foto/public/fotos/2016/01/peninsulaturismo14567752.jpg?itok=eFSu2wUZ",
-                "http://4.bp.blogspot.com/-uFYcqNsVPZA/U-BVaZ1b7ZI/AAAAAAAAARI/gYs9IccKV5Y/s1600/ballena.jpg",
-                "http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/montac3b1ita.jpg?itok=4UWe5Rj6",
-                "https://4.bp.blogspot.com/-mKwvK27-Pnw/Vk-lphMHitI/AAAAAAAAAC4/F4psXBQouW0TdDW7zcCKgHj0EUM-crFhgCKgB/s1600/Santa%2BElena.jpg"
-        };
-*/
-
-        if(!recursoAlmacenado.getGaleria().isEmpty()) {
+        if(!recursoAlmacenado.getGaleria().isEmpty()){
+            Gallery gallery;
             imagen = recursoAlmacenado.getGaleria();
-            tamanio = imagen.size();//tamaño
-            final String[] galeria = new String[tamanio];
-
-            for (Imagen im : imagen) {
-                galeria[tamanio - 1] = im.getUrl();
-                tamanio--;
-            }
+           //int tamanio=imagen.size();//tamaño
+            Datos(imagen.size());
 
 
-            gallery = (Gallery) findViewById(R.id.gallery);
-            gallery.setAdapter(new GalleryAdapter(this, imagenes, galeria));
+           gallery = (Gallery) findViewById(R.id.gallery);
+           gallery.setAdapter(new GalleryAdapter(this, imagenes, galeria));
             //al seleccionar una imagen, la mostramos en el centro de la pantalla a mayor tamaño
+            MostrarGaleria(gallery);
 
 
-            //con este listener, sólo se mostrarían las imágenes sobre las que se pulsa
-            gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView parent, View v, int position, long id) {
-                    URL url = null;
-                    Bitmap image = null;
-                    try {
-                        url = new URL("" + galeria[position]);
-
-                        try {
-
-                            /*final BitmapFactory.Options options = new BitmapFactory.Options();
-                            options.inJustDecodeBounds = true;
-                            BitmapFactory.decodeStream(url.openConnection().getInputStream(),null,options);
-
-                            // Calculate inSampleSize
-                            options.inSampleSize = calculateInSampleSize(options, 500, 0);
-
-                            // Decode bitmap with inSampleSize set
-                            options.inJustDecodeBounds = false;
-                            //return BitmapFactory.decodeResource(res, resId, options);*/
-
-
-                            //image = BitmapFactory.decodeStream(url.openConnection().getInputStream(),null,options);
-                            image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                            image = redimensionarImagenMaximo(image, 800, 600);
-
-
-                            tv_descripcion = (TextView) findViewById(R.id.tv_descripcion);
-                            tv_descripcion.setText("Holisssss  " + mostrarR);
-
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
-                    imagenSeleccionada.setImageBitmap(image);
-                    //imagenSeleccionada.setImageBitmap(BitmapUtils.decodeSampledBitmapFromResource(getResources(), imagenes[position], 300, 0));
-                }
-
-
-            });
         }else{
             //no existe imagen en recurso
-
-
+            tv_descripcion = (TextView) findViewById(R.id.tv_descripcion);
+            tv_descripcion.setText("No existe imagen de recurso seleccionado!");
         }
     }
+
+
+
+   public void Datos(int tamanio){
+
+        galeria = new String[tamanio];
+        autor=new String[tamanio];
+        descripcion=new String[tamanio];
+        fecha=new Date[tamanio];
+        titulo=new String[tamanio];
+        votosFavor=new int[tamanio];
+        votosContra=new int[tamanio];
+
+        //// FIXME: 12/09/2017 Validar que no sea null
+        for (Imagen im : imagen) {
+            if(im != null)
+            {
+                galeria[tamanio - 1] = im.getUrl();
+                autor[tamanio - 1] = im.getAutor();
+                descripcion[tamanio - 1] = im.getDescripcion();
+                fecha[tamanio - 1] = im.getFecha();
+                titulo[tamanio - 1] = im.getTitulo();
+                votosFavor[tamanio - 1] = im.getVotosFavor();
+                votosContra[tamanio - 1] = im.getVotosContra();
+            }
+            tamanio--;
+        }
+    }
+
+
+public void mostrarInformacion(int position){
+    tv_descripcion = (TextView) findViewById(R.id.tv_descripcion);
+    tv_descripcion.setText("\nTitulo: "+titulo[position]+"\nDescripcion: "+descripcion[position]+
+            "\nFecha: "+fecha[position]+ "\nAutor: "+autor[position]+
+            "\nVotos a favor: "+votosFavor[position]+ "\nVotos a contra: "+votosContra[position]
+    );
+
+}
+
+public void MostrarGaleria(Gallery gallery){
+    //con este listener, sólo se mostrarían las imágenes sobre las que se pulsa
+    gallery.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        public void onItemClick(AdapterView parent, View v, int position, long id) {
+            URL url = null;
+            Bitmap image = null;
+            try {
+                url = new URL("" + galeria[position]);
+                // dato=galeria[position];
+                try {
+
+                                /*final BitmapFactory.Options options = new BitmapFactory.Options();
+                                options.inJustDecodeBounds = true;
+                                BitmapFactory.decodeStream(url.openConnection().getInputStream(),null,options);
+
+                                // Calculate inSampleSize
+                                options.inSampleSize = calculateInSampleSize(options, 500, 0);
+
+                                // Decode bitmap with inSampleSize set
+                                options.inJustDecodeBounds = false;
+                                //return BitmapFactory.decodeResource(res, resId, options);*/
+
+
+                    //image = BitmapFactory.decodeStream(url.openConnection().getInputStream(),null,options);
+                    image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    image = redimensionarImagenMaximo(image, 800, 600);
+
+                    mostrarInformacion(position);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            imagenSeleccionada.setImageBitmap(image);
+            //imagenSeleccionada.setImageBitmap(BitmapUtils.decodeSampledBitmapFromResource(getResources(), imagenes[position], 300, 0));
+        }
+
+    });
+
+
+}
+
+
+
+
+
+
 
     public Bitmap redimensionarImagenMaximo(Bitmap mBitmap, float newWidth, float newHeigth){
         //Redimensionamos

@@ -85,6 +85,10 @@ public class ComentarioActivity extends AppCompatActivity {
         ed= (EditText)findViewById(R.id.edittext);
         textView.setText(String.valueOf(ed.getText().toString()));
         layout.addView(relativeLayout);
+
+
+
+
         ListaCometarios.put("USU",ed.getText().toString());
         ed.setText(String.valueOf(" "));
         cargar();

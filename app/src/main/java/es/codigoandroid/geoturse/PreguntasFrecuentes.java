@@ -48,22 +48,27 @@ public class PreguntasFrecuentes extends AppCompatActivity {
 
     public void llenarArreglo(ListView ListaPreguntasRespuestas){
         if(recursoAlmacenado.getPreguntasF().size()!=0){
+        String p,r;
 
         ArrayList<PreguntaFrecuente> pregunta = recursoAlmacenado.getPreguntasF();
 
             int tamanio=0;
+            preguntas = new String[recursoAlmacenado.getPreguntasF().size()];
+            respuestas = new String[recursoAlmacenado.getPreguntasF().size()];
+
             for(PreguntaFrecuente pr :pregunta ){
-                preguntas[tamanio]=pr.getPreguntas();
-                respuestas[tamanio]=pr.getRespPreguntas();
+              preguntas[tamanio]= (String)pr.getPreguntas();
+              respuestas[tamanio]= (String)pr.getRespPreguntas();
                 tamanio++;
              }
+
             HashMap<String,String>  ListaPF = new HashMap<>();
 
             do{
                 tamanio--;
-                ListaPF.put(preguntas[tamanio],respuestas[tamanio]);
+                ListaPF.put(preguntas[tamanio]+tamanio,respuestas[tamanio]+tamanio);
 
-            }while(tamanio<=0);
+            }while(tamanio>0);
 
             List<HashMap<String,String>>  LItems = new ArrayList<>();
             SimpleAdapter adapter=new SimpleAdapter(this, LItems,R.layout.activity_item_pregunta,
@@ -85,36 +90,6 @@ public class PreguntasFrecuentes extends AppCompatActivity {
         }else{
             Toast.makeText(getApplicationContext(), " No existen preguntas sobre este recurso" , Toast.LENGTH_SHORT).show();
         }
-
-
-
-      /*  HashMap<String,String>  ListaPF = new HashMap<>();
-        ListaPF.put("a","aa");
-        ListaPF.put("b","bb");
-        ListaPF.put("c","cc");
-        ListaPF.put("d","dd");
-        ListaPF.put("e","ee");
-
-        List<HashMap<String,String>>  LItems = new ArrayList<>();
-        SimpleAdapter adapter=new SimpleAdapter(this, LItems,R.layout.activity_item_pregunta,
-                new String[] {"Pregunta","Respuesta"},
-                new int[] {R.id.tv_Pregunta, R.id.tv_respuestas});
-
-        Iterator it = ListaPF.entrySet().iterator();
-        while (it.hasNext()){
-            HashMap<String,String> Lista= new HashMap<>();
-            Map.Entry pair = (Map.Entry)it.next();
-            Lista.put("Pregunta", pair.getKey().toString());
-            Lista.put("Respuesta",pair.getValue().toString());
-            LItems.add(Lista);
-        }
-        ListaPreguntasRespuestas.setAdapter(adapter);
-*/
-
-
-
-
-
 
     }
 

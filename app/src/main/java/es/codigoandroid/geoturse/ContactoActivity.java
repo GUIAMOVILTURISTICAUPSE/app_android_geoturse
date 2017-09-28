@@ -53,10 +53,11 @@ public class ContactoActivity extends AppCompatActivity {
         final String linkInst;
 
         if(recursoAlmacenado.getInfContacto()!=null) {
+
               //// FIXME: 12/09/2017 arreglar contacto vacio
               //Glide.with(this).load("http://www.turismo.gob.ec/wp-content/uploads/2015/02/salinas3.jpg").into(imagen);
-            if (recursoAlmacenado.getInfContacto().getNombreResponsable() != null){
-            nombre.setText("Nombre: " + recursoAlmacenado.getInfContacto().getNombreResponsable());
+            if (recursoAlmacenado.getPersonaEncargada() != null){
+            nombre.setText("Nombre: " + recursoAlmacenado.getPersonaEncargada());
             telefono.setText("Telefono: " + recursoAlmacenado.getInfContacto().getTelefono());
             email.setText("Email: " + recursoAlmacenado.getInfContacto().getEmail());
             web.setText("Web: ");
@@ -83,15 +84,6 @@ public class ContactoActivity extends AppCompatActivity {
             vacio();
 
             }
-
-
-
-      /*  Glide.with(this).load("http://www.turismo.gob.ec/wp-content/uploads/2015/02/salinas3.jpg").into(imagen);
-        //Glide.with(this).load(recursoAlmacenado.getImagenPrinc().getUrl()).into(imagen);
-        nombre.setText("Nombre: "+recursoAlmacenado.getInfContacto().getNombreResponsable());
-        telefono.setText("Telefono: "+recursoAlmacenado.getInfContacto().getTelefono());
-        email.setText("Email: "+recursoAlmacenado.getInfContacto().getEmail());
-        web.setText("Web: ");*/
     }
     @Override
     public boolean onSupportNavigateUp() {

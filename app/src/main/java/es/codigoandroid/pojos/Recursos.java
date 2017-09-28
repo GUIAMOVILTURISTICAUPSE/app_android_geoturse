@@ -20,14 +20,13 @@ public class Recursos {
     private String canton; //Utilizo
     private String parroquia;//Utilizo
     private String posicion;//Utilizo
-    private Imagen imagenPrinc;//Utilizo
+    private Imagen imagenPrincipal;//Utilizo
     private String categoria;
     private String propietario;
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
     private ArrayList<Senderos> sendero = new ArrayList<Senderos>();//Utilizo
     private String personaEncargada;
     //private String _id;
-
 
 
 
@@ -73,6 +72,14 @@ public class Recursos {
     public void set_id(String _id) {
         this._id = _id;
     }*/
+
+    public Imagen getImagenPrincipal() {
+        return imagenPrincipal;
+    }
+
+    public void setImagenPrincipal(Imagen imagenPrincipal) {
+        this.imagenPrincipal = imagenPrincipal;
+    }
 
     public String get_rev() {
         return _rev;
@@ -202,13 +209,7 @@ public class Recursos {
         this.galeria = galeria;
     }
 
-    public Imagen getImagenPrinc() {
-        return imagenPrinc;
-    }
 
-    public void setImagenPrinc(Imagen imagenPrinc) {
-        this.imagenPrinc = imagenPrinc;
-    }
 
     public ArrayList<Senderos> getSendero() {
         return sendero;

@@ -3,14 +3,19 @@ package es.codigoandroid.geoturse;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,8 +31,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Comentario;
@@ -94,13 +111,19 @@ public class RecursoDetalle extends AppCompatActivity {
             senderoBtn.setEnabled(false);
         }
 
-        Glide.with(this).load("http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/salinas_1.jpg?itok=DZ7NxVqH").into(imagen);
+       if (recursoAlmacenado.getImagenPrincipal()!=null)
+           obtenerImagen(recursoAlmacenado.getImagenPrincipal().getUrl());
+       else
+           Glide.with(this).load("http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/salinas_1.jpg?itok=DZ7NxVqH").into(imagen);
+
+
+         //obtenerImagen("https://www.googleapis.com/download/storage/v1/b/guiamovilse_recursos_storage/o/ImgPrincipalOriginal?generation=1506101548540508&alt=media");
+        //recursoAlmacenado.getImagenPrincipal().getUrl();
         //Glide.with(this).load(recursoAlmacenado.getImagenPrinc().getUrl()).into(imagen);
         direccion.setText("Dirección: "+recursoAlmacenado.getDireccion());
         descripcion.setText(recursoAlmacenado.getDescripcion());
         canton.setText("Cantón: "+recursoAlmacenado.getCanton());
         parroquia.setText("Parroquia: "+recursoAlmacenado.getParroquia());
-
 
         senderoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,13 +186,33 @@ public class RecursoDetalle extends AppCompatActivity {
         comentarioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ComentarioActivity.class);
+
+              /*  Intent intent = new Intent(getApplicationContext(), ComentarioActivity.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
     }
+
+    private void obtenerImagen(String myfeed) {
+
+      try {
+
+        BackgroundTask task =new BackgroundTask();
+        task.execute(myfeed);
+        Bitmap imag= task.get();
+          imagen.setImageBitmap(imag);
+         // Toast.makeText(this, "Entro pero no funciona :( xD  " , Toast.LENGTH_LONG).show();
+
+       } catch (InterruptedException e) {
+          e.printStackTrace();
+      } catch (ExecutionException e) {
+          e.printStackTrace();
+      }
+
+    }
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode==5)

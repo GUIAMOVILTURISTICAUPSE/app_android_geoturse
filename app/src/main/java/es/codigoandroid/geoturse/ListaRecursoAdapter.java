@@ -22,6 +22,7 @@ import com.couchbase.lite.Document;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import es.codigoandroid.pojos.Recursos;
 
@@ -110,7 +111,13 @@ public class ListaRecursoAdapter extends RecyclerView.Adapter<ListaRecursoAdapte
 
                 viewHolder.imagen.setImageDrawable(drawable);
             }*/
+
+        if (items.get(i).getImagenPrincipal()!=null)
+            obtenerImagen(items.get(i).getImagenPrincipal().getUrl(),viewHolder);
+        else
         Glide.with(fragment).load("http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/salinas_1.jpg?itok=DZ7NxVqH").into(viewHolder.imagen);
+
+
         //Glide.with(fragment).load(items.get(i).getImagenPrinc().getUrl()).into(viewHolder.imagen);
         //viewHolder.imagen.setImageDrawable(drawable);
           viewHolder.nombre.setText(items.get(i).getNombre());
@@ -127,4 +134,28 @@ public class ListaRecursoAdapter extends RecyclerView.Adapter<ListaRecursoAdapte
 
         });
     }
+
+
+
+    private void obtenerImagen(String myfeed, ListaRecursoViewHolder viewHolder) {
+
+        try {
+
+            BackgroundTask task =new BackgroundTask();
+            task.execute(myfeed);
+            Bitmap imag= task.get();
+            viewHolder.imagen.setImageBitmap(imag);
+            // Toast.makeText(this, "Entro pero no funciona :( xD  " , Toast.LENGTH_LONG).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
 }

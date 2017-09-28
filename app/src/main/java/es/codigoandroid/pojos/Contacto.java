@@ -7,6 +7,7 @@ public class Contacto {
     private String telefono;
     private String facebook;
     private String twitter;
+    private String instagram;
     private String email;
 
     public Contacto() {
@@ -42,6 +43,14 @@ public class Contacto {
 
     public void setFacebook(String facebook) {
         this.facebook = facebook;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        ;this.instagram = instagram;
     }
 
     public String getTwitter() {

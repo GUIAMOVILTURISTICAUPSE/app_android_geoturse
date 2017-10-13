@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -42,7 +43,7 @@ public class GalleriaRecurso extends AppCompatActivity {
     String[] galeria;
     String[] autor;
     String[] descripcion;
-    Date[] fecha;
+    String[] fecha;
     String[] titulo;
     int[] votosFavor;
     int[] votosContra;
@@ -93,7 +94,7 @@ public class GalleriaRecurso extends AppCompatActivity {
         galeria = new String[tamanio];
         autor=new String[tamanio];
         descripcion=new String[tamanio];
-        fecha=new Date[tamanio];
+        fecha=new String[tamanio];
         titulo=new String[tamanio];
         votosFavor=new int[tamanio];
         votosContra=new int[tamanio];
@@ -105,7 +106,9 @@ public class GalleriaRecurso extends AppCompatActivity {
                 galeria[tamanio - 1] = im.getUrl();
                 autor[tamanio - 1] = im.getAutor();
                 descripcion[tamanio - 1] = im.getDescripcion();
-                fecha[tamanio - 1] = im.getFecha();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                String fechaComoCadena = sdf.format(im.getFecha());
+                fecha[tamanio - 1] = fechaComoCadena ;
                 titulo[tamanio - 1] = im.getTitulo();
                 votosFavor[tamanio - 1] = im.getVotosFavor();
                 votosContra[tamanio - 1] = im.getVotosContra();
@@ -166,11 +169,7 @@ public void MostrarGaleria(Gallery gallery){
 
     });
 
-
 }
-
-
-
 
 
 

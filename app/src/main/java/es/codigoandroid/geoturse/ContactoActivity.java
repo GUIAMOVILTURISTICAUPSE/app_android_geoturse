@@ -8,8 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Contacto;
@@ -46,7 +50,7 @@ public class ContactoActivity extends AppCompatActivity {
         facebook= (ImageView)findViewById(R.id.facebook);
         twitter= (ImageView)findViewById(R.id.twitter);
         instagram= (ImageView)findViewById(R.id.instagram);
-
+        boolean valido;
 
         final String linkFac;
         final String linkTwi;
@@ -58,21 +62,37 @@ public class ContactoActivity extends AppCompatActivity {
               //Glide.with(this).load("http://www.turismo.gob.ec/wp-content/uploads/2015/02/salinas3.jpg").into(imagen);
             if (recursoAlmacenado.getPersonaEncargada() != null){
             nombre.setText("Nombre: " + recursoAlmacenado.getPersonaEncargada());
-            telefono.setText("Telefono: " + recursoAlmacenado.getInfContacto().getTelefono());
-            email.setText("Email: " + recursoAlmacenado.getInfContacto().getEmail());
-            web.setText("Web: ");
-            linkFac=recursoAlmacenado.getInfContacto().getFacebook();
-            linkTwi=recursoAlmacenado.getInfContacto().getTwitter();
-            linkInst=recursoAlmacenado.getInfContacto().getFacebook();
 
-            facebook.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Uri uri = Uri.parse(linkFac); // http://www.facebook.com/
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-                }
-            });
+            if (recursoAlmacenado.getInfContacto().getTelefono()!=null)
+            telefono.setText("Telefono: " + recursoAlmacenado.getInfContacto().getTelefono());
+            else
+            telefono.setText("Telefono: No existe telefono de contacto.");
+
+            if (recursoAlmacenado.getInfContacto().getEmail()!=null)
+            email.setText("Email: " + recursoAlmacenado.getInfContacto().getEmail());
+            else
+            email.setText("Email: No existe email de contacto.");
+
+            linkFac=recursoAlmacenado.getInfContacto().getFacebook();
+                valido=isUrl(linkFac);
+                if (valido)
+                    links(facebook,linkFac);
+                else
+                    facebook.setVisibility(View.INVISIBLE);
+
+            linkTwi=recursoAlmacenado.getInfContacto().getTwitter();
+                valido=isUrl(linkTwi);
+                if (valido)
+                    links(twitter,linkTwi);
+                else
+                    twitter.setVisibility(View.INVISIBLE);
+
+            linkInst=recursoAlmacenado.getInfContacto().getInstagram();
+                valido=isUrl(linkInst);
+                if (valido)
+                    links(instagram,linkInst);
+                else
+                    instagram.setVisibility(View.INVISIBLE);
             }
              else vacio();
 
@@ -82,9 +102,10 @@ public class ContactoActivity extends AppCompatActivity {
         else
         {
             vacio();
-
-            }
+          }
     }
+
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -102,6 +123,35 @@ public void vacio(){
     facebook.setVisibility(View.INVISIBLE);
     instagram.setVisibility(View.INVISIBLE);
     imagen.setVisibility(View.INVISIBLE);
+    }
+
+
+
+    public void links (ImageView iv, String urlLink){
+        final String url_link=urlLink;
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(url_link); // http://www.facebook.com/
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+
+    private static boolean isUrl(String s) {
+        String regex = "^(https?://)?(([\\w!~*'().&=+$%-]+: )?[\\w!~*'().&=+$%-]+@)?(([0-9]{1,3}\\.){3}[0-9]{1,3}|([\\w!~*'()-]+\\.)*([\\w^-][\\w-]{0,61})?[\\w]\\.[a-z]{2,6})(:[0-9]{1,4})?((/*)|(/+[\\w!~*'().;?:@&=+$,%#-]+)+/*)$";
+
+        try {
+            Pattern patt = Pattern.compile(regex);
+            Matcher matcher = patt.matcher(s);
+            return matcher.matches();
+
+        } catch (RuntimeException e) {
+            return false;
+        }
     }
 
 }

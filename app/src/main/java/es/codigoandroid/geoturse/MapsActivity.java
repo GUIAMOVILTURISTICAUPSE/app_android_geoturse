@@ -85,19 +85,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .color(Color.BLUE)
                 .geodesic(true);
 
+
+
         for(Senderos s : recursoAlmacenado.getSendero()) {
-            for(String p : s.getRecorrido()) {
-                LatLng puntoRecurso;
-                puntoRecurso = new LatLng(latitud(p), longuitd(p));
+            if(s.getNombre()!= null)
+                for(String p : s.getRecorrido()) {
+                    LatLng puntoRecurso;
+                    puntoRecurso = new LatLng(latitud(p), longuitd(p));
 
-                sendero.add(puntoRecurso);
-            }
+                    sendero.add(puntoRecurso);
+                }
         }
-
-
         Polyline polyline = mMap.addPolyline(sendero);
-
-
     }
 
     public double latitud(String posicion){

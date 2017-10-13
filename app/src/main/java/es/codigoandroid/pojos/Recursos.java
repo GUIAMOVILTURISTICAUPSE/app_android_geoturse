@@ -26,6 +26,8 @@ public class Recursos {
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
     private ArrayList<Senderos> sendero = new ArrayList<Senderos>();//Utilizo
     private String personaEncargada;
+    private String url_video;
+
     //private String _id;
 
 
@@ -97,7 +99,7 @@ public class Recursos {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
+      public String getDescripcion() {
         return descripcion;
     }
 
@@ -328,6 +330,15 @@ public class Recursos {
     public void setTiposParqueo(ArrayList<String> tiposParqueo) {
         this.tiposParqueo = tiposParqueo;
     }
+
+    public String getUrl_video() {
+        return url_video;
+    }
+
+    public void setUrl_video(String url_video) {
+        this.url_video = url_video;
+    }
+
 
     public double latitud(){
         double latitud;

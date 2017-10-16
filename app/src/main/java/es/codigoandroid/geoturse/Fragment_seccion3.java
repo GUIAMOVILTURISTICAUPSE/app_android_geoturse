@@ -44,7 +44,7 @@ public class Fragment_seccion3 extends Fragment {
 
         View vista = inflater.inflate(R.layout.fragment_seccion3, container, false);
         input_name_edit = (EditText) vista.findViewById(R.id.input_name_edit);
-        input_address_edit = (EditText) vista.findViewById(R.id.input_address_edit);
+        //input_address_edit = (EditText) vista.findViewById(R.id.input_address_edit);
         input_email_edit = (EditText) vista.findViewById(R.id.input_email_edit);
         input_mobile_edit = (EditText) vista.findViewById(R.id.input_mobile_edit);
         input_password_edit = (EditText) vista.findViewById(R.id.input_password_edit);
@@ -52,7 +52,7 @@ public class Fragment_seccion3 extends Fragment {
         btn_edit_usuario = (Button) vista.findViewById(R.id.btn_edit_usuario);
 
         input_name_edit.setEnabled(false);
-        input_address_edit.setEnabled(false);
+     //   input_address_edit.setEnabled(false);
         input_email_edit.setEnabled(false);
         input_mobile_edit.setEnabled(false);
         input_password_edit.setEnabled(false);
@@ -69,7 +69,7 @@ public class Fragment_seccion3 extends Fragment {
                 if(usuarioAlmacenado!=null)
                 {
                     input_name_edit.setText(usuarioAlmacenado.getNombre());
-                    input_address_edit.setText(usuarioAlmacenado.getDireccion());
+                 //   input_address_edit.setText(usuarioAlmacenado.getDireccion());
                     input_email_edit.setText(usuarioAlmacenado.getEmail());
                     input_mobile_edit.setText(usuarioAlmacenado.getTelefono());
                     input_password_edit.setText(usuarioAlmacenado.getContraseniaHash());
@@ -101,7 +101,7 @@ public class Fragment_seccion3 extends Fragment {
 
                     btn_edit_usuario.setText("Guardar");
                     input_name_edit.setEnabled(true);
-                    input_address_edit.setEnabled(true);
+                  //  input_address_edit.setEnabled(true);
                     input_email_edit.setEnabled(false);
                     input_mobile_edit.setEnabled(true);
                     input_password_edit.setEnabled(true);
@@ -114,7 +114,7 @@ public class Fragment_seccion3 extends Fragment {
                         Usuario usuarioEditado = new Usuario();
                         usuarioEditado.setEmail(input_email_edit.getText().toString());
                         usuarioEditado.setNombre(input_name_edit.getText().toString());
-                        usuarioEditado.setDireccion(input_address_edit.getText().toString());
+                     //   usuarioEditado.setDireccion(input_address_edit.getText().toString());
                         usuarioEditado.setTelefono(input_mobile_edit.getText().toString());
                         usuarioEditado.setContraseniaHash(input_password_edit.getText().toString());
                         dbaUsuario.save(usuarioEditado);
@@ -141,7 +141,7 @@ public class Fragment_seccion3 extends Fragment {
                         Toast.makeText(getActivity(), "Edicion exitosa", Toast.LENGTH_LONG).show();
                         btn_edit_usuario.setText("Editar");
                         input_name_edit.setEnabled(false);
-                        input_address_edit.setEnabled(false);
+                       // input_address_edit.setEnabled(false);
                         input_email_edit.setEnabled(false);
                         input_mobile_edit.setEnabled(false);
                         input_password_edit.setEnabled(false);
@@ -158,7 +158,7 @@ public class Fragment_seccion3 extends Fragment {
         boolean valid = true;
 
         String name = input_name_edit.getText().toString();
-        String address = input_address_edit.getText().toString();
+   //     String address = input_address_edit.getText().toString();
         String email = input_email_edit.getText().toString();
         String mobile = input_mobile_edit.getText().toString();
         String password = input_password_edit.getText().toString();
@@ -171,12 +171,12 @@ public class Fragment_seccion3 extends Fragment {
             input_name_edit.setError(null);
         }
 
-        if (address.isEmpty()) {
+    /*    if (address.isEmpty()) {
             input_address_edit.setError("ingrese una direccion");
             valid = false;
         } else {
             input_address_edit.setError(null);
-        }
+        }*/
 
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             input_email_edit.setError("ingrese un correo valido");

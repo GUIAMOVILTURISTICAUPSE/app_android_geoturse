@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/gallery"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:contentDescription="Galeria" />
 
             <TextView
@@ -57,7 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/seleccionada"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="1dp"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:typeface="serif"/>
 
 
         </RelativeLayout>

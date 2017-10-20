@@ -12,12 +12,18 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
+import es.codigoandroid.pojos.Comentario;
+import es.codigoandroid.pojos.Recursos;
+import es.codigoandroid.pojos.Usuario;
 
 /**
  * Created by Alvaro on 20/06/2017.
@@ -26,7 +32,15 @@ import java.util.Map;
 public class ComentarioActivity extends AppCompatActivity {
     private ViewGroup layout;
     private EditText ed;
-    private HashMap<String,String> ListaCometarios = new HashMap<>();;
+    private HashMap<String,String> ListaCometarios = new HashMap<>();
+
+    private ArrayList<Comentario> ListaComentario = new ArrayList<Comentario>();
+
+    CouchbaseManager<String, Recursos> dbaRecurso;
+    public Recursos recursoAlmacenado;
+    public Usuario usuario;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +52,18 @@ public class ComentarioActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        String mostrarR = getIntent().getExtras().getString("recurso");
+        recursoAlmacenado = dbaRecurso.get(mostrarR);
+
+
+      /*  Bundle param= getIntent().getExtras();
+        String d= param.getString("_usuario");
+        Toast.makeText(getApplicationContext(), " dato: "+ d.toString() , Toast.LENGTH_SHORT).show();
+*/
         layout = (ViewGroup) findViewById(R.id.content);
+
         cargar();
     }
 
@@ -48,27 +73,34 @@ public class ComentarioActivity extends AppCompatActivity {
         addChild(false);
     }
 
+
+
     public void cargar(){
 
-        ListView ListaComentariosF= (ListView)findViewById(R.id.listView);
+        if (recursoAlmacenado.getComentarios()!= null) {
+            ListView ListaComentariosF= (ListView)findViewById(R.id.listView);
+            ListaComentario = recursoAlmacenado.getComentarios();
 
-        ListaCometarios.put("a","aa");
-        ListaCometarios.put("b","bb");
+            for(Comentario comen: ListaComentario){
+                ListaCometarios.put("Nombre_usuario","Comentario de la BD");
+            }
 
-        List<HashMap<String,String>> LItems = new ArrayList<>();
-        SimpleAdapter adapter=new SimpleAdapter(this, LItems,R.layout.activity_item_comentario,
-                new String[] {"Usuario","Comentario"},
-                new int[] {R.id.textView1, R.id.textview});
-        Iterator it = ListaCometarios.entrySet().iterator();
-        while (it.hasNext()){
-            HashMap<String,String> Lista= new HashMap<>();
-            Map.Entry pair = (Map.Entry)it.next();
-            Lista.put("Usuario", pair.getKey().toString());
-            Lista.put("Comentario",pair.getValue().toString());
-            LItems.add(Lista);
-        }
+            List<HashMap<String,String>> LItems = new ArrayList<>();
+            SimpleAdapter adapter=new SimpleAdapter(this, LItems,R.layout.activity_item_comentario,
+                    new String[] {"Usuario","Comentario"},
+                    new int[] {R.id.textView1, R.id.textview});
+            Iterator it = ListaCometarios.entrySet().iterator();
+            while (it.hasNext()){
+                HashMap<String,String> Lista= new HashMap<>();
+                Map.Entry pair = (Map.Entry)it.next();
+                Lista.put("Usuario", pair.getKey().toString());
+                Lista.put("Comentario",pair.getValue().toString());
+                LItems.add(Lista);
+            }
+            ListaComentariosF.setAdapter(adapter);
 
-        ListaComentariosF.setAdapter(adapter);
+       }
+
     }
 
     @SuppressLint("InlinedApi")
@@ -86,13 +118,11 @@ public class ComentarioActivity extends AppCompatActivity {
         textView.setText(String.valueOf(ed.getText().toString()));
         layout.addView(relativeLayout);
 
-
-
-
         ListaCometarios.put("USU",ed.getText().toString());
         ed.setText(String.valueOf(" "));
-        cargar();
+        //cargar();
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {

@@ -3,6 +3,7 @@
     package="es.codigoandroid.geoturse">
 
     <!-- Copied from Google Maps Library/AndroidManifest.xml. -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -26,47 +27,46 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MiTema">
-    <meta-data
-        android:name="com.google.android.maps.v2.API_KEY"
-        android:value="AIzaSyC_RE-2A1ZbF44A82ZM-8KR2n6sVGva8Ng" />
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyC_RE-2A1ZbF44A82ZM-8KR2n6sVGva8Ng" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-    <activity
-        android:name=".MainActivity"
-        android:theme="@style/MiTemaRecurso" />
-    <activity android:name=".Splash">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MiTemaRecurso" />
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    <activity
-        android:name=".Inicio_Sesion"
-        android:theme="@style/AppTheme.Dark" />
-    <activity
-        android:name=".Registro"
-        android:theme="@style/AppTheme.Dark" />
-    <activity
-        android:name=".RecursoDetalle"
-        android:label="@string/title_activity_recurso_detalle"
-        android:theme="@style/MiTemaRecurso" />
-    <activity
-        android:name=".MapsActivity"
-        android:label="@string/title_activity_recurso_detalle"
-        android:theme="@style/MiTemaRecurso" />
-    <activity android:name=".ContactoActivity"></activity>
-    <activity android:name=".PreguntasFrecuentes"></activity>
-    <activity android:name=".GalleriaRecurso"></activity>
-    <activity android:name=".MasInformacion"></activity>
-    <activity android:name=".ComentarioActivity"></activity>
-    <activity android:name=".Contrasenia" android:theme="@style/AppTheme.Dark" />
-
-
-
-
-</application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Inicio_Sesion"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".Registro"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".RecursoDetalle"
+            android:label="@string/title_activity_recurso_detalle"
+            android:theme="@style/MiTemaRecurso" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_recurso_detalle"
+            android:theme="@style/MiTemaRecurso" />
+        <activity android:name=".ContactoActivity" />
+        <activity android:name=".PreguntasFrecuentes" />
+        <activity android:name=".GalleriaRecurso" />
+        <activity android:name=".MasInformacion" />
+        <activity android:name=".ComentarioActivity" />
+        <activity
+            android:name=".Contrasenia"
+            android:theme="@style/AppTheme.Dark" />
+        <activity android:name=".Multimedia"></activity>
+    </application>
 
 </manifest>

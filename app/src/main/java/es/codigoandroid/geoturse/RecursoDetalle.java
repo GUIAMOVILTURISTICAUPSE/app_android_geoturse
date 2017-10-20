@@ -44,7 +44,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Stream;
+
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Comentario;
@@ -56,7 +56,7 @@ public class RecursoDetalle extends AppCompatActivity {
     private TextView direccion,descripcion, canton, parroquia;
     private ImageView imagen;
     private Button rutaBtnn, senderoBtnn, galeriaBtnn;
-    private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn, masInfoBtn, comentarioBtn;
+    private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn, masInfoBtn, comentarioBtn,multimediaBtn;
     Location loc;
 
     private LocationManager locManager;
@@ -94,7 +94,7 @@ public class RecursoDetalle extends AppCompatActivity {
         galeriaBtn = (ImageButton) findViewById(R.id.btn_galeriaR);
         masInfoBtn = (ImageButton) findViewById(R.id.btn_masinfoR);
         comentarioBtn = (ImageButton) findViewById(R.id.btn_comentarioR);
-
+        multimediaBtn =(ImageButton) findViewById(R.id.btn_multimedia);
 
 
         String mostrarR = getIntent().getExtras().getString("recurso");
@@ -116,21 +116,23 @@ public class RecursoDetalle extends AppCompatActivity {
        else
            Glide.with(this).load("http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/salinas_1.jpg?itok=DZ7NxVqH").into(imagen);
 
-
-         //obtenerImagen("https://www.googleapis.com/download/storage/v1/b/guiamovilse_recursos_storage/o/ImgPrincipalOriginal?generation=1506101548540508&alt=media");
-        //recursoAlmacenado.getImagenPrincipal().getUrl();
-        //Glide.with(this).load(recursoAlmacenado.getImagenPrinc().getUrl()).into(imagen);
         direccion.setText("Dirección: "+recursoAlmacenado.getDireccion());
         descripcion.setText(recursoAlmacenado.getDescripcion());
         canton.setText("Cantón: "+recursoAlmacenado.getCanton());
         parroquia.setText("Parroquia: "+recursoAlmacenado.getParroquia());
 
+        comentarioBtn.setVisibility(View.INVISIBLE);
+
         senderoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (recursoAlmacenado.getSendero().size()>0){
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
                 startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), " No existen senderos en este recurso" , Toast.LENGTH_SHORT).show();
+                }
             }
         });
         rutaBtn.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +192,15 @@ public class RecursoDetalle extends AppCompatActivity {
               /*  Intent intent = new Intent(getApplicationContext(), ComentarioActivity.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
                 startActivity(intent);*/
+            }
+        });
+        multimediaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), Multimedia.class);
+                intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                startActivity(intent);
             }
         });
 

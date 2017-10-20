@@ -3,6 +3,7 @@ package es.codigoandroid.geoturse;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.AppBarLayout;
@@ -18,7 +19,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ErrorFragment.OnFragmentInteractionListener {
 
     private LocationManager locManager;
     AlertDialog alert = null;
@@ -170,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri){
+
+    }
 
 
 

@@ -2,4 +2,7 @@
     <string name="app_name">GeoTurSE</string>
     <string name="title_activity_recrusos2">Recrusos2</string>
     <string name="title_activity_recurso_detalle">RecursoDetalle</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="error_NoGooglePlayStore">Error, dispositivo no tiene Google Play Services instalado. Fallo en Mapa.</string>
 </resources>

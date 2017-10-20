@@ -4,6 +4,10 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.widget.Toast;
+
+import es.codigoandroid.geoturse.
+        helper.GeneralHelper;
 
 
 public class Adaptador_ViewPagerPrincipal extends FragmentPagerAdapter {
@@ -29,7 +33,11 @@ public class Adaptador_ViewPagerPrincipal extends FragmentPagerAdapter {
         switch (position) {
 
             case 0: // siempre empieza desde 0
-
+                if(!GeneralHelper.checkPlayServices(contexto))
+                {
+                    Toast.makeText(contexto, "Error, dispositivo no tiene Google Play Services instalado.", Toast.LENGTH_LONG);
+                    return new ErrorFragment();
+                }
                 return new Fragment_seccion1();
             case 1:
 

@@ -74,19 +74,20 @@ public class MasInformacion extends AppCompatActivity {
         if(recursoAlmacenado.getSeguridad()!= null)
             tv_seguridad.setText(recursoAlmacenado.getSeguridad());
 
+        if(facR.size()>0)
         for(Facilidad fa: facR)
             if(fa!=null)
                 tv_facilidades.setText(tv_facilidades.getText().toString()+"\n"+fa.getTitulo()+"\n"+fa.getDescripcion());
 
+        if(idioR.size()>0)
         for(Idiomas idi: idioR)
             if(idi!=null)
                 tv_idiomas.setText(tv_idiomas.getText()+"\n"+idi.name());
-
+/*        if(accR.size()>0)
         for(AccesibilidadRecurso ac: accR)
             if(ac!=null)
                 tv_accesibilidad.setText(tv_accesibilidad.getText()+"\n"+ac.getTitulo()+": "+ac.getDescripcion());
-
-
+*/
 
     }
 

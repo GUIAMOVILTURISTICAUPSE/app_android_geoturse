@@ -22,8 +22,8 @@ public class Registro extends AppCompatActivity {
 
     @Bind(R.id.input_name)
     EditText nameText;
-    @Bind(R.id.input_address)
-    EditText addressText;
+   // @Bind(R.id.input_address)
+  //  EditText addressText;
     @Bind(R.id.input_email)
     EditText emailText;
     @Bind(R.id.input_mobile)
@@ -75,7 +75,7 @@ public class Registro extends AppCompatActivity {
         signupButton.setEnabled(false);
 
         String name = nameText.getText().toString();
-        String address = addressText.getText().toString();
+       // String address = addressText.getText().toString();
         String email = emailText.getText().toString();
         String mobile = mobileText.getText().toString();
         String password = passwordText.getText().toString();
@@ -84,7 +84,7 @@ public class Registro extends AppCompatActivity {
         Usuario usuarioIngresado = new Usuario();
         usuarioIngresado.setEmail(email);
         usuarioIngresado.setNombre(name);
-        usuarioIngresado.setDireccion(address);
+       // usuarioIngresado.setDireccion(address);
         usuarioIngresado.setTelefono(mobile);
         usuarioIngresado.setContraseniaHash(password);
         dbaUsuario.save(usuarioIngresado);
@@ -133,7 +133,7 @@ public class Registro extends AppCompatActivity {
         boolean valid = true;
 
         String name = nameText.getText().toString();
-        String address = addressText.getText().toString();
+      //  String address = addressText.getText().toString();
         String email = emailText.getText().toString();
         String mobile = mobileText.getText().toString();
         String password = passwordText.getText().toString();
@@ -146,12 +146,12 @@ public class Registro extends AppCompatActivity {
             nameText.setError(null);
         }
 
-        if (address.isEmpty()) {
+      /*  if (address.isEmpty()) {
             addressText.setError("ingrese una direccion");
             valid = false;
         } else {
             addressText.setError(null);
-        }
+        }*/
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.setError("ingrese un correo valido");

@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="es.codigoandroid.geoturse.ListaVideo">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/primary_dark"
+        android:elevation="0dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme">
+
+
+        <TextView
+            android:id="@+id/texto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="VIDEOS RECURSO"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="30sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </android.support.v7.widget.Toolbar>
+
+        <ListView
+            android:id="@+id/listav"
+            android:layout_width="match_parent"
+            android:layout_height="475dp"
+            android:layout_below="@+id/toolbar3"
+             />
+
+
+    </RelativeLayout>
+</ScrollView>

@@ -216,7 +216,8 @@ public class RecursoDetalle extends AppCompatActivity {
                     intent.putExtra("recurso", recursoAlmacenado.getNombre());
                     intent.putExtra("total",totalVideos);
                     startActivity(intent);
-                }
+                }else
+                    Toast.makeText(getApplicationContext(), "Oh no!, No existen videos del recurso!" , Toast.LENGTH_SHORT).show();
             }
 
         });

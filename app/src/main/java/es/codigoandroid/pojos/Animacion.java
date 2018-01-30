@@ -4,11 +4,13 @@ package es.codigoandroid.pojos;
 
 public class Animacion {
     private String _id;
-    private TipoAnimacion tipoAnimacion;
+    private TipoAnimacion tipo;
     private String titulo;
+    private String url;
     private String descripcion;
-    private String base64;
+
     private String path;
+
 
     public Animacion() {
     }
@@ -21,13 +23,22 @@ public class Animacion {
         this._id = _id;
     }
 
-    public TipoAnimacion getTipoAnimacion() {
-        return tipoAnimacion;
+    public TipoAnimacion getTipo() {
+        return tipo;
     }
 
-    public void setTipoAnimacion(TipoAnimacion tipoAnimacion) {
-        this.tipoAnimacion = tipoAnimacion;
+    public void setTipo(TipoAnimacion tipo) {
+        this.tipo = tipo;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
 
     public String getTitulo() {
         return titulo;
@@ -45,13 +56,6 @@ public class Animacion {
         this.descripcion = descripcion;
     }
 
-    public String getBase64() {
-        return base64;
-    }
-
-    public void setBase64(String base64) {
-        this.base64 = base64;
-    }
 
     public String getPath() {
         return path;

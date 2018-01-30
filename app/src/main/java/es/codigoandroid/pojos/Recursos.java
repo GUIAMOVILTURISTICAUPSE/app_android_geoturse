@@ -26,7 +26,11 @@ public class Recursos {
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
     private ArrayList<Senderos> sendero = new ArrayList<Senderos>();//Utilizo
     private String personaEncargada;
-    private String url_video;
+
+  //  private String url_video;
+
+    private ArrayList<Animacion> animaciones =new ArrayList<Animacion>();
+
 
     //private String _id;
 
@@ -53,6 +57,8 @@ public class Recursos {
     private String seguridad;
 
 
+
+
     //constructor por defecto
     public Recursos(){
 
@@ -63,6 +69,18 @@ public class Recursos {
         this.direccion = direccion;
         this.posicion = posicion;
     }
+
+
+
+
+    public ArrayList<Animacion> getAnimaciones() {
+        return animaciones;
+    }
+
+    public void setAnimaciones(ArrayList<Animacion> animaciones) {
+        this.animaciones = animaciones;
+    }
+
 
     //getters and setters
 
@@ -331,14 +349,14 @@ public class Recursos {
         this.tiposParqueo = tiposParqueo;
     }
 
-    public String getUrl_video() {
+   /* public String getUrl_video() {
         return url_video;
     }
 
     public void setUrl_video(String url_video) {
         this.url_video = url_video;
     }
-
+*/
 
     public double latitud(){
         double latitud;

@@ -36,11 +36,14 @@ public class Fragment_seccion3 extends Fragment {
     private EditText input_name_edit, input_address_edit, input_email_edit,
             input_mobile_edit, input_password_edit, input_reEnterPassword_edit;
     private Button btn_edit_usuario;
+    private Button cerrarSesion;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
 
         View vista = inflater.inflate(R.layout.fragment_seccion3, container, false);
         input_name_edit = (EditText) vista.findViewById(R.id.input_name_edit);
@@ -51,12 +54,17 @@ public class Fragment_seccion3 extends Fragment {
         input_reEnterPassword_edit = (EditText) vista.findViewById(R.id.input_reEnterPassword_edit);
         btn_edit_usuario = (Button) vista.findViewById(R.id.btn_edit_usuario);
 
+
+
+
+
         input_name_edit.setEnabled(false);
         input_address_edit.setEnabled(false);
         input_email_edit.setEnabled(false);
         input_mobile_edit.setEnabled(false);
         input_password_edit.setEnabled(false);
         input_reEnterPassword_edit.setEnabled(false);
+
 
         if (getActivity().getIntent().getExtras() != null) {
             Bundle bundle = getActivity().getIntent().getExtras();
@@ -80,6 +88,7 @@ public class Fragment_seccion3 extends Fragment {
 
             }
         }
+
 
         btn_edit_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +157,8 @@ public class Fragment_seccion3 extends Fragment {
                         input_reEnterPassword_edit.setEnabled(false);
                     }
                 }
+
+
             }
         });
         //  "Inflamos" el archivo XML correspondiente a esta sección.

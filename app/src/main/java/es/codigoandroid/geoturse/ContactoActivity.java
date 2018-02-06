@@ -24,8 +24,6 @@ public class ContactoActivity extends AppCompatActivity {
 
     private Contacto contBuscar = new Contacto();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -4,6 +4,8 @@ package es.codigoandroid.pojos;
  * Created by Alvaro on 21/12/2016.
  */
 
+import android.widget.Button;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

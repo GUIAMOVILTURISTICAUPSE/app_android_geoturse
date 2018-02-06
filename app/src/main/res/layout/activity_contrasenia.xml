@@ -35,7 +35,9 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:hint="Correo"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatButton

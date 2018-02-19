@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Usuario;
@@ -20,21 +20,23 @@ public class Registro extends AppCompatActivity {
     private static final String TAG = "Registro";
     CouchbaseManager<String, Usuario> dbaUsuario;
 
-    @Bind(R.id.input_name)
+    @BindView(R.id.input_name)
     EditText nameText;
-   // @Bind(R.id.input_address)
-  //  EditText addressText;
-    @Bind(R.id.input_email)
+
+    /*@BindView(R.id.input_address)
+    EditText addressText;*/
+   // @BindView(R.id.input_email)
+
     EditText emailText;
-    @Bind(R.id.input_mobile)
+    @BindView(R.id.input_mobile)
     EditText mobileText;
-    @Bind(R.id.input_password)
+    @BindView(R.id.input_password)
     EditText passwordText;
-    @Bind(R.id.input_reEnterPassword)
+    @BindView(R.id.input_reEnterPassword)
     EditText reEnterPasswordText;
-    @Bind(R.id.btn_signup)
+    @BindView(R.id.btn_signup)
     Button signupButton;
-    @Bind(R.id.link_login)
+    @BindView(R.id.link_login)
     TextView loginLink;
     
     @Override

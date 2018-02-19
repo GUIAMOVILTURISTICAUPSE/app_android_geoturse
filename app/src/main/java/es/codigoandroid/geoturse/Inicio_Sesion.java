@@ -1,8 +1,10 @@
 package es.codigoandroid.geoturse;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Usuario;
@@ -40,24 +43,45 @@ public class Inicio_Sesion extends AppCompatActivity {
     private LocationManager locManager;
     AlertDialog alert = null;
 
+
+    ;
+
     private Database database;
 
-    @Bind(R.id.input_email)
+    @BindView(R.id.input_email)
     EditText emailText;
-    @Bind(R.id.input_password)
+    @BindView(R.id.input_password)
     EditText passwordText;
-    @Bind(R.id.btn_login)
+    @BindView(R.id.btn_login)
     Button loginButton;
-    @Bind(R.id.link_signup)
+    @BindView(R.id.link_signup)
     TextView signupLink;
-    @Bind(R.id.link_cambio)
+    @BindView(R.id.link_cambio)
     TextView cambioLink;
-    
+
+    private RadioButton RBsesion;
+    private boolean isActivateButton;
+    private  static  final String STRING_PREFERENCES = "Configuracion";
+    private  static  final String PREFERENCES_ESTADO_BUTTON_SECCION= "estado.button.sesion";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
         ButterKnife.bind(this);
+        CargarPreferencias();
+
+if(obtenerEstadoButton()){
+
+    Intent intent = new Intent(this, MainActivity.class);
+    Bundle b = new Bundle();
+    b.putString("_usuario", emailText.getText().toString());
+    intent.putExtras(b);
+    startActivity(intent);
+    finish();
+}
+
+
+
 
         if(checkAndRequestPermissions()) {
             dbaUsuario = new CouchbaseManager<String, Usuario>(this, Usuario.class);
@@ -84,6 +108,20 @@ public class Inicio_Sesion extends AppCompatActivity {
                 AlertNoGps();
             }
         }
+
+        RBsesion= (RadioButton) findViewById(R.id.RBsesion);
+
+        isActivateButton= RBsesion.isChecked(); // Desactivado
+        RBsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if(isActivateButton){
+                   RBsesion.setChecked(false);
+               }
+               isActivateButton=RBsesion.isChecked();
+            }
+        });
+
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +155,52 @@ public class Inicio_Sesion extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+    }
+
+    public static void changeEstadoCambiar(Context c,boolean b){
+        SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCES_ESTADO_BUTTON_SECCION,b).apply();
+
+
+    }
+
+    public void CargarPreferencias(){
+        SharedPreferences miPreferencia = getSharedPreferences(STRING_PREFERENCES, Context.MODE_PRIVATE);
+        emailText.setText(miPreferencia.getString("usuario",""));
+        //FIXME CLAVE TEXTO EN PLANO. PREGUNTAR A CARMEN SI ENCRIPTA LA CLAVE
+        passwordText.setText(miPreferencia.getString("clave",""));
+        if(emailText.getText().length()!=0 && passwordText.getText().length()!=0)
+            checkAndRequestPermissions();
+
+    }
+
+
+
+
+    public void GuardarPreferencias(){
+        SharedPreferences miPreferencia = getSharedPreferences(STRING_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = miPreferencia.edit();
+        String Str_usuario  = emailText.getText().toString();
+        String Str_Clave  = passwordText.getText().toString();
+        editor.putString("usuario", Str_usuario);
+        editor.putString("clave", Str_Clave);
+        editor.commit();
+    }
+
+    public  void  guardarEstadoButton(){
+
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCES_ESTADO_BUTTON_SECCION,RBsesion.isChecked()).apply();
+        GuardarPreferencias();
+    }
+
+    public boolean obtenerEstadoButton(){
+
+        SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+
+      return   preferences.getBoolean(PREFERENCES_ESTADO_BUTTON_SECCION, false);
+
+
     }
 
     public void login() {
@@ -171,6 +255,7 @@ public class Inicio_Sesion extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
+        guardarEstadoButton();
         loginButton.setEnabled(true);
         //finish();
         Intent intent = new Intent(this, MainActivity.class);
@@ -178,6 +263,7 @@ public class Inicio_Sesion extends AppCompatActivity {
         b.putString("_usuario", emailText.getText().toString());
         intent.putExtras(b);
         startActivity(intent);
+      // CargarPreferencias();
         finish();
     }
 
@@ -187,6 +273,10 @@ public class Inicio_Sesion extends AppCompatActivity {
 
         loginButton.setEnabled(true);
     }
+
+
+
+
 
     public boolean validate() {
         boolean valid = true;

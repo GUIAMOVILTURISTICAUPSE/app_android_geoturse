@@ -24,7 +24,9 @@
     </android.support.design.widget.AppBarLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:typeface="serif"
+        >
 
         <RelativeLayout
             android:id="@+id/parent"
@@ -57,12 +59,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/seleccionada"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="1dp"
                 android:textSize="18sp"
                 android:textStyle="italic"
-                android:typeface="serif"/>
-
-
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:typeface="serif"
+                />
         </RelativeLayout>
 
     </ScrollView>

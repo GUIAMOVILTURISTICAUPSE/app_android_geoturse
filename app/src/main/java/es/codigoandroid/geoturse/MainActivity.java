@@ -1,7 +1,9 @@
 package es.codigoandroid.geoturse;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,9 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,18 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
     //Log
     private final String TAG = getClass().getSimpleName();
+    private  static  final String MyPreferencia = "Configuracion";
 
+    private Button cerrarSesion;
 
     private Adaptador_ViewPagerPrincipal Adaptador_ViewPagerPrincipal;
     //private ViewPager ViewPager;
-
-    @Bind(R.id.ToolbarPrincipal)
+   // private Button cerrarSesion;
+    @BindView(R.id.ToolbarPrincipal)
     Toolbar toolbar;
-    @Bind(R.id.AppbarPrincipal)
+    @BindView(R.id.AppbarPrincipal)
     AppBarLayout appbar;
-    @Bind(R.id.TabLayoutPrincipal)
+    @BindView(R.id.TabLayoutPrincipal)
     TabLayout tabLayout;
-    @Bind(R.id.ViewPagerPrincipal)
+    @BindView(R.id.ViewPagerPrincipal)
     ViewPager ViewPager;
 
     @Override
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
 
         // Iniciamos la barra de herramientas.
         //Toolbar toolbar = (Toolbar) findViewById(R.id.ToolbarPrincipal);
@@ -93,7 +100,28 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.list);
         tabLayout.getTabAt(2).setIcon(R.drawable.account);
 
+        cerrarSesion =(Button) findViewById(R.id.cerrarSesion);
+        cerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Inicio_Sesion.changeEstadoCambiar(MainActivity.this, false);
+                Intent intent = new Intent(MainActivity.this, Inicio_Sesion.class);
+                startActivity(intent);
+                SharedPreferences miPreferencia = getSharedPreferences(MainActivity.MyPreferencia, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = miPreferencia.edit();
+
+                finish();
+                editor.clear();
+                editor.commit();
+
+
+
+            }
+        });
+
     }
+
+
 
     private void AlertNoGps(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);

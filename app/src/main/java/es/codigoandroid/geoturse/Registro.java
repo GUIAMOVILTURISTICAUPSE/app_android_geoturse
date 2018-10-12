@@ -25,8 +25,7 @@ public class Registro extends AppCompatActivity {
 
     /*@BindView(R.id.input_address)
     EditText addressText;*/
-   // @BindView(R.id.input_email)
-
+   @BindView(R.id.input_email)
     EditText emailText;
     @BindView(R.id.input_mobile)
     EditText mobileText;

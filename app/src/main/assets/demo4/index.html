@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <!--  basic meta information -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="application/json; charset=utf-8">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes" name="viewport">
+
+    <title>My ARchitect World</title>
+
+    <script src="https://www.wikitude.com/libs/architect.js"></script>
+     <script >
+         function locationChanged(lat,lon,alt,acc){
+            var marker_image=new AR.ImageResource("assets/playa.gif");
+            var marker_loc = new AR.GeoLocation(lat, lon, alt);
+            var marker_drawable = new AR.ImageDrawable(marker_image,6);
+            var marker_object = new AR.GeoObject(marker_loc,{
+                drawables:{
+                    cam: [marker_drawable]
+                }
+            });
+         }
+    AR.context.onLocationChanged=locationChanged;
+
+    </script>
+
+</head>
+
+<body>
+
+
+<script >
+    var World = {
+    loaded: false,
+    rotating: false,
+
+    init: function initFn() {
+        this.createOverlays();
+    },
+
+    createOverlays: function createOverlaysFn() {
+              this.targetCollectionResource = new AR.TargetCollectionResource("assets/tracker.wtc", {
+            onError: World.onError
+        });
+
+         this.tracker = new AR.ImageTracker(this.targetCollectionResource, {
+            onTargetsLoaded: World.showInfoBar,
+            onError: World.onError
+        });
+
+        this.modelCar = new AR.Model("assets/car.wt3", {
+            onLoaded: World.showInfoBar,
+            onError: World.onError,
+            scale: {
+                x: 0.045,
+                y: 0.045,
+                z: 0.045
+            },
+            translate: {
+                x: 0.0,
+                y: 0.05,
+                z: 0.0
+            },
+            rotate: {
+                z: -25
+            }
+        });
+
+        this.trackable = new AR.ImageTrackable(this.tracker, "*", {
+            drawables: {
+                cam: [this.modelCar]
+            },
+            onImageRecognized: World.hideInfoBar,
+            onError: World.onError
+        });
+    }
+};
+
+World.init();
+
+
+</script>
+
+</body>
+
+</html>

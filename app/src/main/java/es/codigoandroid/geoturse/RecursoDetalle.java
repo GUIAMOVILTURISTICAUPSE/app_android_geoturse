@@ -4,18 +4,14 @@ package es.codigoandroid.geoturse;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,16 +27,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -48,7 +34,6 @@ import java.util.concurrent.ExecutionException;
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Animacion;
-import es.codigoandroid.pojos.Comentario;
 import es.codigoandroid.pojos.Recursos;
 import es.codigoandroid.pojos.TipoAnimacion;
 
@@ -58,7 +43,7 @@ public class RecursoDetalle extends AppCompatActivity {
     private TextView direccion,descripcion, canton, parroquia;
     private ImageView imagen;
     private Button rutaBtnn, senderoBtnn, galeriaBtnn;
-    private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn, masInfoBtn, comentarioBtn,multimediaBtn;
+    private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn, masInfoBtn, comentarioBtn,multimediaBtn,realidadAumentadaBtn;
     Location loc;
 
     private ArrayList<Animacion> listaAnimacion;//para pruebas
@@ -101,11 +86,10 @@ public class RecursoDetalle extends AppCompatActivity {
         masInfoBtn = (ImageButton) findViewById(R.id.btn_masinfoR);
       //  comentarioBtn = (ImageButton) findViewById(R.id.btn_comentarioR);
         multimediaBtn =(ImageButton) findViewById(R.id.btn_multimedia);
-
+        realidadAumentadaBtn = (ImageButton)findViewById(R.id.btn_realidadAumentada);
 
         String mostrarR = getIntent().getExtras().getString("recurso");
         toolbar.setTitle(mostrarR);
-
 
         final Recursos recursoAlmacenado = dbaRecurso.get(mostrarR);
         //prueba(recursoAlmacenado);
@@ -129,9 +113,11 @@ public class RecursoDetalle extends AppCompatActivity {
         canton.setText("Cantón: "+recursoAlmacenado.getCanton());
         parroquia.setText("Parroquia: "+recursoAlmacenado.getParroquia());
 
-        final int totalVideos = verVideos(recursoAlmacenado);
+        //cantidad numerica de los objetos existentes para validación
+        final int totalVideos = verTotalVideos(recursoAlmacenado);
+        final int totalRealidadAumentada = verTotalRealidadAumentada(recursoAlmacenado);
 
-//        comentarioBtn.setVisibility(View.INVISIBLE);
+        // comentarioBtn.setVisibility(View.INVISIBLE);
 
         senderoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +208,19 @@ public class RecursoDetalle extends AppCompatActivity {
 
         });
 
+        realidadAumentadaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(totalRealidadAumentada >0) {
+                    Intent intent = new Intent(getApplicationContext(), RealidadAumentada.class);
+                    intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                    startActivity(intent);
+                }else
+                    Toast.makeText(getApplicationContext(), "Oh no!, No realidad aumentada en el recurso!" , Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
     }
 
 
@@ -237,33 +236,39 @@ public class RecursoDetalle extends AppCompatActivity {
         listaAnimacion.add(animacion);
         r.setAnimaciones(listaAnimacion);
     }
-public int verVideos(Recursos r){
-    int x=0;
-    for(Animacion a: r.getAnimaciones()) {
-        if (a.getTipo().name() =="VIDEO") {
-            x++;
+
+    public int verTotalVideos(Recursos r){
+        int x=0;
+        for(Animacion a: r.getAnimaciones()) {
+            if (a.getTipo().name() =="VIDEO") {
+                x++;
+            }
         }
+     return x;
     }
- return x;
-}
+
+    public int verTotalRealidadAumentada(Recursos r){
+        int x=0;
+        for(Animacion a: r.getAnimaciones()) {
+            if (a.getTipo().name() =="REALIDAD_AUMENTADA") {
+                x++;
+            }
+        }
+        return x;
+    }
 
 
     private void obtenerImagen(String myfeed) {
-
       try {
-
         BackgroundTask task =new BackgroundTask();
         task.execute(myfeed);
         Bitmap imag= task.get();
           imagen.setImageBitmap(imag);
-         // Toast.makeText(this, "Entro pero no funciona :( xD  " , Toast.LENGTH_LONG).show();
-
        } catch (InterruptedException e) {
           e.printStackTrace();
       } catch (ExecutionException e) {
           e.printStackTrace();
       }
-
     }
 
 
@@ -276,7 +281,6 @@ public int verVideos(Recursos r){
 
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
     }
 
     private void registerLocation(){

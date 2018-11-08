@@ -24,124 +24,166 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="684dp"
+        android:scrollbars="vertical" >
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="607dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="60dp"
             android:orientation="vertical"
+            android:scrollbars="vertical"
             android:weightSum="1"><![CDATA[
 
 
-        android:layout_width="400dp"
-        android:layout_height="200dp">
+    android:layout_width="400dp"
+    android:layout_height="200dp">
 
-        ]]>
+    ]]>
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="79dp"
+            android:layout_weight="0.02"
+            android:orientation="horizontal"
+            android:scrollbars="vertical"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="122dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:gravity="fill_horizontal|center"
+                android:text=" Accesibilidad: "
+                android:textSize="13sp"
+                android:textStyle="italic"
+                android:typeface="sans" />
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="85dp"
+                android:layout_height="80dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/accesibilidad" />
+
+            <TextView
+                android:id="@+id/tv_accesibilidad"
+                android:layout_width="178dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:layout_weight="0.01"
+                android:gravity="start|center"
+                android:padding="2dp"
+                android:scrollbars="vertical"
+                android:text="Rampas \nsillas de ruedas\nEscaleras\nr\nrr\n"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                android:typeface="serif" />
+
+
+            <!-- google app engine
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_weight="0.02"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_height="513dp"
+                android:layout_weight="16.88">
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:text=" Accesibilidad: "
-                    android:textSize="13sp"
-                    android:textStyle="italic"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/tv_accesibilidad"
-                    android:layout_width="172dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.01"
-                    android:gravity="top|center"
-                    android:layout_gravity="center"
-                    android:text="Rampas sillas de ruedas"
-                    android:textSize="13sp"
-                    android:textStyle="italic"
-                    android:typeface="serif" />
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="513dp"
-                    android:layout_weight="16.88">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </ScrollView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
-            </LinearLayout>
+            </ScrollView> -->
+
+        </LinearLayout>
 
 
             <LinearLayout
 
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="0.02"
                 android:orientation="horizontal"
+                android:scrollbars="vertical"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView4"
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
+                    android:layout_width="95dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:text=" Tipo de recurso: "
+                    android:layout_weight="0.17"
+                    android:gravity="fill_horizontal|center"
+                    android:text=" Tipo \n Recurso"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="87dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="0.17"
+                    android:paddingTop="2dp"
+                    app:srcCompat="@drawable/recursos" />
 
                 <TextView
                     android:id="@+id/tv_tipoRecurso"
-                    android:layout_width="172dp"
-                    android:layout_height="30dp"
+                    android:layout_width="178dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:layout_weight="0.17"
-                    android:gravity="center"
+                    android:layout_weight="0.01"
+                    android:gravity="start|center"
+                    android:padding="2dp"
+                    android:scrollbars="vertical"
                     android:text="Cultural_religioso_turistico"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
+                android:scrollbars="vertical"
                 android:weightSum="1">
 
                 <TextView
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
+                    android:layout_width="94dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:gravity="fill_horizontal|center"
                     android:text=" Acceso: "
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/acceso" />
+
                 <TextView
                     android:id="@+id/tv_acceso"
-                    android:layout_width="175dp"
-                    android:layout_height="30dp"
+                    android:layout_width="178dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:layout_weight="0.23"
-                    android:gravity="center"
+                    android:layout_weight="0.01"
+                    android:gravity="start|center"
+                    android:padding="2dp"
+                    android:scrollbars="vertical"
                     android:text="Publico o privado"
                     android:textSize="13sp"
                     android:textStyle="italic"
@@ -150,29 +192,41 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="65dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
+                android:scrollbars="vertical"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView8"
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:gravity="center"
-                    android:text=" Infraestructura de Acceso: "
+                    android:gravity="fill_horizontal|center"
+                    android:text=" Infraestructura\nAcceso: "
                     android:textAllCaps="false"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="90dp"
+                    android:layout_height="65dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/estructur" />
+
                 <TextView
                     android:id="@+id/tv_Infraestructura"
-                    android:layout_width="175dp"
-                    android:layout_height="30dp"
+                    android:layout_width="178dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:layout_weight="0.23"
-                    android:gravity="center"
+                    android:layout_weight="0.01"
+                    android:gravity="start|center"
+                    android:padding="2dp"
+                    android:scrollbars="vertical"
                     android:text="Terretre o Acuatico"
                     android:textSize="13sp"
                     android:textStyle="italic" />
@@ -181,57 +235,81 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:scrollbars="vertical"
                 android:weightSum="1">
 
                 <TextView
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
+                    android:layout_width="97dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:gravity="fill_horizontal|center"
                     android:text=" Parqueos: "
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="84dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/parqueos" />
+
                 <TextView
                     android:id="@+id/tv_parqueos"
-                    android:layout_width="172dp"
-                    android:layout_height="30dp"
+                    android:layout_width="178dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:layout_weight="0.01"
+                    android:gravity="start|center"
+                    android:padding="2dp"
+                    android:scrollbars="vertical"
                     android:text="____-------_____"
                     android:textSize="13sp"
                     android:textStyle="italic"
-                    android:typeface="serif"
-                    android:layout_weight="0.27" />
+                    android:typeface="serif" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
+                android:scrollbars="vertical"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
+                    android:layout_width="95dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:gravity="fill_horizontal|center"
                     android:text=" Facilidades: "
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/facilidades" />
+
                 <TextView
                     android:id="@+id/tv_facilidades"
-                    android:layout_width="172dp"
-                    android:layout_height="30dp"
+                    android:layout_width="178dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:layout_weight="0.29"
-                    android:gravity="center"
-                    android:text=" Baños, Restaurantes"
+                    android:layout_weight="0.01"
+                    android:gravity="start|center"
+                    android:padding="2dp"
+                    android:scrollbars="vertical"
+                    android:text=" Baños\nRestaurantes"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -240,29 +318,40 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
+                android:scrollbars="vertical"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView6"
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
+                    android:layout_width="101dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:gravity="fill_horizontal|center"
                     android:text=" Seguridad: "
-
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="67dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/seguridad" />
+
                 <TextView
                     android:id="@+id/tv_seguridad"
-                    android:layout_width="175dp"
-                    android:layout_height="31dp"
+                    android:layout_width="178dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:layout_weight="0.25"
-                    android:gravity="top|center"
+                    android:layout_weight="0.01"
+                    android:gravity="start|center"
+                    android:padding="2dp"
+                    android:scrollbars="vertical"
                     android:text="____-------_____"
                     android:textSize="13sp"
                     android:textStyle="italic"
@@ -271,30 +360,41 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
+                android:scrollbars="vertical"
                 android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView7"
-                    android:layout_width="170dp"
-                    android:layout_height="30dp"
+                    android:layout_width="101dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:gravity="fill_horizontal|center"
                     android:text=" Idiomas: "
-
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="83dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/idomas" />
+
                 <TextView
                     android:id="@+id/tv_idiomas"
-                    android:layout_width="175dp"
-                    android:layout_height="33dp"
+                    android:layout_width="178dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
-                    android:layout_weight="0.17"
-                    android:gravity="top"
-                    android:text="____-------_____"
+                    android:layout_weight="0.01"
+                    android:gravity="start|center"
+                    android:padding="2dp"
+                    android:scrollbars="vertical"
+                    android:text="Rampas \nsillas de ruedas\nEscaleras\nr\nrr\n"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -302,5 +402,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </android.support.design.widget.CoordinatorLayout>

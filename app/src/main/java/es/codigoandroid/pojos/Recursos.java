@@ -26,6 +26,8 @@ public class Recursos {
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
     private ArrayList<Senderos> sendero = new ArrayList<Senderos>();//Utilizo
     private String personaEncargada;
+    private String acceso;
+    private String infraestructura;
 
   //  private String url_video;
 
@@ -181,6 +183,21 @@ public class Recursos {
         this.costoRecursos = costoRecursos;
     }
 
+    public String getAcceso() {
+        return acceso;
+    }
+
+    public void setAcceso(String acceso) {
+        this.acceso = acceso;
+    }
+
+
+    public String getInfraestructura() {       return infraestructura;    }
+
+    public void setInfraestructura(String infraestructura) {
+        this.infraestructura = infraestructura;
+    }
+
     public ArrayList<AccesibilidadRecurso> getOpcionesAccesibilidad() {
         return opcionesAccesibilidad;
     }
@@ -228,7 +245,6 @@ public class Recursos {
     public void setGaleria(ArrayList<Imagen> galeria) {
         this.galeria = galeria;
     }
-
 
 
     public ArrayList<Senderos> getSendero() {
@@ -357,6 +373,8 @@ public class Recursos {
         this.url_video = url_video;
     }
 */
+
+
 
     public double latitud(){
         double latitud;

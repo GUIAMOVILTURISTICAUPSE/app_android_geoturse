@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Usuario;
@@ -20,21 +20,22 @@ public class Registro extends AppCompatActivity {
     private static final String TAG = "Registro";
     CouchbaseManager<String, Usuario> dbaUsuario;
 
-    @Bind(R.id.input_name)
+    @BindView(R.id.input_name)
     EditText nameText;
-    @Bind(R.id.input_address)
-    EditText addressText;
-    @Bind(R.id.input_email)
+
+    /*@BindView(R.id.input_address)
+    EditText addressText;*/
+   @BindView(R.id.input_email)
     EditText emailText;
-    @Bind(R.id.input_mobile)
+    @BindView(R.id.input_mobile)
     EditText mobileText;
-    @Bind(R.id.input_password)
+    @BindView(R.id.input_password)
     EditText passwordText;
-    @Bind(R.id.input_reEnterPassword)
+    @BindView(R.id.input_reEnterPassword)
     EditText reEnterPasswordText;
-    @Bind(R.id.btn_signup)
+    @BindView(R.id.btn_signup)
     Button signupButton;
-    @Bind(R.id.link_login)
+    @BindView(R.id.link_login)
     TextView loginLink;
     
     @Override
@@ -75,7 +76,7 @@ public class Registro extends AppCompatActivity {
         signupButton.setEnabled(false);
 
         String name = nameText.getText().toString();
-        String address = addressText.getText().toString();
+       // String address = addressText.getText().toString();
         String email = emailText.getText().toString();
         String mobile = mobileText.getText().toString();
         String password = passwordText.getText().toString();
@@ -84,7 +85,7 @@ public class Registro extends AppCompatActivity {
         Usuario usuarioIngresado = new Usuario();
         usuarioIngresado.setEmail(email);
         usuarioIngresado.setNombre(name);
-        usuarioIngresado.setDireccion(address);
+       // usuarioIngresado.setDireccion(address);
         usuarioIngresado.setTelefono(mobile);
         usuarioIngresado.setContraseniaHash(password);
         dbaUsuario.save(usuarioIngresado);
@@ -133,7 +134,7 @@ public class Registro extends AppCompatActivity {
         boolean valid = true;
 
         String name = nameText.getText().toString();
-        String address = addressText.getText().toString();
+      //  String address = addressText.getText().toString();
         String email = emailText.getText().toString();
         String mobile = mobileText.getText().toString();
         String password = passwordText.getText().toString();
@@ -146,12 +147,12 @@ public class Registro extends AppCompatActivity {
             nameText.setError(null);
         }
 
-        if (address.isEmpty()) {
+      /*  if (address.isEmpty()) {
             addressText.setError("ingrese una direccion");
             valid = false;
         } else {
             addressText.setError(null);
-        }
+        }*/
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.setError("ingrese un correo valido");

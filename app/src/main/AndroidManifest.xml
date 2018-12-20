@@ -3,7 +3,7 @@
     package="es.codigoandroid.geoturse">
 
     <!-- Copied from Google Maps Library/AndroidManifest.xml. -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -66,7 +66,8 @@
         <activity
             android:name=".Contrasenia"
             android:theme="@style/AppTheme.Dark" />
-        <activity android:name=".Multimedia"></activity>
+        <activity android:name=".Multimedia" />
+        <activity android:name=".ListaVideo" />
     </application>
 
 </manifest>

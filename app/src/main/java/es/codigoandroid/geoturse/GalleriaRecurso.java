@@ -67,7 +67,7 @@ public class GalleriaRecurso extends AppCompatActivity {
                 R.drawable.d, R.drawable.e, R.drawable.f, R.drawable.g
         };
 
-        if(!recursoAlmacenado.getGaleria().isEmpty()){
+       // if(!recursoAlmacenado.getGaleria().isEmpty()){
             Gallery gallery;
             imagen = recursoAlmacenado.getGaleria();
            //int tamanio=imagen.size();//tamaño
@@ -80,11 +80,11 @@ public class GalleriaRecurso extends AppCompatActivity {
             MostrarGaleria(gallery);
 
 
-        }else{
+       /* }else{
             //no existe imagen en recurso
             tv_descripcion = (TextView) findViewById(R.id.tv_descripcion);
             tv_descripcion.setText("No existe imagen de recurso seleccionado!");
-        }
+        }*/
     }
 
 

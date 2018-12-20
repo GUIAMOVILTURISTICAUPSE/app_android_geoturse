@@ -47,8 +47,10 @@ import java.util.concurrent.ExecutionException;
 
 
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
+import es.codigoandroid.pojos.Animacion;
 import es.codigoandroid.pojos.Comentario;
 import es.codigoandroid.pojos.Recursos;
+import es.codigoandroid.pojos.TipoAnimacion;
 
 public class RecursoDetalle extends AppCompatActivity {
     private static final String TAG = "RecursoDetalle";
@@ -58,6 +60,10 @@ public class RecursoDetalle extends AppCompatActivity {
     private Button rutaBtnn, senderoBtnn, galeriaBtnn;
     private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn, masInfoBtn, comentarioBtn,multimediaBtn;
     Location loc;
+
+    private ArrayList<Animacion> listaAnimacion;//para pruebas
+    private Animacion animacion; //para pruebas
+    private TipoAnimacion tipoAnimacion; //para pruebas
 
     private LocationManager locManager;
 
@@ -93,14 +99,16 @@ public class RecursoDetalle extends AppCompatActivity {
         preguntasBtn = (ImageButton) findViewById(R.id.btn_preguntasR);
         galeriaBtn = (ImageButton) findViewById(R.id.btn_galeriaR);
         masInfoBtn = (ImageButton) findViewById(R.id.btn_masinfoR);
-        comentarioBtn = (ImageButton) findViewById(R.id.btn_comentarioR);
+      //  comentarioBtn = (ImageButton) findViewById(R.id.btn_comentarioR);
         multimediaBtn =(ImageButton) findViewById(R.id.btn_multimedia);
 
 
         String mostrarR = getIntent().getExtras().getString("recurso");
         toolbar.setTitle(mostrarR);
 
+
         final Recursos recursoAlmacenado = dbaRecurso.get(mostrarR);
+        //prueba(recursoAlmacenado);
 
         if(recursoAlmacenado.getSendero().size()>0){
             Log.v("Existen senderos", ""+recursoAlmacenado.getSendero().size());
@@ -121,7 +129,9 @@ public class RecursoDetalle extends AppCompatActivity {
         canton.setText("Cantón: "+recursoAlmacenado.getCanton());
         parroquia.setText("Parroquia: "+recursoAlmacenado.getParroquia());
 
-        comentarioBtn.setVisibility(View.INVISIBLE);
+        final int totalVideos = verVideos(recursoAlmacenado);
+
+//        comentarioBtn.setVisibility(View.INVISIBLE);
 
         senderoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,49 +172,81 @@ public class RecursoDetalle extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PreguntasFrecuentes.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
-                //if (recursoAlmacenado.getPreguntasFrecuentes().size()!=0)
+                if (recursoAlmacenado.getPreguntasF().size()!=0)
                 startActivity(intent);
-               // else
-                    //Toast.makeText(getApplicationContext(), " No existen preguntas sobre este recurso" , Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getApplicationContext(), " No existen preguntas sobre este recurso" , Toast.LENGTH_SHORT).show();
 
             }
         });
         galeriaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!recursoAlmacenado.getGaleria().isEmpty()){
                 Intent intent = new Intent(getApplicationContext(), GalleriaRecurso.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
                 startActivity(intent);
+                }else
+                    Toast.makeText(getApplicationContext(), "Oh no!, No existen galeria del recurso!" , Toast.LENGTH_SHORT).show();
             }
         });
         masInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(getApplicationContext(), MasInformacion.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
                 startActivity(intent);
             }
         });
-        comentarioBtn.setOnClickListener(new View.OnClickListener() {
+   /*     comentarioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
               /*  Intent intent = new Intent(getApplicationContext(), ComentarioActivity.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
-                startActivity(intent);*/
+                startActivity(intent);
             }
-        });
+        }); */
         multimediaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(), Multimedia.class);
-                intent.putExtra("recurso", recursoAlmacenado.getNombre());
-                startActivity(intent);
+                if(totalVideos >0) {
+                    Intent intent = new Intent(getApplicationContext(), ListaVideo.class);
+                    intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                    intent.putExtra("total",totalVideos);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(getApplicationContext(), "Oh no!, No existen videos del recurso!" , Toast.LENGTH_SHORT).show();
             }
+
         });
 
     }
+
+
+    public void prueba(Recursos r){
+        listaAnimacion=new ArrayList<Animacion>();
+
+        animacion=new Animacion();
+        animacion.setTitulo("Video_Prueba1");
+        animacion.setDescripcion("Alabarrada Video_Prueba1");
+       // animacion.setUrl_video("https://www.youtube.com/watch?v=-LJ0xkDLeE8");
+        tipoAnimacion= TipoAnimacion.VIDEO;
+        animacion.setTipo(tipoAnimacion);
+        listaAnimacion.add(animacion);
+        r.setAnimaciones(listaAnimacion);
+    }
+public int verVideos(Recursos r){
+    int x=0;
+    for(Animacion a: r.getAnimaciones()) {
+        if (a.getTipo().name() =="VIDEO") {
+            x++;
+        }
+    }
+ return x;
+}
+
 
     private void obtenerImagen(String myfeed) {
 

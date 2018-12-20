@@ -6,14 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by carme_000 on 14/06/2017.
  */
 public class Contrasenia extends AppCompatActivity {
-    @Bind(R.id.textView3)
+    @BindView(R.id.textView3)
     TextView loginLink;
 
     @Override

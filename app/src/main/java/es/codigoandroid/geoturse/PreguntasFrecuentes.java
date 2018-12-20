@@ -47,7 +47,7 @@ public class PreguntasFrecuentes extends AppCompatActivity {
 
 
     public void llenarArreglo(ListView ListaPreguntasRespuestas){
-        if(recursoAlmacenado.getPreguntasF().size()!=0){
+       // if(recursoAlmacenado.getPreguntasF().size()!=0){
         String p,r;
 
         ArrayList<PreguntaFrecuente> pregunta = recursoAlmacenado.getPreguntasF();
@@ -57,16 +57,18 @@ public class PreguntasFrecuentes extends AppCompatActivity {
             respuestas = new String[recursoAlmacenado.getPreguntasF().size()];
 
             for(PreguntaFrecuente pr :pregunta ){
-              preguntas[tamanio]= (String)pr.getPreguntas();
-              respuestas[tamanio]= (String)pr.getRespPreguntas();
-                tamanio++;
+                if(pr!=null) {
+                    preguntas[tamanio] = (String) pr.getPreguntas();
+                    respuestas[tamanio] = (String) pr.getRespPreguntas();
+                    tamanio++;
+                }
              }
 
             HashMap<String,String>  ListaPF = new HashMap<>();
 
             do{
                 tamanio--;
-                ListaPF.put(preguntas[tamanio]+tamanio,respuestas[tamanio]+tamanio);
+                ListaPF.put(preguntas[tamanio],respuestas[tamanio]);
 
             }while(tamanio>0);
 
@@ -86,10 +88,10 @@ public class PreguntasFrecuentes extends AppCompatActivity {
             }
             ListaPreguntasRespuestas.setAdapter(adapter);
 
-
+/*
         }else{
             Toast.makeText(getApplicationContext(), " No existen preguntas sobre este recurso" , Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
     }
 

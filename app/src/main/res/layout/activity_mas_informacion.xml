@@ -41,6 +41,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_weight="0.02"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -51,8 +52,6 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text=" Accesibilidad: "
-
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -63,9 +62,9 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="0.01"
-                    android:gravity="center"
+                    android:gravity="top|center"
+                    android:layout_gravity="center"
                     android:text="Rampas sillas de ruedas"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -80,6 +79,10 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
                 </ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
 
 
@@ -98,7 +101,6 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text=" Tipo de recurso: "
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -109,9 +111,9 @@
                     android:layout_width="172dp"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
+                    android:layout_weight="0.17"
                     android:gravity="center"
                     android:text="Cultural_religioso_turistico"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -129,20 +131,18 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text=" Acceso: "
-                    android:textAlignment="viewStart"
-
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
 
                 <TextView
                     android:id="@+id/tv_acceso"
-                    android:layout_width="172dp"
+                    android:layout_width="175dp"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
+                    android:layout_weight="0.23"
                     android:gravity="center"
                     android:text="Publico o privado"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -151,7 +151,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -159,11 +160,7 @@
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
                     android:gravity="center"
-
                     android:text=" Infraestructura de Acceso: "
-
-
-                    android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textSize="13sp"
                     android:textStyle="italic"
@@ -171,12 +168,12 @@
 
                 <TextView
                     android:id="@+id/tv_Infraestructura"
-                    android:layout_width="172dp"
+                    android:layout_width="175dp"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
+                    android:layout_weight="0.23"
                     android:gravity="center"
                     android:text="Terretre o Acuatico"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -185,7 +182,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:weightSum="1">
 
                 <TextView
                     android:layout_width="170dp"
@@ -193,8 +190,6 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text=" Parqueos: "
-                    android:textAlignment="viewStart"
-
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -206,16 +201,17 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text="____-------_____"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
-                    android:typeface="serif" />
+                    android:typeface="serif"
+                    android:layout_weight="0.27" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -224,7 +220,6 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text=" Facilidades: "
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -234,9 +229,9 @@
                     android:layout_width="172dp"
                     android:layout_height="30dp"
                     android:layout_margin="5dp"
+                    android:layout_weight="0.29"
                     android:gravity="center"
                     android:text=" Baños, Restaurantes"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -246,7 +241,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView6"
@@ -255,7 +251,6 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text=" Seguridad: "
-                    android:textAlignment="viewStart"
 
                     android:textSize="13sp"
                     android:textStyle="italic"
@@ -263,12 +258,12 @@
 
                 <TextView
                     android:id="@+id/tv_seguridad"
-                    android:layout_width="172dp"
-                    android:layout_height="30dp"
+                    android:layout_width="175dp"
+                    android:layout_height="31dp"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:layout_weight="0.25"
+                    android:gravity="top|center"
                     android:text="____-------_____"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />
@@ -277,7 +272,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/textView7"
@@ -286,7 +282,6 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text=" Idiomas: "
-                    android:textAlignment="viewStart"
 
                     android:textSize="13sp"
                     android:textStyle="italic"
@@ -294,12 +289,12 @@
 
                 <TextView
                     android:id="@+id/tv_idiomas"
-                    android:layout_width="172dp"
-                    android:layout_height="30dp"
+                    android:layout_width="175dp"
+                    android:layout_height="33dp"
                     android:layout_margin="5dp"
-                    android:gravity="center"
+                    android:layout_weight="0.17"
+                    android:gravity="top"
                     android:text="____-------_____"
-                    android:textAlignment="viewStart"
                     android:textSize="13sp"
                     android:textStyle="italic"
                     android:typeface="serif" />

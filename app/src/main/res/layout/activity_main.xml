@@ -10,52 +10,6 @@
     tools:context=".MainActivity">
 
     <!-- Inicio de la Appbar -->
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/AppbarPrincipal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/MiTema.AppBarOverlay">
-
-        <!-- Inicio de la Toolbar-->
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/ToolbarPrincipal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        app:srcCompat="@drawable/logo1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:padding="2dp" />
-                    <TextView
-                        android:text="@string/app_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </android.support.v7.widget.Toolbar>
-        <!-- Fin de la Toolbar-->
-
-        <!-- Inicio de la TabLayout-->
-        <android.support.design.widget.TabLayout
-            android:id="@+id/TabLayoutPrincipal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabIndicatorHeight="4dp"
-            android:textAlignment="center"
-            app:tabPaddingEnd="35dp"
-            app:tabPaddingStart="35dp" />
-        <!-- Fin de la TabLayout-->
-
-    </android.support.design.widget.AppBarLayout>
     <!-- Fin de la Appbar -->
 
     <!-- Inicio del ViewPager -->
@@ -63,10 +17,76 @@
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/ViewPagerPrincipal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
 
     </android.support.v4.view.ViewPager>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/AppbarPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/MiTema.AppBarOverlay">
+
+        <!-- Inicio de la Toolbar-->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/ToolbarPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/cerrarSesion"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.26"
+                android:text="Cerrar Sesion"
+                android:textSize="8dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:padding="2dp"
+                        app:srcCompat="@drawable/logo1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textSize="28sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+        <!-- Fin de la Toolbar-->
+
+        <!-- Inicio de la TabLayout-->
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/TabLayoutPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:tabIndicatorHeight="4dp"
+            app:tabPaddingEnd="35dp"
+            app:tabPaddingStart="35dp" />
+
+        <!-- Fin de la TabLayout-->
+
+    </android.support.design.widget.AppBarLayout>
+
     <!-- Fin del ViewPager -->
 
 </android.support.design.widget.CoordinatorLayout>

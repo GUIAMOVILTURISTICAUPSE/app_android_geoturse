@@ -39,6 +39,7 @@ public class Fragment_seccion2 extends Fragment {
     private RadioButton rbCanton, rbParroquia, rbNombre, rbRNatural, rbMCultural ;
     private ViewGroup layout;
     private ImageButton btDefault;
+
     View vista;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

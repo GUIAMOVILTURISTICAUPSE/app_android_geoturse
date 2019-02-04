@@ -189,7 +189,10 @@ public class Fragment_seccion2 extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String item = ed.getText().toString();
+                inicializarDatos(TipoFiltro.NOMBRE, item);
+            }
 
             @Override
             public void afterTextChanged(Editable s) {

@@ -4,14 +4,20 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tv_Pregunta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:background="#81DAF5"
         android:text="Pregunta"
-        android:id="@+id/tv_Pregunta" />
+        android:textColor="@color/cardview_light_background" />
 
     <TextView
+        android:id="@+id/tv_respuestas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="#CEF6F5"
         android:text="Respuesta"
-        android:id="@+id/tv_respuestas" />
+        android:textColor="@color/cast_expanded_controller_background_color" />
 </LinearLayout>

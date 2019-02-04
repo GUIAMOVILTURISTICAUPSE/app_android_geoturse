@@ -120,9 +120,9 @@ public class ContactoActivity extends AppCompatActivity {
 public void vacio(){
 
     nombre.setText("No existe informacion del contacto del recurso");
-    telefono.setText("");
-    email.setText("");
-    web.setText("");
+    telefono.setText("No existe informacion del contacto del recurso");
+    email.setText("No existe informacion del contacto del recurso");
+    web.setText("No existe informacion del contacto del recurso");
     twitter.setVisibility(View.INVISIBLE);
     facebook.setVisibility(View.INVISIBLE);
     instagram.setVisibility(View.INVISIBLE);

@@ -125,7 +125,9 @@ public class RecursoDetalle extends AppCompatActivity {
                 if (recursoAlmacenado.getSendero().size()>0){
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
-                startActivity(intent);
+
+                  //  Toast.makeText(getApplicationContext(), " debio entrar a el sendero del recurso" , Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(), " No existen senderos en este recurso" , Toast.LENGTH_SHORT).show();
                 }
@@ -134,15 +136,23 @@ public class RecursoDetalle extends AppCompatActivity {
         rutaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                inicLocation();
-                registerLocation();
-                String origen = loc.getLatitude()+","+ loc.getLongitude();
-                String destino = recursoAlmacenado.getPosicion();
-                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?saddr="+origen+"&daddr="+destino));
-                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
-                startActivityForResult(intent,5);
-                //startActivity(intent);
+                if(!recursoAlmacenado.getPosicion().isEmpty()) {
+                    inicLocation();
+                    registerLocation();
+                    if(loc !=null) {
+                        String origen = loc.getLatitude() + "," + loc.getLongitude();
+                        String destino = recursoAlmacenado.getPosicion();
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                Uri.parse("http://maps.google.com/maps?saddr=" + origen + "&daddr=" + destino));
+                        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                        startActivityForResult(intent, 5);
+                        //startActivity(intent);
+                    }else{
+                        Toast.makeText(getApplicationContext(), " Problemas al obtener la localizacion actual" , Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(), " No existen rutas en este recurso" , Toast.LENGTH_SHORT).show();
+                }
             }
         });
         contactoBtn.setOnClickListener(new View.OnClickListener() {
@@ -211,12 +221,17 @@ public class RecursoDetalle extends AppCompatActivity {
         realidadAumentadaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /* validacion si existe un index en el pojo para presentar la realidad aumentada
                 if(totalRealidadAumentada >0) {
                     Intent intent = new Intent(getApplicationContext(), RealidadAumentada.class);
                     intent.putExtra("recurso", recursoAlmacenado.getNombre());
                     startActivity(intent);
                 }else
-                    Toast.makeText(getApplicationContext(), "Oh no!, No realidad aumentada en el recurso!" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Oh no!, No existe realidad aumentada en el recurso!" , Toast.LENGTH_SHORT).show();
+            */
+                Intent intent = new Intent(getApplicationContext(), RealidadAumentada.class);
+                intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                startActivity(intent);
             }
 
         });

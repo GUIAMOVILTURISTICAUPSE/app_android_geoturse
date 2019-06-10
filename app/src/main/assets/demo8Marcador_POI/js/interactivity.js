@@ -1,4 +1,5 @@
 var World = {
+    rotating: false,
 
     init: function initFn() {
         this.createOverlays();
@@ -12,7 +13,7 @@ var World = {
             Each target in the target collection is identified by its target name. By using this
             target name, it is possible to create an AR.ImageTrackable for every target in the target collection.
          */
-        this.targetCollectionResource = new AR.TargetCollectionResource("assets/magazine.wtc", {
+        this.targetCollectionResource = new AR.TargetCollectionResource("assets/tracker.wtc", {
             onError: World.onError
         });
 
@@ -28,112 +29,142 @@ var World = {
         });
 
         /*
-            The next step is to create the augmentation. In this example an image resource is created and passed to the
-            AR.ImageDrawable. A drawable is a visual component that can be connected to a Trackable
-            (AR.ImageTrackable, AR.InstantTrackable or AR.ObjectTrackable) or a geolocated object (AR.GeoObject). The
-            AR.ImageDrawable is initialized by the image and its size. Optional parameters allow for transformations
-            relative to the recognized target.
-        */
+            3D content within Wikitude can only be loaded from Wikitude 3D Format files (.wt3). This is a
+            compressed binary format for describing 3D content which is optimized for fast loading and handling of
+            3D content on a mobile device. You still can use 3D models from your favorite 3D modeling tools
+            (Autodesk® Maya® or Blender) but you'll need to convert them into the wt3 file format. The Wikitude 3D
+            Encoder desktop application (Windows and Mac) encodes your 3D source file. You can download it from our
+            website. The Encoder can handle Autodesk® FBX® files (.fbx) and the open standard Collada (.dae) file
+            formats for encoding to .wt3.
 
-        /*
-            The button is created similar to the overlay feature. An AR.ImageResource defines the look of the button
-            and is reused for both buttons.
-        */
-        this.imgButton = new AR.ImageResource("assets/wwwButton.jpg", {
-            onError: World.onError
-        });
+            Create an AR.Model and pass the URL to the actual .wt3 file of the model. Additional options allow for
+            scaling, rotating and positioning the model in the scene.
 
-        /* Create overlay for page one of the magazine. */
-        var imgOne = new AR.ImageResource("assets/imageOne.png", {
-            onError: World.onError
-        });
-        var overlayOne = new AR.ImageDrawable(imgOne, 1, {
+            A function is attached to the onLoaded trigger to receive a notification once the 3D model is fully
+            loaded. Depending on the size of the model and where it is stored (locally or remotely) it might take
+            some time to completely load and it is recommended to inform the user about the loading time.
+        */
+        this.modelCar = new AR.Model("assets/car.wt3", {
+            onClick: World.toggleAnimateModel,
+            onLoaded: World.showInfoBar,
+            onError: World.onError,
+            scale: {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0
+            },
             translate: {
-                x: -0.15
+                x: 0.0,
+                y: 0.05,
+                z: 0.0
+            },
+            rotate: {
+                z: -25
             }
         });
 
         /*
-            For each target an AR.ImageDrawable for the button is created by utilizing the helper function
-            createWwwButton(url, options). The returned drawable is then added to the drawables.cam array on
-            creation of the AR.ImageTrackable.
+            As a next step, an appearing animation is created. For more information have a closer look at the function
+            implementation.
         */
-        var pageOneButton = this.createWwwButton("https://www.blue-tomato.com/en-US/products/?q=sup", 0.1, {
+        this.appearingAnimation = this.createAppearingAnimation(this.modelCar, 0.045);
+
+        /*
+            The rotation animation for the 3D model is created by defining an AR.PropertyAnimation for the rotate.roll
+            property.
+        */
+        this.rotationAnimation = new AR.PropertyAnimation(this.modelCar, "rotate.z", -25, 335, 10000);
+
+        /*
+            Additionally to the 3D model an image that will act as a button is added to the image target. This can
+            be accomplished by loading an AR.ImageResource and creating a drawable from it.
+        */
+        var imgRotate = new AR.ImageResource("assets/rotateButton.png", {
+            onError: World.onError
+        });
+        var buttonRotate = new AR.ImageDrawable(imgRotate, 0.2, {
             translate: {
-                x: -0.25,
-                y: -0.25
+                x: 0.35,
+                y: 0.45
             },
-            zOrder: 1
+            onClick: World.toggleAnimateModel
         });
 
         /*
-            This combines everything by creating an AR.ImageTrackable with the previously created tracker,
+            The last lines combine everything by creating an AR.ImageTrackable with the previously created tracker,
             the name of the image target and the drawable that should augment the recognized image.
 
             Important: If you replace the tracker file with your own, make sure to change the target name accordingly.
             Use a specific target name to respond only to a certain target or use a wildcard to respond to any or a
             certain group of targets.
+
+            Similar to 2D content the 3D model is added to the drawables.cam property of an AR.ImageTrackable.
         */
-        this.pageOne = new AR.ImageTrackable(this.tracker, "pageOne", {
+        this.trackable = new AR.ImageTrackable(this.tracker, "*", {
             drawables: {
-                cam: [overlayOne, pageOneButton]
+                cam: [this.modelCar, buttonRotate]
             },
-            onImageRecognized: World.hideInfoBar,
+            onImageRecognized: World.appear,
             onError: World.onError
         });
+    },
 
+    createAppearingAnimation: function createAppearingAnimationFn(model, scale) {
         /*
-            Similar to the first part, the image resource and the AR.ImageDrawable for the second overlay are created.
+            The animation scales up the 3D model once the target is inside the field of vision. Creating an
+            animation on a single property of an object is done using an AR.PropertyAnimation. Since the car model
+            needs to be scaled up on all three axis, three animations are needed. These animations are grouped
+            together utilizing an AR.AnimationGroup that allows them to play them in parallel.
+
+            Each AR.PropertyAnimation targets one of the three axis and scales the model from 0 to the value passed
+            in the scale variable. An easing curve is used to create a more dynamic effect of the animation.
         */
-        var imgTwo = new AR.ImageResource("assets/imageTwo.png", {
-            onError: World.onError
+        var sx = new AR.PropertyAnimation(model, "scale.x", 0, scale, 1500, {
+            type: AR.CONST.EASING_CURVE_TYPE.EASE_OUT_ELASTIC
         });
-        var overlayTwo = new AR.ImageDrawable(imgTwo, 0.5, {
-            translate: {
-                x: 0.12,
-                y: -0.01
-            }
+        var sy = new AR.PropertyAnimation(model, "scale.y", 0, scale, 1500, {
+            type: AR.CONST.EASING_CURVE_TYPE.EASE_OUT_ELASTIC
+        });
+        var sz = new AR.PropertyAnimation(model, "scale.z", 0, scale, 1500, {
+            type: AR.CONST.EASING_CURVE_TYPE.EASE_OUT_ELASTIC
         });
 
-        var pageTwoButton = this.createWwwButton(
-            "https://www.maciag-offroad.de/kini-red-bull-downhill-helm-mtb-silber-blau-sid50616.html",
-            0.15, {
-                translate: {
-                    y: -0.25
-                },
-                zOrder: 1
-            }
-        );
+        return new AR.AnimationGroup(AR.CONST.ANIMATION_GROUP_TYPE.PARALLEL, [sx, sy, sz]);
+    },
 
-        /*
-            The AR.ImageTrackable for the second page uses the same tracker but with a different target name and the
-            second overlay.
-        */
-        this.pageTwo = new AR.ImageTrackable(this.tracker, "pageTwo", {
-            drawables: {
-                cam: [overlayTwo, pageTwoButton]
-            },
-            onImageRecognized: World.hideInfoBar,
-            onError: World.onError
-        });
+    appear: function appearFn() {
+        World.hideInfoBar();
+        /* Resets the properties to the initial values. */
+        World.resetModel();
+        World.appearingAnimation.start();
+    },
+
+    resetModel: function resetModelFn() {
+        World.rotationAnimation.stop();
+        World.rotating = false;
+        World.modelCar.rotate.z = -25;
+    },
+
+    toggleAnimateModel: function toggleAnimateModelFn() {
+        if (!World.rotationAnimation.isRunning()) {
+            if (!World.rotating) {
+                /* Starting an animation with .start(-1) will loop it indefinitely. */
+                World.rotationAnimation.start(-1);
+                World.rotating = true;
+            } else {
+                /* Resumes the rotation animation */
+                World.rotationAnimation.resume();
+            }
+        } else {
+            /* Pauses the rotation animation */
+            World.rotationAnimation.pause();
+        }
+
+        return false;
     },
 
     onError: function onErrorFn(error) {
         alert(error)
-    },
-
-    createWwwButton: function createWwwButtonFn(url, size, options) {
-        /*
-            As the button should be clickable the onClick trigger is defined in the options passed to the
-            AR.ImageDrawable. In general each drawable can be made clickable by defining its onClick trigger. The
-            function assigned to the click trigger calls AR.context.openInBrowser with the specified URL, which
-            opens the URL in the browser.
-
-        */
-        options.onClick = function() {
-            AR.context.openInBrowser(url);
-        };
-        return new AR.ImageDrawable(this.imgButton, size, options);
     },
 
     hideInfoBar: function hideInfoBarFn() {

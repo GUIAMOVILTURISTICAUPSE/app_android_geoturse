@@ -18,6 +18,12 @@ import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
 
 public class RealidadAumentada extends AppCompatActivity {
+    private static final String sampleDefinitionsPath = "assets/samples.json";
+    public static final String INTENT_EXTRAS_KEY_SAMPLE = "sampleData";
+    private String arExperience;
+
+    String mostrarR;
+
     private ArchitectView architectView;
     double latitude = 0;
     double longitude = 0;
@@ -33,9 +39,11 @@ public class RealidadAumentada extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realidad_aumentada);
 
-        final String mostrarR = getIntent().getExtras().getString("recurso");
+        mostrarR = getIntent().getExtras().getString("recurso");
         dbaRecurso_f2 = new CouchbaseManager<String, Recursos>(this, Recursos.class);
         recursoAlmacenado = dbaRecurso_f2.get(mostrarR);
+
+        arExperience= recursoAlmacenado.getId();
 
         this.architectView = (ArchitectView) this.findViewById(R.id.architectView);
         final ArchitectStartupConfiguration config = new ArchitectStartupConfiguration();
@@ -51,8 +59,13 @@ public class RealidadAumentada extends AppCompatActivity {
         architectView.onPostCreate();
 
         try {
+
+          arExperience= "AlbarradaVelascoIbarra1";
+
             this.architectView.setLocation(-2.23351,-80.8675,100);
-            this.architectView.load("file:///android_asset/demo8Marcador_POI/index.html");
+           //this.architectView.load("https://storage.cloud.google.com/guiamovilse_recursos_storage/wikitude_3d_museo/3dObjects/index.html?authuser=0");
+            this.architectView.load("file:///android_asset/"+ arExperience + "/index.html");
+            //this.architectView.load("file:///android_asset/AlbarradaVelascoIbarra1/index.html");
             this.architectView.onResume();
 
         }catch (Exception e){

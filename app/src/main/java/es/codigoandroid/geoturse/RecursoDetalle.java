@@ -229,7 +229,7 @@ public class RecursoDetalle extends AppCompatActivity {
                 }else
                     Toast.makeText(getApplicationContext(), "Oh no!, No existe realidad aumentada en el recurso!" , Toast.LENGTH_SHORT).show();
             */
-                Intent intent = new Intent(getApplicationContext(), RealidadAumentada.class);
+                Intent intent = new Intent(getApplicationContext(), Lista_RA.class);
                 intent.putExtra("recurso", recursoAlmacenado.getNombre());
                 startActivity(intent);
             }

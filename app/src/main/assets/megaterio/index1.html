@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <!--  basic meta information -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="application/json; charset=utf-8">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes" name="viewport">
+    <script src="https://www.wikitude.com/libs/architect.js"></script>
+    <script src="https://api-us.wikitude.com/cloudrecognition"></script>
+    <script type="text/javascript" src="../ade.js"></script>
+    <link rel="stylesheet" href="css/default.css">
+
+    <title>My ARchitect World</title>
+
+<!--
+  <link rel="stylesheet" href="css/default.css">
+
+         <script>
+             function locationChanged(lat,lon,alt,acc){
+                var marker_image=new AR.ImageResource("assets/tigre.jpg");
+                var marker_loc = new AR.GeoLocation(lat, lon, alt);
+                var marker_drawable = new AR.ImageDrawable(marker_image,9);
+                var marker_object = new AR.GeoObject(marker_loc,{
+                    drawables:{
+                        cam: [marker_drawable]
+                    }
+                });
+             }
+        AR.context.onLocationChanged=locationChanged;
+
+        </script>
+-->
+</head>
+<body>
+
+<div data-role="page" id="page1" style="background: none;">
+
+
+    <input type="button" value="Scanear QR"  onclick="javascript: World.scan(); " >
+    <input id="rotarBtn" type="button" value="Rotar objeto"  onclick="javascript: World.toggleAnimateModel();" >
+
+    <input id="informacionBtn" type="button" value="Informacion"  onclick="javascript: World.planetClicked();"  ondblclick="World.planetDbClicked();">
+    <div id="errorMessage"></div>
+
+
+
+</div>
+
+<div id="planetInfo" >
+    <table>
+        <tr>
+            <td colspan=2 class="tableheader" id="name">Nombre del objeto</td>
+        </tr>
+        <tr>
+
+            <td id="mass">2 10<sup>30</sup></td>
+        </tr>
+        <tr>
+            <td id="diameter">1,392,684 km</td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+<script src="js/usingmetainformationintheresponse.js"></script>
+<!--
+<script src="js/singleimagerecognitionurl.js"></script>
+<script src="js/simplevideo1.js"></script>
+<script src="js/3dmodelatgeolocation.js"></script>
+<script src="js/simplevideo.js"></script>
+<script src="js/3dmodelatgeolocation.js"></script>
+
+<!--
+
+<script src="js/interactivity.js"></script>
+
+<script src="js/multiplesimultaneoustargets.js"></script>
+<script src="js/singleimagerecognition.js"></script>
+--
+
+
+
+<script>
+    var World = {
+
+    init: function initFn() {
+        this.createModelAtLocation();
+    },
+
+    createModelAtLocation: function createModelAtLocationFn() {
+
+
+        var location = new AR.RelativeLocation(null, 5, 0, 2);
+
+
+         var imagenProyectada = new AR.ImageResource("assets/amantes.jpg", {
+                    onError: World.onError= function(){
+                     var myJSONBannerImg = JSON.stringify(imagenProyectada);
+                     alert("Error imagen de amamtes: " + imagenProyectada + "   segun json: "+ myJSONBannerImg);
+                     console.log("Error imagen de amamtes: " + imagenProyectada + "   segun json: "+ myJSONBannerImg);
+
+                     }
+                });
+
+         var indicatorDrawable1 = new AR.ImageDrawable(imagenProyectada, 3, {
+                    verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
+                });
+
+
+        var indicatorImage = new AR.ImageResource("assets/indi.png", {
+            onError: World.onError= function(){
+                     var myJSONBannerImg1 = JSON.stringify(indicatorImage);
+                     alert("Error imagen de incicador: " + indicatorImage + "   segun json: "+ myJSONBannerImg1);
+                     console.log("Error imagen de incicador: " + indicatorImage + "   segun json: "+ myJSONBannerImg1);
+                     }
+        });
+
+        var indicatorDrawable = new AR.ImageDrawable(indicatorImage, 0.1, {
+            verticalAnchor: AR.CONST.VERTICAL_ANCHOR.TOP
+        });
+
+                var myJSONBannerImg2 = JSON.stringify(indicatorDrawable);
+                alert("todo: " + indicatorDrawable + "   segun json: "+ myJSONBannerImg2);
+                  console.log("todo: " + indicatorDrawable + "   segun json: "+ myJSONBannerImg2);
+
+        /* INFORMACION DEL OBJETO EN LA TABLA DE INFORMACION*/
+         document.getElementById("planetInfo").setAttribute("class", "planetInfo");
+        document.getElementById("name").innerHTML = "AMANTES DE SUMPA ";
+        document.getElementById("mass").innerHTML = "Proveniente de la cultura de Las Vegas de entre 5.000 y 6.000 años a. C ";
+        document.getElementById("diameter").innerHTML = "Se trata de un entierro doble de un hombre y una mujer de aproximadamente 20 y 25 años de edad, que fueron sepultados cuidadosamente juntos. El hombre con su mano derecha sobre la cintura de la mujer y con la pierna derecha sobre la pelvis de ella.";
+        document.getElementById("planetInfo").setAttribute("class", "infoVisible");
+
+
+        /* Putting it all together the location and 3D model is added to an AR.GeoObject. */
+        this.geoObject = new AR.GeoObject(location, {
+            drawables: {
+                cam: [indicatorDrawable1],
+                indicator: [indicatorDrawable]
+            }
+        });
+    }
+
+
+};
+
+World.init();
+
+</script>
+-->
+</body>
+
+</html>

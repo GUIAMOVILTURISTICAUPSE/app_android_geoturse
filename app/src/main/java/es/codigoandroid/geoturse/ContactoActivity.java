@@ -57,9 +57,15 @@ public class ContactoActivity extends AppCompatActivity {
         if(recursoAlmacenado.getInfContacto()!=null) {
 
               //// FIXME: 12/09/2017 arreglar contacto vacio
-              //Glide.with(this).load("http://www.turismo.gob.ec/wp-content/uploads/2015/02/salinas3.jpg").into(imagen);
+
             if (recursoAlmacenado.getPersonaEncargada() != null){
-            nombre.setText("Nombre: " + recursoAlmacenado.getPersonaEncargada());
+
+                if(recursoAlmacenado.getInfContacto().getNombreResponsable()!=null)
+                    nombre.setText("Nombre: " + recursoAlmacenado.getInfContacto().getNombreResponsable());
+
+               if(recursoAlmacenado.getInfContacto().getUrlImagen()!=null){
+                  Glide.with(this).load(recursoAlmacenado.getInfContacto().getUrlImagen()).into(imagen);
+               }
 
             if (recursoAlmacenado.getInfContacto().getTelefono()!=null)
             telefono.setText("Telefono: " + recursoAlmacenado.getInfContacto().getTelefono());
@@ -114,9 +120,9 @@ public class ContactoActivity extends AppCompatActivity {
 public void vacio(){
 
     nombre.setText("No existe informacion del contacto del recurso");
-    telefono.setText("");
-    email.setText("");
-    web.setText("");
+    telefono.setText("No existe informacion del contacto del recurso");
+    email.setText("No existe informacion del contacto del recurso");
+    web.setText("No existe informacion del contacto del recurso");
     twitter.setVisibility(View.INVISIBLE);
     facebook.setVisibility(View.INVISIBLE);
     instagram.setVisibility(View.INVISIBLE);

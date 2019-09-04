@@ -56,8 +56,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
         String mostrarR = getIntent().getExtras().getString("recurso");
         recursoAlmacenado = dbaRecurso.get(mostrarR);
-
-
     }
 
     @Override
@@ -78,45 +76,42 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .target(markerpunto)
                 .zoom(17)
                 .build();
-
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         PolylineOptions sendero = new PolylineOptions()
                 .width(5)
                 .color(Color.BLUE)
                 .geodesic(true);
 
-
-
         for(Senderos s : recursoAlmacenado.getSendero()) {
             if(s.getNombre()!= null)
                 for(String p : s.getRecorrido()) {
                     LatLng puntoRecurso;
-                    puntoRecurso = new LatLng(latitud(p), longuitd(p));
-
+//                    puntoRecurso = new LatLng(latitud(p), longuitd(p));
+                    puntoRecurso = new LatLng(latlong(p,0), latlong(p,1));
                     sendero.add(puntoRecurso);
                 }
         }
         Polyline polyline = mMap.addPolyline(sendero);
     }
 
-    public double latitud(String posicion){
-        double latitud;
-        latitud=0.00;
+    public double latlong(String posicion, int pos){
+        double dato=0.00;
+        String[] parts;
         String string = posicion;
-        String[] parts = string.split(",");
-        String part1 = parts[0];
-        latitud = Double.parseDouble(part1);
-        return latitud;
-    }
 
-    public double longuitd(String posicion){
-        double longuitd;
-        longuitd=0.00;
-        String string = posicion;
-        String[] parts = string.split(",");
-        String part1 = parts[1];
-        longuitd = Double.parseDouble(part1);
-        return longuitd;
+        int x=0;
+
+        char[] arrayChar = string.toCharArray();
+        for(int i=0; i<arrayChar.length; i++){
+            if(arrayChar[i] == ',')
+                x++;
+        }
+        if(x>=1) {
+            parts = posicion.split(",");
+            String part1 = parts[pos];
+            dato = Double.parseDouble(part1);
+        }
+        return dato;
     }
 
     @Override
@@ -124,8 +119,5 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         onBackPressed();
         return false;
     }
-
-
-
 
 }

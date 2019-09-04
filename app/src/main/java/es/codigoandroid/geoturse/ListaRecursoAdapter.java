@@ -23,6 +23,8 @@ import com.couchbase.lite.Document;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import es.codigoandroid.pojos.Recursos;
 
@@ -112,9 +114,26 @@ public class ListaRecursoAdapter extends RecyclerView.Adapter<ListaRecursoAdapte
                 viewHolder.imagen.setImageDrawable(drawable);
             }*/
 
-        if (items.get(i).getImagenPrincipal()!=null)
-            obtenerImagen(items.get(i).getImagenPrincipal().getUrl(),viewHolder);
-        else
+        if (items.get(i).getImagenPrincipal()!=null) {
+            //  obtenerImagen(items.get(i).getImagenPrincipal().getUrl(),viewHolder);
+            //verificar si contiene la cadena de "googleusercontent"
+            String aguja = "googleusercontent";             //palabra buscada
+            String pajar = items.get(i).getImagenPrincipal().getUrl();    //texto
+
+            //escapar y agregar limites de palabra completa - case-insensitive
+            Pattern regex = Pattern.compile("\\b" + Pattern.quote(aguja) + "\\b", Pattern.CASE_INSENSITIVE);
+            Matcher match = regex.matcher(pajar);
+
+            //la palabra está en el texto??
+            if (match.find()) {  //si se quiere encontrar todas las ocurrencias: cambiar el if por while
+                Glide.with(fragment).load(items.get(i).getImagenPrincipal().getUrl() + "=s250").into(viewHolder.imagen);
+                System.out.println("Encontrado: '" + match.group() + "' dentro de '" + pajar + "' en la posición " + match.start());
+            } else {
+                obtenerImagen(items.get(i).getImagenPrincipal().getUrl(),viewHolder);
+                System.out.println("'" + aguja + "' NO está dentro de '" + pajar);
+            }
+
+        }else
         Glide.with(fragment).load("http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/salinas_1.jpg?itok=DZ7NxVqH").into(viewHolder.imagen);
 
 
@@ -134,8 +153,6 @@ public class ListaRecursoAdapter extends RecyclerView.Adapter<ListaRecursoAdapte
 
         });
     }
-
-
 
     private void obtenerImagen(String myfeed, ListaRecursoViewHolder viewHolder) {
 

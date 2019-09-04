@@ -9,6 +9,7 @@ public class Contacto {
     private String twitter;
     private String instagram;
     private String email;
+    private String urlImagen;
 
     public Contacto() {
     }
@@ -68,6 +69,15 @@ public class Contacto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
+
 
     @Override
     public String toString() {

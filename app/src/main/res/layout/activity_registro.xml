@@ -67,11 +67,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_mobile"
+
+            <EditText
+                android:id="@+id/input_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Telefono"
                 android:inputType="number"
-                android:hint="Telefono" />
+                android:maxLength="10" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Label -->
@@ -80,11 +83,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_password"
+
+            <EditText
+                android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Contraseña"
                 android:inputType="textPassword"
-                android:hint="Contraseña"/>
+                android:maxLength="10" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Password Re-enter Label -->
@@ -93,11 +99,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_reEnterPassword"
+
+            <EditText
+                android:id="@+id/input_reEnterPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Re-ingrese Contraseña"
                 android:inputType="textPassword"
-                android:hint="Re-ingrese Contraseña"/>
+                android:maxLength="10" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Signup Button -->

@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 public class Recursos {
 
     @JsonProperty(value = "_id")
+    private String id; //necesito usar para las carpetas
     private String nombre;//Utilizo
     private String descripcion;//Utilizo
     private String informacionGeneral;//Utilizo
@@ -26,6 +27,8 @@ public class Recursos {
     private ArrayList<Imagen> galeria = new ArrayList<Imagen>();//Utilizo
     private ArrayList<Senderos> sendero = new ArrayList<Senderos>();//Utilizo
     private String personaEncargada;
+    private String acceso;
+    private String infraestructura;
 
   //  private String url_video;
 
@@ -84,14 +87,14 @@ public class Recursos {
 
     //getters and setters
 
-/*
-    public String get_id() {
-        return _id;
+
+    public String getId() {
+        return id;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
-    }*/
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Imagen getImagenPrincipal() {
         return imagenPrincipal;
@@ -181,6 +184,21 @@ public class Recursos {
         this.costoRecursos = costoRecursos;
     }
 
+    public String getAcceso() {
+        return acceso;
+    }
+
+    public void setAcceso(String acceso) {
+        this.acceso = acceso;
+    }
+
+
+    public String getInfraestructura() {       return infraestructura;    }
+
+    public void setInfraestructura(String infraestructura) {
+        this.infraestructura = infraestructura;
+    }
+
     public ArrayList<AccesibilidadRecurso> getOpcionesAccesibilidad() {
         return opcionesAccesibilidad;
     }
@@ -228,7 +246,6 @@ public class Recursos {
     public void setGaleria(ArrayList<Imagen> galeria) {
         this.galeria = galeria;
     }
-
 
 
     public ArrayList<Senderos> getSendero() {
@@ -357,6 +374,8 @@ public class Recursos {
         this.url_video = url_video;
     }
 */
+
+
 
     public double latitud(){
         double latitud;

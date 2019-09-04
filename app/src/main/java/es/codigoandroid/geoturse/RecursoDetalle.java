@@ -1,17 +1,21 @@
 package es.codigoandroid.geoturse;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,6 +49,7 @@ public class RecursoDetalle extends AppCompatActivity {
     private Button rutaBtnn, senderoBtnn, galeriaBtnn;
     private ImageButton rutaBtn, senderoBtn, contactoBtn, preguntasBtn, galeriaBtn, masInfoBtn, comentarioBtn,multimediaBtn,realidadAumentadaBtn;
     Location loc;
+    private final int REQUEST_CODE_ASK_PERMISSIONS = 1;
 
     private ArrayList<Animacion> listaAnimacion;//para pruebas
     private Animacion animacion; //para pruebas
@@ -228,10 +233,12 @@ public class RecursoDetalle extends AppCompatActivity {
                     startActivity(intent);
                 }else
                     Toast.makeText(getApplicationContext(), "Oh no!, No existe realidad aumentada en el recurso!" , Toast.LENGTH_SHORT).show();
-            */
-                Intent intent = new Intent(getApplicationContext(), Lista_RA.class);
-                intent.putExtra("recurso", recursoAlmacenado.getNombre());
-                startActivity(intent);
+            */ if(checkAndRequestPermissions()) {
+                    Intent intent = new Intent(getApplicationContext(), Lista_RA.class);
+                    intent.putExtra("recurso", recursoAlmacenado.getNombre());
+                    startActivity(intent);
+                }else
+                    Toast.makeText(getApplicationContext(),"Se requieren permisos de uso de camara", Toast.LENGTH_LONG).show();
             }
 
         });
@@ -396,5 +403,17 @@ public class RecursoDetalle extends AppCompatActivity {
         return false;
     }
 
-
+    private  boolean checkAndRequestPermissions() {
+        boolean respuesta=false;
+        int permiso = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if(permiso != PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(this,"Se Necesitan permisos de Camara para la Realidad Aumentada",Toast.LENGTH_LONG).show();
+            respuesta=true;
+             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA},REQUEST_CODE_ASK_PERMISSIONS );
+            }else {
+                respuesta=true;
+                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA},REQUEST_CODE_ASK_PERMISSIONS );
+            }
+        return respuesta;
+    }
 }

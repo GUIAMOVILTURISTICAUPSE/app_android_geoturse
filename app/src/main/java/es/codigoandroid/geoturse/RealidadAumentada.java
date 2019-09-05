@@ -1,22 +1,34 @@
 package es.codigoandroid.geoturse;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.wikitude.architect.ArchitectJavaScriptInterfaceListener;
 import com.wikitude.architect.ArchitectStartupConfiguration;
 import com.wikitude.architect.ArchitectView;
+import com.wikitude.common.permission.PermissionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -29,16 +41,25 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
+import es.codigoandroid.advanced.ArchitectViewExtension;
+import es.codigoandroid.advanced.ScreenshotSaverExtension;
 import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
+
+import static com.wikitude.architect.ArchitectView.CaptureScreenCallback.CAPTURE_MODE_CAM_AND_WEBVIEW;
 
 public class RealidadAumentada extends AppCompatActivity {
     //private static final String sampleDefinitionsPath = "assets/samples.json";
     //public static final String INTENT_EXTRAS_KEY_SAMPLE = "sampleData";
     private String arExperience;
     String mostrarR;
+    private static final String EXTENSION_SCREENSHOT = "screenshot";
 
     File file;
     private ArchitectView architectView;
@@ -49,7 +70,7 @@ public class RealidadAumentada extends AppCompatActivity {
 
     CouchbaseManager<String, Recursos> dbaRecurso_f2;
     public Recursos recursoAlmacenado;
-
+    private final Map<String, ArchitectViewExtension> extensions = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +81,20 @@ public class RealidadAumentada extends AppCompatActivity {
         dbaRecurso_f2 = new CouchbaseManager<String, Recursos>(this, Recursos.class);
         recursoAlmacenado = dbaRecurso_f2.get(mostrarR);
         arExperience = getIntent().getExtras().getString("link");
-       // file = new File(Activity.DOWNLOAD_SERVICE);
-       // Toast.makeText(this, "Direccion del path donde se guarda lo descargado..."+ file.getAbsolutePath().toString(),Toast.LENGTH_LONG ).show();
+
         this.architectView = (ArchitectView) this.findViewById(R.id.architectView);
         final ArchitectStartupConfiguration config = new ArchitectStartupConfiguration();
-        config.setLicenseKey("LVlYSNaIFt6lnrd99ajNsZYPAJ38iA9vLJleez11RP7UBg3oWeu7fG8bd0miwS5/7WxzWDIaZ5M4kzFhjmr12rDltwq17At+BcNqrm3R0sC9bEvL6EUNYqMzFrYIn/IMD7tJXRKEhs0tUupUqeaIJ5U/Ji2PlC17mYdmX+/z8lNTYWx0ZWRfX9jFp5qaylXJsW0QEbAGpR5lcxJFw9G76nNq1NYzeDeRbZN+jc7JxBqCCXlGk1HTgKJjgJXHCnLtxWK2a76KLPxPI/K9bWarxveMYX/YGxC4L5HEtIH+KmVMZd1uZm2O8cJtD1NsbcO4xqs0smPR6bHSB4QpHHObgZXvpB+azGytDuhQOgkCa5xaeNkWd++Dbw7SN7a1ycGmPWsmvGNB0jpORMoBMhaSQuVJ6qX75zem0gzl8+A3qYrMnSMngUc8i4lvFAlW+3GBIetShjkHICabz5c4G+XUCBA/4Yg2jX+YLS44HzXyd4P5HefZkyYaII6n29bAUeD9rReDzPcJe+OycJTV/g9i2+wuKpmK6rQt+iRmN70QbXpIphuxd3Q4wfuVPMhxEGc6YEny+sLxYvohiVyKZG45YyrAAy4Y2LhSbQ2W9tfRX/3YYyhdEyaiSaPNVmHFC9TPFHVOQ4Z9L5WPjcGWaFjGBqTkf6i6ikvGk8dZWR+UYz4mDDqkIwP1E/mWUtrCnA5n39fThPeozh0qbH9yOc6jyA==" );
-        this.architectView.onCreate( config );
 
+       config.setLicenseKey("2f4NRVBlBmqoKoQoiv7bwnbs8BDfEaKrvPP/SacDF8TtUYVhAe1+pb5TGuSFuJfG/rFie4YEYYthiDIQ5DfgR0RHqAKggUIaxvnhmXOW8YOur+ARkdgl5RYTLgmRTuU9RYb1Ry/XU+O67mRSVXNJ4HIZ6I43xcsUveBAtw/Gl41TYWx0ZWRfX/PQ/qArUWYZgJ2vnd/H8bi6K/SeLWsYKP4HR4sPiOMA/6F7aCqqSQ49PVxFhZuh97reCOF//F1MUINw/GpGJxEyRRc4U6ji76E02syJuS49vYBc6NlSzUACi6oYhsP03B4tRvUasnhDJGe9iPjC/6Y2n10uUpS2hm2fAXT5JzqPClJxntSJj+DNWcVvdt2uBid4ae4LN6/+3Y8hI7AymJAmWDtiQWOmJw02kE98tveU+ZFo4TfY027mRR56GOAXb1n/OX91zuGsMyXcShrKDib12+AqV1SKSVJ0wCGm2eRcX0EBkQ2Hp4RB3/Oc0VJO7ayqJJOIkIbWOq/uQ7q+NdA8lgdWUJhl7x4gwWwulfAXWxltNgxRJTjkblWKgjGxaX8BB8fX/2fvd3SpLp5M9LsKBAmZql/3Cixf4TqEK/svXrrYZasddmzbf2/4CYdjPkGyPqAoT9xJev1lf1uXC304oZ0WKIZL6+igj536vxG1ErgmcE4o7X5YqGT/QZJfphvWpn9eAtsToKCVNVLiT6JBPIYaTqah7MamGFTKnvBXO1dqRTYTw0+X2rURVzSnnE/dKYpZej0t" );
+
+
+        extensions.put(EXTENSION_SCREENSHOT, new ScreenshotSaverExtension(this, architectView));
+
+        for (ArchitectViewExtension extension : extensions.values()) {
+            extension.onCreate();
+        }
+
+        this.architectView.onCreate( config );
         getLocalization( recursoAlmacenado );
     }
 
@@ -78,24 +106,8 @@ public class RealidadAumentada extends AppCompatActivity {
 
         try {
 
-         // arExperience= "AlbarradaVelascoIbarra1";
-        //  String p= Environment.DIRECTORY_DOWNLOADS+File.separator + "datos";
-         // file= new File(p);
-
-         //  BackgroundTask task = new BackgroundTask();
-        //   BackgroundImg task = new BackgroundImg();
-        //  Toast.makeText (this,"  directorio....." +file.toString() ,Toast.LENGTH_LONG).show();
-       //  task.execute("assets/amantes.jpg",file.toString());
-          //  task.downloadFile("https://storage.cloud.google.com/guiamovilse_recursos_storage/wikitude_3d_museo/3dObjects/assets/amantes.jpg?authuser=0",Environment.getDownloadCacheDirectory());
-      //   Toast.makeText(this, " A new file is downloaded successfully  " , Toast.LENGTH_LONG).show();
-
-
-
-            this.architectView.setLocation(-2.23351,-80.8675,100);
+          //  this.architectView.setLocation(-2.23351,-80.8675,100);
             this.architectView.load(arExperience);
-           //this.architectView.load("https://storage.cloud.google.com/guiamovilse_recursos_storage/wikitude_3d_museo/3dObjects/index.html?authuser=0");
-            // this.architectView.load("file:///android_asset/"+ arExperience + "/index.html");
-            //this.architectView.load("file:///android_asset/AlbarradaVelascoIbarra1/index.html");
             this.architectView.onResume();
 
         }catch (Exception e){
@@ -153,11 +165,7 @@ public class RealidadAumentada extends AppCompatActivity {
                 }
                 Random rand = new Random();
                 int randomNum = rand.nextInt(50);
-            /*    Toast.makeText(
-                        activity,
-                        "nueva posicion obtenida " + latitude + " " + longitude + " integrando Realidad aumentada "
-                                + randomNum, Toast.LENGTH_LONG).show();
-                architectView.setLocation(latitude, longitude, 1f);*/
+
             }
 
             @Override
@@ -207,13 +215,7 @@ public class RealidadAumentada extends AppCompatActivity {
                 latitude = -2.2335 /*recursoAlmacenado.latitud()*/;
                 longitude = -80.8675 /* recursoAlmacenado.longuitd()*/;
             }
-          /*  Toast.makeText(
-                    activity,
-                    "nueva posicion seteada .... obtenida " + latitude + " " + longitude + " "
-                    , Toast.LENGTH_LONG).show(); */
-            //architectView.setLocation(latitude, longitude, 1f);
-            // actualizo la posicion del usuario cada 5 min = 80000 ms
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 0, locationListener);
+           locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 0, locationListener);
 
         } else if (locationManager // Puntos Wifi o senal telefonica
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -225,8 +227,7 @@ public class RealidadAumentada extends AppCompatActivity {
                 longitude = recursoAlmacenado.longuitd();
             }
 
-            // actualizo la posicion del usuario cada 5 min = 80000 ms
-            //    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 80000, 0, locationListener);
+
 
         } else {
             // servicio desactivado
@@ -237,63 +238,6 @@ public class RealidadAumentada extends AppCompatActivity {
         }
     }
 
-
-
-
-
-
-
-
-    public class BackgroundImg extends AsyncTask<String, Void, Bitmap> {
-
-        private Bitmap descargarImagen(String imageHttpAddress) {
-            URL imageUrl = null;
-            Bitmap imagen = null;
-            try {
-                imageUrl = new URL(imageHttpAddress);
-                HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
-                conn.connect();
-                imagen = BitmapFactory.decodeStream(conn.getInputStream());
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            return imagen;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            Log.i("doInBackground" , "Entra en doInBackground");
-            String url = strings[0];
-            File file = new File(strings[1]);
-           // Bitmap imagen = descargarImagen(url);
-            downloadFile(url,file);
-            return null;
-        }
-
-        private void downloadFile(String url,File outputFile) {
-            try {
-                URL u = new URL(url);
-                URLConnection conn = u.openConnection();
-                int contentLength = conn.getContentLength();
-
-                DataInputStream stream = new DataInputStream(u.openStream());
-
-                byte[] buffer = new byte[contentLength];
-                stream.readFully(buffer);
-                stream.close();
-
-                DataOutputStream fos = new DataOutputStream(new FileOutputStream(outputFile));
-                fos.write(buffer);
-                fos.flush();
-                fos.close();
-            } catch(FileNotFoundException e) {
-                return; // swallow a 404
-            } catch (IOException e) {
-                return; // swallow a 404
-            }
-        }
-    }
 
 
 

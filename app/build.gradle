@@ -54,11 +54,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     androidTestImplementation 'junit:junit:4.12'
 
-    implementation (name: 'wikitudesdk', ext:'aar')
+    implementation(name: 'wikitudesdk', ext: 'aar')
     implementation 'com.google.ar:core:1.1.0'
 }
 repositories {
-    flatDir{
+    flatDir {
         dirs 'libs'
     }
 }

@@ -1,0 +1,111 @@
+#page1 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.info {
+    font-size: large;
+    position: absolute;
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #BBBBBB;
+    text-align: center;
+    top: 0;
+    left: 0;
+    opacity: 0.7;
+    display: table;
+}
+
+#infoBox {
+    display: none;
+}
+
+#infoBox .text {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    width: 20%;
+}
+
+#infoBox .icons {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+#infoBox .icons img {
+    margin-left: 15px;
+}
+
+#scanButtonWrapper {
+    font-size: large;
+    position: absolute;
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #BBBBBB;
+    text-align: center;
+    bottom: 0;
+    left: 0;
+    opacity: 0.7;
+    display: table;
+}
+
+.errorMessage {
+    font-size: large;
+    position: absolute;
+    width: 100%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #BBBBBB;
+    text-align: center;
+    top: 50%;
+    left: 0;
+    opacity: 0.7;
+    display: table;
+}
+
+
+
+.tableheader {
+    font-weight: bold;
+    background-color: #337DFF;
+    color: rgb(34, 34, 34);
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 24pt;
+}
+
+#planetInfo {
+    display: inline-block;
+    background-color: rgba(242, 249, 249, 0.75);
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-size: 15pt;
+}
+
+.planetInfo {
+    opacity: 0;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+table {
+    width: 100%;
+    margin-right: auto;
+    border: none;
+    border-spacing: 10px 5px;
+}
+

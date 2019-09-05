@@ -99,8 +99,6 @@ if(obtenerEstadoButton()){
                 pull.start();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
             locManager = (LocationManager) getSystemService(LOCATION_SERVICE);

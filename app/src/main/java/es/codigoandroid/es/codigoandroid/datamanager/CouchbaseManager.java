@@ -58,7 +58,8 @@ public class CouchbaseManager<K, V>
 
     //*****Datos para replicacion
     public final String TAG ="CouchbaseManager";
-    private static final String SYNC_URL_HTTP = "http://186.178.10.221:4984/geoturse";
+    //private static final String SYNC_URL_HTTP = "http://186.178.10.221:4984/geoturse";
+    private static final String SYNC_URL_HTTP = "http://facsistel.upse.edu.ec:4984/db";
     private Replication mPull;
     private Replication mPush;
     private Throwable mReplError;

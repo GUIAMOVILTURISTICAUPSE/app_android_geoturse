@@ -143,8 +143,6 @@ public class Fragment_seccion3 extends Fragment {
                             pull.start();*/
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
 
                         Toast.makeText(getActivity(), "Edicion exitosa", Toast.LENGTH_LONG).show();

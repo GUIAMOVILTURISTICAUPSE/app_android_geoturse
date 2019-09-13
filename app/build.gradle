@@ -7,8 +7,8 @@ android {
         applicationId "es.codigoandroid.geoturse"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -23,6 +23,10 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
 }
@@ -55,7 +59,7 @@ dependencies {
     androidTestImplementation 'junit:junit:4.12'
 
     implementation(name: 'wikitudesdk', ext: 'aar')
-    implementation 'com.google.ar:core:1.1.0'
+    //implementation 'com.google.ar:core:1.1.0'
 }
 repositories {
     flatDir {

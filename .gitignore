@@ -26,6 +26,9 @@ lint
 # Java class files
 *.class
 
+# Debug apks
+/app/debug
+
 # generated files
 bin/
 gen/

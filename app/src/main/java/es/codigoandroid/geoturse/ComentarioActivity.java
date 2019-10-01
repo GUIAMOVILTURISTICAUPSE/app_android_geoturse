@@ -12,7 +12,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +19,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Comentario;
 import es.codigoandroid.pojos.Recursos;
 import es.codigoandroid.pojos.Usuario;
 
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 /**
  * Created by Alvaro on 20/06/2017.
+ * Modified by Ivan on 10/09/2019
  */
 
 public class ComentarioActivity extends AppCompatActivity {
@@ -36,7 +36,7 @@ public class ComentarioActivity extends AppCompatActivity {
 
     private ArrayList<Comentario> ListaComentario = new ArrayList<Comentario>();
 
-    CouchbaseManager<String, Recursos> dbaRecurso;
+    CouchbaseLiteManager<Recursos> dbaRecurso;
     public Recursos recursoAlmacenado;
     public Usuario usuario;
 
@@ -53,7 +53,7 @@ public class ComentarioActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
         String mostrarR = getIntent().getExtras().getString("recurso");
         recursoAlmacenado = dbaRecurso.get(mostrarR);
 

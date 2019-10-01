@@ -2,9 +2,7 @@ package es.codigoandroid.geoturse;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -14,22 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.Database;
-import com.couchbase.lite.replicator.Replication;
-
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Usuario;
 
 
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
+
+
 public class Fragment_seccion3 extends Fragment {
-    CouchbaseManager<String, Usuario> dbaUsuario;
+    CouchbaseLiteManager<Usuario> dbaUsuario;
 
     private Database database;
 
@@ -70,7 +66,7 @@ public class Fragment_seccion3 extends Fragment {
             Bundle bundle = getActivity().getIntent().getExtras();
             if (bundle.getString("_usuario") != null && !bundle.getString("_usuario").equals("")) {
                 //input_email_edit.setText(bundle.getString("_usuario"));
-                dbaUsuario = new CouchbaseManager<String, Usuario>(getActivity(), Usuario.class);
+                dbaUsuario = new CouchbaseLiteManager<Usuario>(getActivity(), Usuario.class);
                 Usuario usuarioIngresado = new Usuario();
                 usuarioIngresado.setEmail(bundle.getString("_usuario"));
                 Usuario usuarioAlmacenado = dbaUsuario.get(usuarioIngresado.getEmail());
@@ -130,20 +126,7 @@ public class Fragment_seccion3 extends Fragment {
 
 
                         database = dbaUsuario.getDbCouchbase();
-                        try {
-                            // replace with the IP to use
-                            URL url = new URL("http://186.178.10.221:4984/db");
-
-                            Replication push = database.createPushReplication(url);
-                            push.setContinuous(true);
-                            push.start();
-
-                           /* Replication pull = database.createPullReplication(url);
-                            pull.setContinuous(true);
-                            pull.start();*/
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        }
+                        dbaUsuario.replicate();
 
                         Toast.makeText(getActivity(), "Edicion exitosa", Toast.LENGTH_LONG).show();
                         btn_edit_usuario.setText("Editar");

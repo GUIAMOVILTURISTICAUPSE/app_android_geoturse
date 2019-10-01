@@ -15,19 +15,16 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Imagen;
 import es.codigoandroid.pojos.Recursos;
 
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class GalleriaRecurso extends AppCompatActivity {
 
@@ -36,7 +33,7 @@ public class GalleriaRecurso extends AppCompatActivity {
     private TextView  tv_descripcion;
     private ArrayList<Imagen> imagen=new ArrayList<Imagen>();
 
-    CouchbaseManager<String, Recursos> dbaRecurso;
+    CouchbaseLiteManager<Recursos> dbaRecurso;
     public Recursos recursoAlmacenado;
 
 
@@ -59,7 +56,7 @@ public class GalleriaRecurso extends AppCompatActivity {
 
         imagenSeleccionada = (ImageView) findViewById(R.id.seleccionada);
 
-        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
         final String mostrarR = getIntent().getExtras().getString("recurso");
        recursoAlmacenado = dbaRecurso.get(mostrarR);
 

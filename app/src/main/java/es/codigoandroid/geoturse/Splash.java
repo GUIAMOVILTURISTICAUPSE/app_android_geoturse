@@ -2,26 +2,22 @@ package es.codigoandroid.geoturse;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Document;
-import com.couchbase.lite.UnsavedRevision;
-import com.couchbase.lite.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
-import es.codigoandroid.pojos.Senderos;
+
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class Splash extends AppCompatActivity {
     private static final String TAG = "Splash";
-    CouchbaseManager<String, Recursos> dbaRecurso;
+    CouchbaseLiteManager<Recursos> dbaRecurso;
 
 
     private Bitmap mImageToBeAttached;
@@ -93,7 +89,7 @@ public class Splash extends AppCompatActivity {
         finish();
     }
 
-    private void attachImage(Document task, Bitmap image) {
+/*    private void attachImage(Document task, Bitmap image) {
         if (task == null || image == null) return;
 
         UnsavedRevision revision = task.createRevision();
@@ -108,5 +104,5 @@ public class Splash extends AppCompatActivity {
         } catch (CouchbaseLiteException e) {
             Log.e(this.TAG, "Cannot attach image", e);
         }
-    }
+    }*/
 }

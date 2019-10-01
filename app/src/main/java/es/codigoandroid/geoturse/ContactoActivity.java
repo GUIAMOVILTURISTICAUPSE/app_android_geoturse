@@ -8,20 +8,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Contacto;
 import es.codigoandroid.pojos.Recursos;
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class ContactoActivity extends AppCompatActivity {
     private static final String TAG = "Contacto";
-    CouchbaseManager<String, Recursos> dbaRecurso;
+    CouchbaseLiteManager<Recursos> dbaRecurso;
     public Recursos recursoAlmacenado;
     private TextView nombre, telefono, email, web;
     private ImageView imagen,facebook,twitter, instagram;
@@ -36,7 +35,7 @@ public class ContactoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
         String mostrarR = getIntent().getExtras().getString("recurso");
         recursoAlmacenado = dbaRecurso.get(mostrarR);
 

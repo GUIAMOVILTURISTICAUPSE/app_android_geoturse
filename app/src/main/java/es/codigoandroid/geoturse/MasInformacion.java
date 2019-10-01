@@ -4,25 +4,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.AccesibilidadRecurso;
 import es.codigoandroid.pojos.Costo;
 import es.codigoandroid.pojos.Facilidad;
 import es.codigoandroid.pojos.Idiomas;
 import es.codigoandroid.pojos.Recursos;
-import es.codigoandroid.pojos.TipoAccesibilidad;
-import es.codigoandroid.pojos.TipoAtractivo;
 
+
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 /**
  * Created by carme_000 on 14/06/2017.
  */
 public class MasInformacion extends AppCompatActivity {
-    CouchbaseManager<String, Recursos> dbaRecurso;
+    CouchbaseLiteManager<Recursos> dbaRecurso;
     public Recursos recursoAlmacenado;
     public TextView tv_tipoRecurso,tv_accesibilidad,tv_acceso,tv_Infraestructura,
             tv_parqueos,tv_facilidades,tv_seguridad,tv_idiomas;
@@ -53,7 +51,7 @@ public class MasInformacion extends AppCompatActivity {
     }
 
     private void mostrarInformacion() {
-        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
         final String mostrarR = getIntent().getExtras().getString("recurso");
         recursoAlmacenado = dbaRecurso.get(mostrarR);
 

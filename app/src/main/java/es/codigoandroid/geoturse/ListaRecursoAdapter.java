@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.couchbase.lite.Attachment;
+//import com.couchbase.lite.Attachment; //Probando Couchbaselite 2.6 donde no existe attachment sino blob
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
 import com.couchbase.lite.Document;

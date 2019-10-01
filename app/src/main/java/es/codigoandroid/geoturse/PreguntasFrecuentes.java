@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +13,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
 import es.codigoandroid.pojos.PreguntaFrecuente;
+
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class PreguntasFrecuentes extends AppCompatActivity {
     private String [] preguntas;
     private String [] respuestas;
-    CouchbaseManager<String, Recursos> dbaRecurso;
+    CouchbaseLiteManager<Recursos> dbaRecurso;
     public Recursos recursoAlmacenado;
 
     private ArrayAdapter<String> ListaPreguntas;
@@ -35,7 +35,7 @@ public class PreguntasFrecuentes extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ListView ListaPreguntasRespuestas= (ListView)findViewById(R.id.listView);
-        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
         String mostrarR = getIntent().getExtras().getString("recurso");
         recursoAlmacenado = dbaRecurso.get(mostrarR);
 

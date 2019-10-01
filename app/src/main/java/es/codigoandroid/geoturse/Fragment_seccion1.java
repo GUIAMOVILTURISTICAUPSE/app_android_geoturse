@@ -3,28 +3,20 @@ package es.codigoandroid.geoturse;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryEnumerator;
-import com.couchbase.lite.QueryRow;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -35,20 +27,17 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
 
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class Fragment_seccion1 extends Fragment {
     private static final String TAG = "Fragment_seccion1";
-    CouchbaseManager<String, Recursos> dbaRecurso_f1;
+    CouchbaseLiteManager<Recursos> dbaRecurso_f1;
     private ArrayList<Recursos> recursos_f1;
     MapView mMapView;
     private GoogleMap googleMap;
@@ -62,7 +51,7 @@ public class Fragment_seccion1 extends Fragment {
 
         //  "Inflamos" el archivo XML correspondiente a esta sección.
         final View vista = inflater.inflate(R.layout.fragment_seccion1, container, false);
-        dbaRecurso_f1 = new CouchbaseManager<String, Recursos>(this.getActivity(), Recursos.class);
+        dbaRecurso_f1 = new CouchbaseLiteManager<Recursos>(this.getActivity(), Recursos.class);
         inicLocation();
         registerLocation();
         //loc = new Location(String.valueOf(new LatLng(-2.229612,-80.8820533)));
@@ -298,22 +287,7 @@ public class Fragment_seccion1 extends Fragment {
     }
 
     public void inicPuntosMarker(){
-        recursos_f1 = new ArrayList<>();
-        final Query queryPlaces = dbaRecurso_f1.registerViews().createQuery();
-        QueryEnumerator rows = null;
-        try {
-            rows = queryPlaces.run();
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-        for (Iterator<QueryRow> it = rows; it.hasNext(); ) {
-            QueryRow row = it.next();
-
-            Log.d("Estoy aki", row.getValue().toString());
-            Log.d("Estoy aki clave", row.getKey().toString());
-            Recursos recursoAlmacenado_f1 = dbaRecurso_f1.get(row.getKey().toString());
-            recursos_f1.add(recursoAlmacenado_f1);
-        }
+        recursos_f1 = dbaRecurso_f1.queryForDocumentTypeAsArrayList();
     }
 
 

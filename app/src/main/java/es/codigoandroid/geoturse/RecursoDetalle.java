@@ -36,14 +36,15 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Animacion;
 import es.codigoandroid.pojos.Recursos;
 import es.codigoandroid.pojos.TipoAnimacion;
 
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
+
 public class RecursoDetalle extends AppCompatActivity {
     private static final String TAG = "RecursoDetalle";
-    CouchbaseManager<String, Recursos> dbaRecurso;
+    CouchbaseLiteManager<Recursos> dbaRecurso;
     private TextView direccion,descripcion, canton, parroquia;
     private ImageView imagen;
     private Button rutaBtnn, senderoBtnn, galeriaBtnn;
@@ -77,7 +78,7 @@ public class RecursoDetalle extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         inicLocation();
         registerLocation();
-        dbaRecurso = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
         imagen = (ImageView) findViewById(R.id.imagen);
         direccion = (TextView) findViewById(R.id.txt_direccionR);
         descripcion = (TextView) findViewById(R.id.txt_descripcionR);

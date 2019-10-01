@@ -22,9 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.couchbase.lite.Database;
-import com.couchbase.lite.replicator.Replication;
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
+//import com.couchbase.lite.replicator.Replication;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,14 +32,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Usuario;
 
 public class Inicio_Sesion extends AppCompatActivity {
     private static final String TAG = "Inicio_Sesion";
     private static final int REQUEST_SIGNUP = 0;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
-    CouchbaseManager<String, Usuario> dbaUsuario;
+    CouchbaseLiteManager<Usuario> dbaUsuario;
     private LocationManager locManager;
     AlertDialog alert = null;
 
@@ -84,22 +83,11 @@ if(obtenerEstadoButton()){
 
 
         if(checkAndRequestPermissions()) {
-            dbaUsuario = new CouchbaseManager<String, Usuario>(this, Usuario.class);
+            dbaUsuario = new CouchbaseLiteManager<Usuario>(this, Usuario.class);
             database = dbaUsuario.getDbCouchbase();
-            try {
-                // replace with the IP to use
-                URL url = new URL("http://facsistel.upse.edu.ec:4984/db");
 
-                Replication push = database.createPushReplication(url);
-                push.setContinuous(true);
-                push.start();
+                 dbaUsuario.replicate();
 
-                Replication pull = database.createPullReplication(url);
-                pull.setContinuous(true);
-                pull.start();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
 
             locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){

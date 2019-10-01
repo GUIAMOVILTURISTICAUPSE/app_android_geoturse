@@ -13,12 +13,14 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Usuario;
+
+
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class Registro extends AppCompatActivity {
     private static final String TAG = "Registro";
-    CouchbaseManager<String, Usuario> dbaUsuario;
+    CouchbaseLiteManager<Usuario> dbaUsuario;
 
     @BindView(R.id.input_name)
     EditText nameText;
@@ -44,7 +46,7 @@ public class Registro extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
         ButterKnife.bind(this);
 
-        dbaUsuario = new CouchbaseManager<String, Usuario>(this, Usuario.class);
+        dbaUsuario = new CouchbaseLiteManager<Usuario>(this, Usuario.class);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override

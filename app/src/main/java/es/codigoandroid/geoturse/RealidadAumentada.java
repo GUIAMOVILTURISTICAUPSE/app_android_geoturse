@@ -1,58 +1,27 @@
 package es.codigoandroid.geoturse;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.wikitude.architect.ArchitectJavaScriptInterfaceListener;
 import com.wikitude.architect.ArchitectStartupConfiguration;
 import com.wikitude.architect.ArchitectView;
-import com.wikitude.common.permission.PermissionManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import es.codigoandroid.advanced.ArchitectViewExtension;
 import es.codigoandroid.advanced.ScreenshotSaverExtension;
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
 
-import static com.wikitude.architect.ArchitectView.CaptureScreenCallback.CAPTURE_MODE_CAM_AND_WEBVIEW;
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class RealidadAumentada extends AppCompatActivity {
     //private static final String sampleDefinitionsPath = "assets/samples.json";
@@ -68,7 +37,7 @@ public class RealidadAumentada extends AppCompatActivity {
 
     LocationManager locationManager;
 
-    CouchbaseManager<String, Recursos> dbaRecurso_f2;
+    CouchbaseLiteManager<Recursos> dbaRecurso_f2;
     public Recursos recursoAlmacenado;
     private final Map<String, ArchitectViewExtension> extensions = new HashMap<>();
 
@@ -78,7 +47,7 @@ public class RealidadAumentada extends AppCompatActivity {
         setContentView(R.layout.activity_realidad_aumentada);
 
         mostrarR = getIntent().getExtras().getString("recurso");
-        dbaRecurso_f2 = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso_f2 = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
         recursoAlmacenado = dbaRecurso_f2.get(mostrarR);
         arExperience = getIntent().getExtras().getString("link");
 

@@ -20,25 +20,29 @@ import android.widget.Spinner;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryEnumerator;
-import com.couchbase.lite.QueryRow;
+import com.couchbase.lite.Result;
+import com.couchbase.lite.ResultSet;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Recursos;
 import es.codigoandroid.pojos.TipoFiltro;
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 
 public class Fragment_seccion2 extends Fragment {
     private static final String TAG = "Fragment_seccion2";
-    CouchbaseManager<String, Recursos> dbaRecurso_f2;
+    CouchbaseLiteManager<Recursos> dbaRecurso_f2;
     private ArrayList<Recursos> recursos_f2;
     private RecyclerView rvListaRecurso;
     private RadioButton rbCanton, rbParroquia, rbNombre, rbRNatural, rbMCultural ;
     private ViewGroup layout;
     private ImageButton btDefault;
+
+    final ObjectMapper mapper = new ObjectMapper();
 
     View vista;
     @Override
@@ -92,7 +96,7 @@ public class Fragment_seccion2 extends Fragment {
             }
         });
 
-        dbaRecurso_f2 = new CouchbaseManager<String, Recursos>(this.getActivity(), Recursos.class);
+        dbaRecurso_f2 = new CouchbaseLiteManager<Recursos>(this.getActivity(), Recursos.class);
 
         rvListaRecurso = (RecyclerView) vista.findViewById(R.id.reciclador);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -107,59 +111,38 @@ public class Fragment_seccion2 extends Fragment {
 
     public void inicializarDatos(){
         recursos_f2 = new ArrayList<>();
-        final Query queryPlaces = dbaRecurso_f2.registerViews().createQuery();
-        QueryEnumerator rows = null;
-        try {
-            rows = queryPlaces.run();
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-        for (Iterator<QueryRow> it = rows; it.hasNext(); ) {
-            QueryRow row = it.next();
+        recursos_f2 = dbaRecurso_f2.queryForDocumentTypeAsArrayList();
 
-            Log.d("Estoy aki", row.getValue().toString());
-            Log.d("Estoy aki clave", row.getKey().toString());
-            Recursos recursoAlmacenado = dbaRecurso_f2.get(row.getKey().toString());
+/*        final ResultSet queryPlacesRs = dbaRecurso_f2.queryForDocumentType();
+
+        for(Result r:queryPlacesRs.allResults())
+        {
+            Map<String, Object> map = r.toMap();
+            Recursos recursoAlmacenado = mapper.convertValue(map.get("geoturse"), Recursos.class);
             recursos_f2.add(recursoAlmacenado);
-
-        }
-
+        }*/
     }
 
     public void inicializarDatos(TipoFiltro filtro, String parametro){
-        recursos_f2 = new ArrayList<>();
+        inicializarDatos();
         Log.d("Estoy aki", filtro + "," + parametro);
-        final Query queryPlaces = dbaRecurso_f2.registerViews().createQuery();
-        QueryEnumerator rows = null;
-        try {
-            rows = queryPlaces.run();
-        } catch (CouchbaseLiteException e) {
-            e.printStackTrace();
-        }
-        for (Iterator<QueryRow> it = rows; it.hasNext(); ) {
-            QueryRow row = it.next();
-            if(filtro.toString().toLowerCase().equals("canton")){
-            Recursos recursoAlmacenado = dbaRecurso_f2.get(row.getKey().toString());
-                if(recursoAlmacenado.getCanton()!=null) {
-                    if (recursoAlmacenado.getCanton().equals(parametro)) {
-                        recursos_f2.add(recursoAlmacenado);
-                       }
-                }
-            }
-            else{
-                if(filtro.toString().toLowerCase().equals("parroquia")){
-                    Recursos recursoAlmacenado = dbaRecurso_f2.get(row.getKey().toString());
-                    if(recursoAlmacenado.getParroquia()!=null) {
-                        if (recursoAlmacenado.getParroquia().equals(parametro)) {
-                            recursos_f2.add(recursoAlmacenado);
-                        }
+
+        for (Recursos r: recursos_f2) {
+            if (filtro.toString().toLowerCase().equals("canton")) {
+                if (r.getCanton() != null) {
+                    if (r.getCanton().equals(parametro)) {
+                        recursos_f2.add(r);
                     }
                 }
-                else{
-                    if(filtro.toString().toLowerCase().equals("nombre")){
-                        Recursos recursoAlmacenado = dbaRecurso_f2.get(row.getKey().toString());
-                        if (recursoAlmacenado.getNombre().matches(""+parametro+".*")) {
-                            recursos_f2.add(recursoAlmacenado);
+            } else {
+                if (filtro.toString().toLowerCase().equals("parroquia")) {
+                    if (r.getParroquia() != null && r.getCanton().equals(parametro)) {
+                        recursos_f2.add(r);
+                    }
+                } else {
+                    if (filtro.toString().toLowerCase().equals("nombre")) {
+                        if (r.getNombre() != null && r.getNombre().matches("" + parametro + ".*")) {
+                            recursos_f2.add(r);
                         }
                     }
                 }

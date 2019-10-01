@@ -1,36 +1,23 @@
 package es.codigoandroid.geoturse;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.couchbase.lite.CouchbaseLiteException;
-import com.couchbase.lite.Query;
-import com.couchbase.lite.QueryEnumerator;
-import com.couchbase.lite.QueryRow;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import es.codigoandroid.es.codigoandroid.datamanager.CouchbaseManager;
 import es.codigoandroid.pojos.Animacion;
 import es.codigoandroid.pojos.Recursos;
 
+
+import es.codigoandroid.datamanager.CouchbaseLiteManager;
+
 public class ListaVideo extends AppCompatActivity {
-    CouchbaseManager<String, Recursos> dbaRecurso_f2;
+    CouchbaseLiteManager<Recursos> dbaRecurso_f2;
     private String[] listavideos, numero_video ;
     public Recursos recursoAlmacenado;
 
@@ -39,7 +26,7 @@ public class ListaVideo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_video);
-        dbaRecurso_f2 = new CouchbaseManager<String, Recursos>(this, Recursos.class);
+        dbaRecurso_f2 = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
 
         ListView listav= (ListView) findViewById(R.id.listav);
 

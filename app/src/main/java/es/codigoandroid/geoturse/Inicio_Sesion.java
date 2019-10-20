@@ -35,18 +35,16 @@ import butterknife.ButterKnife;
 import es.codigoandroid.pojos.Usuario;
 
 public class Inicio_Sesion extends AppCompatActivity {
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private static final String TAG = "Inicio_Sesion";
     private static final int REQUEST_SIGNUP = 0;
-    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private  static  final String STRING_PREFERENCES = "Configuracion";
+    private  static  final String PREFERENCES_ESTADO_BUTTON_SECCION= "estado.button.sesion";
     CouchbaseLiteManager<Usuario> dbaUsuario;
-    private LocationManager locManager;
-    AlertDialog alert = null;
 
 
     ;
-
-    private Database database;
-
+    AlertDialog alert = null;
     @BindView(R.id.input_email)
     EditText emailText;
     @BindView(R.id.input_password)
@@ -57,11 +55,18 @@ public class Inicio_Sesion extends AppCompatActivity {
     TextView signupLink;
     @BindView(R.id.link_cambio)
     TextView cambioLink;
-
+    private LocationManager locManager;
+    private Database database;
     private RadioButton RBsesion;
     private boolean isActivateButton;
-    private  static  final String STRING_PREFERENCES = "Configuracion";
-    private  static  final String PREFERENCES_ESTADO_BUTTON_SECCION= "estado.button.sesion";
+
+    public static void changeEstadoCambiar(Context c,boolean b){
+        SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
+        preferences.edit().putBoolean(PREFERENCES_ESTADO_BUTTON_SECCION,b).apply();
+
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,24 +74,26 @@ public class Inicio_Sesion extends AppCompatActivity {
         ButterKnife.bind(this);
         CargarPreferencias();
 
-if(obtenerEstadoButton()){
+        dbaUsuario = new CouchbaseLiteManager<Usuario>(this, Usuario.class);
 
-    Intent intent = new Intent(this, MainActivity.class);
-    Bundle b = new Bundle();
-    b.putString("_usuario", emailText.getText().toString());
-    intent.putExtras(b);
-    startActivity(intent);
-    finish();
-}
+        if(obtenerEstadoButton()){
+
+            Intent intent = new Intent(this, MainActivity.class);
+            Bundle b = new Bundle();
+            b.putString("_usuario", emailText.getText().toString());
+            intent.putExtras(b);
+            startActivity(intent);
+            finish();
+        }
 
 
 
 
         if(checkAndRequestPermissions()) {
-            dbaUsuario = new CouchbaseLiteManager<Usuario>(this, Usuario.class);
+            //dbaUsuario = new CouchbaseLiteManager<Usuario>(this, Usuario.class);
             database = dbaUsuario.getDbCouchbase();
 
-                 dbaUsuario.replicate();
+            dbaUsuario.replicate();
 
 
             locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -101,14 +108,12 @@ if(obtenerEstadoButton()){
         RBsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(isActivateButton){
-                   RBsesion.setChecked(false);
-               }
-               isActivateButton=RBsesion.isChecked();
+                if(isActivateButton){
+                    RBsesion.setChecked(false);
+                }
+                isActivateButton=RBsesion.isChecked();
             }
         });
-
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -141,13 +146,6 @@ if(obtenerEstadoButton()){
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-    }
-
-    public static void changeEstadoCambiar(Context c,boolean b){
-        SharedPreferences preferences = c.getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
-        preferences.edit().putBoolean(PREFERENCES_ESTADO_BUTTON_SECCION,b).apply();
-
-
     }
 
     public void CargarPreferencias(){
@@ -184,7 +182,7 @@ if(obtenerEstadoButton()){
 
         SharedPreferences preferences = getSharedPreferences(STRING_PREFERENCES, MODE_PRIVATE);
 
-      return   preferences.getBoolean(PREFERENCES_ESTADO_BUTTON_SECCION, false);
+        return   preferences.getBoolean(PREFERENCES_ESTADO_BUTTON_SECCION, false);
 
 
     }
@@ -249,7 +247,7 @@ if(obtenerEstadoButton()){
         b.putString("_usuario", emailText.getText().toString());
         intent.putExtras(b);
         startActivity(intent);
-      // CargarPreferencias();
+        // CargarPreferencias();
         finish();
     }
 

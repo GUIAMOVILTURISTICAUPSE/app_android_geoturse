@@ -61,12 +61,6 @@ public class RecursoDetalle extends AppCompatActivity {
     ManejadoraGaleria manejadorGaleria;
     ViewPager mViewPager;
 
-    int[] imagenes = {
-            R.drawable.chocolatera_ver,
-            R.drawable.salinas_ver,
-            R.drawable.parapente_ver,
-            R.drawable.escolleras_ver
-    };
 
 
     @Override

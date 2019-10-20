@@ -1,10 +1,17 @@
 package es.codigoandroid.geoturse;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -41,31 +48,42 @@ public class RealidadAumentada extends AppCompatActivity {
     public Recursos recursoAlmacenado;
     private final Map<String, ArchitectViewExtension> extensions = new HashMap<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realidad_aumentada);
 
-        mostrarR = getIntent().getExtras().getString("recurso");
-        dbaRecurso_f2 = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
-        recursoAlmacenado = dbaRecurso_f2.get(mostrarR);
-        arExperience = getIntent().getExtras().getString("link");
 
-        this.architectView = (ArchitectView) this.findViewById(R.id.architectView);
-        final ArchitectStartupConfiguration config = new ArchitectStartupConfiguration();
+            //main logic or main code
 
-       config.setLicenseKey("2f4NRVBlBmqoKoQoiv7bwnbs8BDfEaKrvPP/SacDF8TtUYVhAe1+pb5TGuSFuJfG/rFie4YEYYthiDIQ5DfgR0RHqAKggUIaxvnhmXOW8YOur+ARkdgl5RYTLgmRTuU9RYb1Ry/XU+O67mRSVXNJ4HIZ6I43xcsUveBAtw/Gl41TYWx0ZWRfX/PQ/qArUWYZgJ2vnd/H8bi6K/SeLWsYKP4HR4sPiOMA/6F7aCqqSQ49PVxFhZuh97reCOF//F1MUINw/GpGJxEyRRc4U6ji76E02syJuS49vYBc6NlSzUACi6oYhsP03B4tRvUasnhDJGe9iPjC/6Y2n10uUpS2hm2fAXT5JzqPClJxntSJj+DNWcVvdt2uBid4ae4LN6/+3Y8hI7AymJAmWDtiQWOmJw02kE98tveU+ZFo4TfY027mRR56GOAXb1n/OX91zuGsMyXcShrKDib12+AqV1SKSVJ0wCGm2eRcX0EBkQ2Hp4RB3/Oc0VJO7ayqJJOIkIbWOq/uQ7q+NdA8lgdWUJhl7x4gwWwulfAXWxltNgxRJTjkblWKgjGxaX8BB8fX/2fvd3SpLp5M9LsKBAmZql/3Cixf4TqEK/svXrrYZasddmzbf2/4CYdjPkGyPqAoT9xJev1lf1uXC304oZ0WKIZL6+igj536vxG1ErgmcE4o7X5YqGT/QZJfphvWpn9eAtsToKCVNVLiT6JBPIYaTqah7MamGFTKnvBXO1dqRTYTw0+X2rURVzSnnE/dKYpZej0t" );
+            // . write your main code to execute, It will execute if the permission is already given.
 
 
-        extensions.put(EXTENSION_SCREENSHOT, new ScreenshotSaverExtension(this, architectView));
 
-        for (ArchitectViewExtension extension : extensions.values()) {
-            extension.onCreate();
-        }
+            mostrarR = getIntent().getExtras().getString("recurso");
+            dbaRecurso_f2 = new CouchbaseLiteManager<Recursos>(this, Recursos.class);
+            recursoAlmacenado = dbaRecurso_f2.get(mostrarR);
+            arExperience = getIntent().getExtras().getString("link");
 
-        this.architectView.onCreate( config );
-        getLocalization( recursoAlmacenado );
+            this.architectView = (ArchitectView) this.findViewById(R.id.architectView);
+            final ArchitectStartupConfiguration config = new ArchitectStartupConfiguration();
+
+            config.setLicenseKey("2f4NRVBlBmqoKoQoiv7bwnbs8BDfEaKrvPP/SacDF8TtUYVhAe1+pb5TGuSFuJfG/rFie4YEYYthiDIQ5DfgR0RHqAKggUIaxvnhmXOW8YOur+ARkdgl5RYTLgmRTuU9RYb1Ry/XU+O67mRSVXNJ4HIZ6I43xcsUveBAtw/Gl41TYWx0ZWRfX/PQ/qArUWYZgJ2vnd/H8bi6K/SeLWsYKP4HR4sPiOMA/6F7aCqqSQ49PVxFhZuh97reCOF//F1MUINw/GpGJxEyRRc4U6ji76E02syJuS49vYBc6NlSzUACi6oYhsP03B4tRvUasnhDJGe9iPjC/6Y2n10uUpS2hm2fAXT5JzqPClJxntSJj+DNWcVvdt2uBid4ae4LN6/+3Y8hI7AymJAmWDtiQWOmJw02kE98tveU+ZFo4TfY027mRR56GOAXb1n/OX91zuGsMyXcShrKDib12+AqV1SKSVJ0wCGm2eRcX0EBkQ2Hp4RB3/Oc0VJO7ayqJJOIkIbWOq/uQ7q+NdA8lgdWUJhl7x4gwWwulfAXWxltNgxRJTjkblWKgjGxaX8BB8fX/2fvd3SpLp5M9LsKBAmZql/3Cixf4TqEK/svXrrYZasddmzbf2/4CYdjPkGyPqAoT9xJev1lf1uXC304oZ0WKIZL6+igj536vxG1ErgmcE4o7X5YqGT/QZJfphvWpn9eAtsToKCVNVLiT6JBPIYaTqah7MamGFTKnvBXO1dqRTYTw0+X2rURVzSnnE/dKYpZej0t" );
+
+
+            extensions.put(EXTENSION_SCREENSHOT, new ScreenshotSaverExtension(this, architectView));
+
+            for (ArchitectViewExtension extension : extensions.values()) {
+                extension.onCreate();
+            }
+
+            this.architectView.onCreate( config );
+            getLocalization( recursoAlmacenado );
+
     }
+
+
 
 
     @Override
@@ -75,7 +93,7 @@ public class RealidadAumentada extends AppCompatActivity {
 
         try {
 
-          //  this.architectView.setLocation(-2.23351,-80.8675,100);
+            //  this.architectView.setLocation(-2.23351,-80.8675,100);
             this.architectView.load(arExperience);
             this.architectView.onResume();
 
@@ -84,6 +102,7 @@ public class RealidadAumentada extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     @Override
     protected void onResume(){
@@ -147,7 +166,7 @@ public class RealidadAumentada extends AppCompatActivity {
             public void onProviderEnabled(String provider) {
             }
 
-           @Override
+            @Override
             public void onStatusChanged(String provider, int status,Bundle extras) {
 
                 // muestro un mensaje segun el estatus erroneo de la senal
@@ -184,7 +203,7 @@ public class RealidadAumentada extends AppCompatActivity {
                 latitude = -2.2335 /*recursoAlmacenado.latitud()*/;
                 longitude = -80.8675 /* recursoAlmacenado.longuitd()*/;
             }
-           locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 80000, 0, locationListener);
 
         } else if (locationManager // Puntos Wifi o senal telefonica
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {

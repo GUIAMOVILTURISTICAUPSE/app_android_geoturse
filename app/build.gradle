@@ -7,15 +7,23 @@ android {
         applicationId "es.codigoandroid.geoturse"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 2
-        versionName "2.0"
+        versionCode 7
+        versionName "7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        //Para reducir el tamano e infor de librerias solo en espanol
+        resConfigs "es"
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
 
     }
     buildTypes {
         release {
-            minifyEnabled false
+            //Para reducir el tamano de los recurso shronkResources y del codigo minifiedEnabled
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

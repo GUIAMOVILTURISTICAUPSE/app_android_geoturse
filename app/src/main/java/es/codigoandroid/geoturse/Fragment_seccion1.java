@@ -60,20 +60,20 @@ public class Fragment_seccion1 extends Fragment {
         contador=contador +1;
         if(contador<2){
 
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity(),
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Ubicando...");
-        progressDialog.show();
+            final ProgressDialog progressDialog = new ProgressDialog(getActivity(),
+                    R.style.AppTheme_Dark_Dialog);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Ubicando...");
+            progressDialog.show();
 
-        // TODO: Implement your own authentication logic here.
+            // TODO: Implement your own authentication logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        progressDialog.dismiss();
-                    }
-                }, 10000);}
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            progressDialog.dismiss();
+                        }
+                    }, 10000);}
 
 
         upse = new LatLng(-2.147709, -80.624193);
@@ -120,78 +120,74 @@ public class Fragment_seccion1 extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                String item=parent.getItemAtPosition(position).toString();
-                if (item.equals("Mostrar todos"))
-                {
-                    // crea todos los markers sin execcion
-                    googleMap.clear();
-                    for(Recursos r : recursos_f1) {
-                        LatLng puntoRecurso;
-                        puntoRecurso = new LatLng(r.latitud(), r.longuitd());
-                        googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                    }
-
-
-                }
-                if (item.equals("5 kilometros a la redonda"))
-                {
-                    googleMap.clear();
-                    for(Recursos r : recursos_f1) {
-                        LatLng puntoRecurso;
-                        puntoRecurso = new LatLng(r.latitud(), r.longuitd());
-                        if(distancia_loc_contenidos(loc,puntoRecurso,5)){
+                if (googleMap != null){
+                    String item = parent.getItemAtPosition(position).toString();
+                    if (item.equals("Mostrar todos")) {
+                        // crea todos los markers sin execcion
+                        googleMap.clear();
+                        for (Recursos r : recursos_f1) {
+                            LatLng puntoRecurso;
+                            puntoRecurso = new LatLng(r.latitud(), r.longuitd());
                             googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
                         }
-                    }
 
-                }
-                if (item.equals("10 kilometros a la redonda"))
-                {
-                    googleMap.clear();
-                    for(Recursos r : recursos_f1) {
-                        LatLng puntoRecurso;
-                        puntoRecurso = new LatLng(r.latitud(), r.longuitd());
-                        if(distancia_loc_contenidos(loc,puntoRecurso,10)){
-                            googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+
+                    }
+                    if (item.equals("5 kilometros a la redonda")) {
+                        googleMap.clear();
+                        for (Recursos r : recursos_f1) {
+                            LatLng puntoRecurso;
+                            puntoRecurso = new LatLng(r.latitud(), r.longuitd());
+                            if (distancia_loc_contenidos(loc, puntoRecurso, 5)) {
+                                googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                            }
                         }
-                    }
 
-                }
-                if (item.equals("15 kilometros a la redonda"))
-                {
-                    googleMap.clear();
-                    for(Recursos r : recursos_f1) {
-                        LatLng puntoRecurso;
-                        puntoRecurso = new LatLng(r.latitud(), r.longuitd());
-                        if(distancia_loc_contenidos(loc,puntoRecurso,15)){
-                            googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                    }
+                    if (item.equals("10 kilometros a la redonda")) {
+                        googleMap.clear();
+                        for (Recursos r : recursos_f1) {
+                            LatLng puntoRecurso;
+                            puntoRecurso = new LatLng(r.latitud(), r.longuitd());
+                            if (distancia_loc_contenidos(loc, puntoRecurso, 10)) {
+                                googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                            }
                         }
-                    }
 
-                }
-                if (item.equals("25 kilometros a la redonda"))
-                {
-                    googleMap.clear();
-                    for(Recursos r : recursos_f1) {
-                        LatLng puntoRecurso;
-                        puntoRecurso = new LatLng(r.latitud(), r.longuitd());
-                        if(distancia_loc_contenidos(loc,puntoRecurso,25)){
-                            googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                    }
+                    if (item.equals("15 kilometros a la redonda")) {
+                        googleMap.clear();
+                        for (Recursos r : recursos_f1) {
+                            LatLng puntoRecurso;
+                            puntoRecurso = new LatLng(r.latitud(), r.longuitd());
+                            if (distancia_loc_contenidos(loc, puntoRecurso, 15)) {
+                                googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                            }
                         }
-                    }
 
-                }
-                if (item.equals("40 kilometros a la redonda"))
-                {
-                    googleMap.clear();
-                    for(Recursos r : recursos_f1) {
-                        LatLng puntoRecurso;
-                        puntoRecurso = new LatLng(r.latitud(), r.longuitd());
-                        if(distancia_loc_contenidos(loc,puntoRecurso,40)){
-                            googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                    }
+                    if (item.equals("25 kilometros a la redonda")) {
+                        googleMap.clear();
+                        for (Recursos r : recursos_f1) {
+                            LatLng puntoRecurso;
+                            puntoRecurso = new LatLng(r.latitud(), r.longuitd());
+                            if (distancia_loc_contenidos(loc, puntoRecurso, 25)) {
+                                googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                            }
                         }
-                    }
 
+                    }
+                    if (item.equals("40 kilometros a la redonda")) {
+                        googleMap.clear();
+                        for (Recursos r : recursos_f1) {
+                            LatLng puntoRecurso;
+                            puntoRecurso = new LatLng(r.latitud(), r.longuitd());
+                            if (distancia_loc_contenidos(loc, puntoRecurso, 40)) {
+                                googleMap.addMarker(new MarkerOptions().position(puntoRecurso).title(r.getNombre()).snippet(r.getDireccion()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                            }
+                        }
+
+                    }
                 }
 
             }

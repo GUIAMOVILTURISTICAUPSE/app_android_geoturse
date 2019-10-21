@@ -1,14 +1,23 @@
 apply plugin: 'com.android.application'
 
+//For Versioning
+//https://medium.com/@maxirosson/versioning-android-apps-d6ec171cfd82
+ext.versionMajor = 2
+ext.versionMinor = 0
+ext.versionPatch = 2
+ext.versionClassifier = null
+ext.isSnapshot = true
+ext.minimumSdkVersion = 19
+
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "es.codigoandroid.geoturse"
-        minSdkVersion 19
         targetSdkVersion 28
-        versionCode 7
-        versionName "7"
+        minSdkVersion project.ext.minimumSdkVersion
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         //Para reducir el tamano e infor de librerias solo en espanol
@@ -22,8 +31,8 @@ android {
     buildTypes {
         release {
             //Para reducir el tamano de los recurso shronkResources y del codigo minifiedEnabled
-            shrinkResources true
-            minifyEnabled true
+            shrinkResources false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -74,4 +83,23 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+}
+
+
+//For Versioning
+//https://medium.com/@maxirosson/versioning-android-apps-d6ec171cfd82
+private Integer generateVersionCode() {
+    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "SNAPSHOT"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    return versionName;
 }

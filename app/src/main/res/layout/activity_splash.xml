@@ -11,6 +11,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="es.codigoandroid.geoturse.Splash">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:text="@string/creators"
+        android:textSize="28sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageView3"
+        android:paddingTop="22dp"
+        />
+
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyleLarge"
@@ -35,5 +46,6 @@
         android:layout_height="350dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="26dp"
+        />
 </RelativeLayout>

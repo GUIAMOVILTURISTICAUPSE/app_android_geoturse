@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
+        <Toolbar
             android:id="@+id/toolbar3"
             android:layout_width="match_parent"
             android:layout_height="110dp"
@@ -76,7 +76,7 @@
                         android:layout_width="54dp"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_close_light" />
+                        app:srcCompat="@drawable/ic_search_white_24dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -86,9 +86,9 @@
                     android:orientation="horizontal"></LinearLayout>
 
             </LinearLayout>
-        </android.support.v7.widget.Toolbar>
+        </Toolbar>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reciclador"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

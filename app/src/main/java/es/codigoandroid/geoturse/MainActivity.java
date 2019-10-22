@@ -7,12 +7,7 @@ import android.content.SharedPreferences;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,6 +15,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.TabLayoutPrincipal)
     TabLayout tabLayout;
     @BindView(R.id.ViewPagerPrincipal)
-    ViewPager ViewPager;
+    androidx.viewpager.widget.ViewPager ViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

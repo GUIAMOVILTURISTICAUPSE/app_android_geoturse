@@ -19,5 +19,5 @@
         android:layout_marginLeft="10dp"
         android:background="#CEF6F5"
         android:text="Respuesta"
-        android:textColor="@color/cast_expanded_controller_background_color" />
+        android:textColor="@color/secondary_text" />
 </LinearLayout>

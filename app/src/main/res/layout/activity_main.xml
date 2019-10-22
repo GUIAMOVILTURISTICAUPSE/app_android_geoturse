@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,7 +13,7 @@
     <!-- Fin de la Appbar -->
 
     <!-- Inicio del ViewPager -->
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
 
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/ViewPagerPrincipal"
@@ -21,9 +21,9 @@
         android:layout_height="match_parent">
 
 
-    </android.support.v4.view.ViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/AppbarPrincipal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
 
         <!-- Inicio de la Toolbar-->
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/ToolbarPrincipal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -68,13 +68,13 @@
                         android:textSize="28sp" />
                 </LinearLayout>
             </LinearLayout>
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
         <!-- Fin de la Toolbar-->
 
         <!-- Inicio de la TabLayout-->
 
 
-        <android.support.design.widget.TabLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/TabLayoutPrincipal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,8 +85,8 @@
 
         <!-- Fin de la TabLayout-->
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Fin del ViewPager -->
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

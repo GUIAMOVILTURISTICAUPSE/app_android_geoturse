@@ -7,13 +7,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+
+import androidx.fragment.app.Fragment;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Query;

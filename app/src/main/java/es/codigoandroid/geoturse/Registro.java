@@ -3,13 +3,14 @@ package es.codigoandroid.geoturse;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +92,7 @@ public class Registro extends AppCompatActivity {
         usuarioIngresado.setTelefono(mobile);
         usuarioIngresado.setContraseniaHash(password);
         dbaUsuario.save(usuarioIngresado);
+        dbaUsuario.replicate();
         emailText.setError(null);
 
         final ProgressDialog progressDialog = new ProgressDialog(Registro.this,

@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import es.codigoandroid.pojos.Recursos;
+import es.codigoandroid.pojos.Usuario;
 
 
 public class CouchbaseLiteManager<V> {
@@ -98,7 +99,7 @@ public class CouchbaseLiteManager<V> {
             {
                 try {
 
-
+                    //FIXME: El toMap no devuelve el Id del doc.
                     Map<String, Object> map = doc.toMap();
 
 
@@ -123,6 +124,12 @@ public class CouchbaseLiteManager<V> {
 
         Map<String, Object> props = mapper.convertValue(o, Map.class);
         String id = (String) props.get("_id");
+
+        if(o!= null && o.getClass()== Usuario.class)
+        {
+            Usuario u = (Usuario) o;
+            id = u.getEmail();
+        }
 
         //Ponerle el tipo de Documento que estamos guardando para poder buscarlo con vistas luego
         props.put("documentClass", valueTypeParameterClass.toString());

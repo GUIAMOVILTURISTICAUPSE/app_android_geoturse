@@ -18,7 +18,7 @@ import es.codigoandroid.datamanager.CouchbaseLiteManager;
 
 public class Splash extends AppCompatActivity {
     private static final String TAG = "Splash";
-    CouchbaseLiteManager<Recursos> dbaRecurso;
+    //CouchbaseLiteManager<Recursos> dbaRecurso;
 
 
     private Bitmap mImageToBeAttached;

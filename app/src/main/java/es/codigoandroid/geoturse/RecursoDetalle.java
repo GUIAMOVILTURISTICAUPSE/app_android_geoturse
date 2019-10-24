@@ -101,7 +101,7 @@ public class RecursoDetalle extends AppCompatActivity {
             senderoBtn.setEnabled(true);
         }else{
             Log.v("No existen senderos", ""+recursoAlmacenado.getSendero().size());
-            senderoBtn.setEnabled(false);
+            //senderoBtn.setEnabled(false);
         }
 
        if (recursoAlmacenado.getImagenPrincipal()!=null)
@@ -130,7 +130,8 @@ public class RecursoDetalle extends AppCompatActivity {
                   //  Toast.makeText(getApplicationContext(), " debio entrar a el sendero del recurso" , Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 }else{
-                    Toast.makeText(getApplicationContext(), " No existen senderos en este recurso" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), " No senderos registrados en este recurso" , Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), " No existen senderos en este recurso" , Toast.LENGTH_SHORT).show();
                 }
             }
         });

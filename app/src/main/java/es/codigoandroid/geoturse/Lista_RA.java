@@ -2,9 +2,12 @@ package es.codigoandroid.geoturse;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +33,9 @@ public class Lista_RA extends AppCompatActivity {
 
     //Para los permisos
     private static final int PERMISSION_REQUEST_CODE = 200;
+
+    //Para saber si activo compass o no, eliminando la opcion y la peticion como request
+    private SensorManager sensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,7 @@ public class Lista_RA extends AppCompatActivity {
 
     public void muestraLista(ListView lista, final String nombreRecurso){
         ArrayAdapter<String> adapter = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, numero_RA);
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         lista.setAdapter(adapter);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,7 +78,21 @@ public class Lista_RA extends AppCompatActivity {
                 Intent vistaRA = new Intent(getApplicationContext(),RealidadAumentada.class);
                 vistaRA.putExtra("recurso",nombreRecurso);
                 vistaRA.putExtra("link",listaRA[posicion]);
-                startActivity(vistaRA);
+
+                if(posicion==0)
+                {
+                    if (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null){
+                        // Success! There's a pressure sensor.
+                        //Toast.makeText(Lista_RA.this, "Con permiso Jose Delgado, me la saco!",Toast.LENGTH_LONG).show();
+                        startActivity(vistaRA);
+                    } else {
+                        // Failure! No pressure sensor.
+                        Toast.makeText(Lista_RA.this, "No se puede cargar Realidad Aumentada con Geolocalizacion si su telefono no tiene el sensor Compass.", Toast.LENGTH_LONG).show();
+                    }
+
+                }else{
+                    startActivity(vistaRA);
+                }
             }
         });
     }
